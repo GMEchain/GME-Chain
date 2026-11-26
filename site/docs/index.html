@@ -219,7 +219,7 @@
           <li><b>Ethereum has the final say.</b> Robinhood Chain settles to Ethereum, so GME CHAIN shares its root of trust with every Arbitrum chain.</li>
         </ol>
         <h3>How fees are priced</h3>
-        <p>Posting batches costs ETH on Robinhood Chain, but users pay in GME. A fee pricer contract converts between them using Chainlink's ETH/USD feed and the GME market price. A keeper updates the GME price from the 30-minute time-weighted average of the deepest GME pool on Robinhood Chain (Uniswap v3 GME/USDG), checked against a second pool, with guards for low liquidity, stale data, large jumps, paused trading and corporate actions, and freezes rather than guessing when markets are closed or unusual.</p>
+        <p>Posting batches costs ETH on Robinhood Chain, but users pay in GME. A fee pricer contract converts between them using Chainlink's ETH/USD feed and the GME market price. A keeper updates the GME price from the 30-minute time-weighted average of the deepest GME pool on Robinhood Chain (Uniswap v3 GME/USDG), checked against a second pool, with guards for low liquidity, stale data, large jumps, paused trading and corporate actions, and freezes rather than guessing when markets are closed or unusual. The pricer itself caps the keeper: at most 3% per update and one update every 15 minutes, so even a leaked keeper key cannot move gas prices quickly.</p>
       </section>
 
       <section id="start" class="doc-sec">

@@ -43,7 +43,7 @@ Created for GME CHAIN on 26 November 2026, separate from any other project. Main
 | Deployer / chain owner | `0x9354A2F5DbD6D7F0EF33e678F083C2927690B8D4` | Deploys the contracts and owns them at first | See "What the owner can do" |
 | Batch poster | `0x13D8134c2DEF15Eba09a13D65557428C68912c91` | Posts GME CHAIN's transaction batches to Robinhood Chain | Nothing else |
 | Validator | `0x96013907aF557E9F1692801DC7474cF8E7a63127` | Posts a bond and asserts the chain's state | Its claims can be challenged |
-| Price keeper | `0xB15B14BD07Be83D50a7F652A10fea13C95867b9F` | Keeps the fee pricer's GME price in line with the market | Move the price more than the pricer's per-update limit |
+| Price keeper | `0xB15B14BD07Be83D50a7F652A10fea13C95867b9F` | Keeps the fee pricer's GME price in line with the market | Move the price more than the pricer's limit: 3% per update, at most once every 15 minutes (`maxDeviationBps` 300, `minUpdateInterval` 900, set on chain 2026-11-26) |
 
 Testnet runs its own wallets, all holding test tokens only. Two of them act in public: the **faucet** `0xA5d24060fAd51e6340Bab4F1D5593ADe6eF3f502` sends test kits, and the **pulse** `0xf84A2cf5c78Cc28e68833e5bf740c153bCA247Ad` makes a small test transaction every few minutes (tGME transfers, swaps, wraps) so the testnet explorer always shows live activity. The pulse never runs on mainnet.
 
