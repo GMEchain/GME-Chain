@@ -76,7 +76,7 @@ The first pool on the exchange, GME/USDG (`0x0cc257A03a13d4B01c0Ec573aD2Fc755b9F
 - **No external audit.** The contracts are covered by automated tests (unit, fuzz and fork), which are not an audit.
 - **No multisig or timelock** at launch. One key controls upgrades and settings.
 - **One operator** runs the sequencer, batch poster and validator.
-- **Challenge window is about one day** on mainnet: 7,200 Ethereum blocks, shortened from 50,400 (7 days) on 2026-11-27 before launch (tx `0xddaaac3be7b85b8ee48531930985281bc8d6a6037751dcc5dc78b9b8c63da748`). Assertions confirm in order and each keeps its parent's window, so the shorter window is fully in effect from about 2026-12-04.
+- **Challenge window is about one day** on mainnet: 7,200 Ethereum blocks, shortened from 50,400 (7 days) on 2026-11-27 before launch (tx `0xddaaac3be7b85b8ee48531930985281bc8d6a6037751dcc5dc78b9b8c63da748`). Assertions confirm in order and each keeps its parent's window, so the shorter window is fully in effect from about 2026-12-05.
 - **Validator allowlist is on.** Only our validator can post state claims or dispute them (`validatorWhitelistDisabled()` is `false` on the rollup). It opens once the bond is raised from 0.01 WETH.
 - **Off-chain services** (price keeper, monitor, testnet faucet and pulse) run on the operator's server with only their own keys there; their code is in [chain/scripts](chain/scripts) and the server layout in [deploy/vps](deploy/vps).
 

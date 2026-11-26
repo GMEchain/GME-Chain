@@ -37,7 +37,7 @@ Posting batches costs ETH on Robinhood Chain, but users pay fees in GME. The **f
 
 | | Challenge window | Typical total wait |
 |---|---|---|
-| Testnet | 150 Ethereum blocks (about 30 minutes) | 45 to 60 minutes |
+| Testnet | 150 Ethereum blocks (about 30 minutes) | 1 to 2 hours |
 | Mainnet | 7,200 Ethereum blocks (about 1 day) | about 1 day |
 
 The wait is the security model, not a delay we can shorten.

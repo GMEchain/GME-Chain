@@ -47,7 +47,7 @@ cast send (at deployment) "drip()" \
 
 1. **Deposit** tGME through the bridge. The same amount appears on GME CHAIN Testnet as gas, usually within a minute.
 2. **Spend** it: transfers, swaps on the exchange, contract deployments. A simple transfer costs about 0.0000028 tGME.
-3. **Withdraw** it back to Robinhood Chain Testnet. Claims open after about an hour; the bridge page shows a countdown and a **Claim** button.
+3. **Withdraw** it back to Robinhood Chain Testnet. Claims open after 1 to 2 hours; the bridge page shows a countdown and a **Claim** button.
 
 On GME CHAIN Testnet there is also **Wrapped tGME** (_(at deployment)_), an ERC-20 version of the native tGME used by the exchange, the same way WETH wraps ETH.
 

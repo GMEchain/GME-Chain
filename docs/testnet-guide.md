@@ -2,7 +2,7 @@
 
 > **Status: live.** The testnet runs before mainnet so you can try everything for free. Addresses: [contracts.md](contracts.md#testnet).
 
-Everything on GME CHAIN Testnet is free and uses test tokens with no value. This guide walks through the full flow: get test tokens, bridge them in, trade, and withdraw back. It takes about five minutes, plus about an hour of waiting for the withdrawal at the end.
+Everything on GME CHAIN Testnet is free and uses test tokens with no value. This guide walks through the full flow: get test tokens, bridge them in, trade, and withdraw back. It takes about five minutes, plus 1 to 2 hours of waiting for the withdrawal at the end.
 
 ## Before you start
 
@@ -70,7 +70,7 @@ Your withdrawal then appears under **Your withdrawals** with a **countdown**. It
 2. the validator posts a claim (an *assertion*) that includes it,
 3. that claim survives the challenge window (150 Ethereum blocks, about 30 minutes, on testnet).
 
-Altogether this is usually **45 to 60 minutes** on testnet. (On mainnet the window is about **one day**.) When the countdown ends, the status changes to *Finalizing on chain* and then a **Claim** button appears. Press it and confirm in your wallet; your tGME is released on Robinhood Chain Testnet.
+Altogether this is usually **1 to 2 hours** on testnet: the validator posts a claim about every hour, and each claim then waits the 150-block window. (On mainnet the window is about **one day**.) When the countdown ends, the status changes to *Finalizing on chain* and then a **Claim** button appears. Press it and confirm in your wallet; your tGME is released on Robinhood Chain Testnet.
 
 You can close the page while you wait. Come back later, connect the same wallet, and your withdrawals are listed again.
 

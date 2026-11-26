@@ -6,7 +6,7 @@ What has been built on GME CHAIN, newest first. Dates are UTC. Every on-chain va
 
 ### Withdrawals in about a day
 - The mainnet challenge window is now **7,200 Ethereum blocks (about one day)**, down from 50,400 (about 7 days). Set on the rollup through its UpgradeExecutor, tx [`0xddaaac3b…a748`](https://robinhoodchain.blockscout.com/tx/0xddaaac3be7b85b8ee48531930985281bc8d6a6037751dcc5dc78b9b8c63da748). Check it with `confirmPeriodBlocks()` on the rollup.
-- Assertions confirm in order and each keeps its parent's window, so the one-day window is fully in effect from about **2026-12-04**. Mainnet is not open yet.
+- Assertions confirm in order and each keeps its parent's window, so the one-day window is fully in effect from about **2026-12-05**. Mainnet is not open yet.
 - The site, the docs, the bridge countdown and the roadmap all show the new time.
 
 ### Tested on mainnet with real funds

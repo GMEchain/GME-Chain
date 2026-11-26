@@ -151,7 +151,7 @@
             <tr><th scope="row">Gas token</th><td>tGME on Robinhood Chain Testnet (deployed with the testnet)</td></tr>
             <tr><th scope="row">Parent chain</th><td>Robinhood Chain Testnet, chain ID <code>46630</code>, RPC <code>https://rpc.testnet.chain.robinhood.com</code></td></tr>
             <tr><th scope="row">Explorer</th><td><a href="/explorer/testnet/">GME CHAIN Testnet Explorer</a></td></tr>
-            <tr><th scope="row">Withdrawals</th><td>Claimable about 45–60 minutes after you start (batch, assertion, then a 150-block challenge window); the bridge page shows a countdown</td></tr>
+            <tr><th scope="row">Withdrawals</th><td>Claimable 1 to 2 hours after you start (the next hourly assertion, then a 150-block challenge window); the bridge page shows a countdown</td></tr>
           </tbody>
         </table>
         <h3>Try the whole flow</h3>
@@ -160,7 +160,7 @@
           <li><b>Get a test kit.</b> Press <em>Get test kit</em>. You receive 100 tGME plus a little testnet ETH for gas on Robinhood Chain Testnet, once a day per wallet. No other faucet needed.</li>
           <li><b>Deposit.</b> Bridge some tGME into GME CHAIN Testnet (approve, then deposit). It arrives as gas within about a minute. Press <em>Add network</em> to see it in your wallet.</li>
           <li><b>Swap.</b> Trade tGME for tUSD, or add liquidity, on the <a href="../swap/">exchange</a>.</li>
-          <li><b>Withdraw.</b> Start a withdrawal on the bridge page. A countdown shows when the claim opens, usually 45 to 60 minutes later; then press <em>Claim</em>.</li>
+          <li><b>Withdraw.</b> Start a withdrawal on the bridge page. A countdown shows when the claim opens, usually 1 to 2 hours later; then press <em>Claim</em>.</li>
         </ol>
         <div class="callout warn"><b>Test tokens only</b><p>tGME, tUSD and testnet ETH have no value and cannot be sold. Testnet balances are not converted into anything. Never send real assets to testnet addresses.</p></div>
         <p class="muted-note">To keep the testnet explorer lively, one public test wallet, <code>0xf84A2cf5c78Cc28e68833e5bf740c153bCA247Ad</code> (the "pulse"), makes a small test transaction every few minutes: tGME transfers, swaps and wraps. It is ours, it only moves test tokens, and it never runs on mainnet.</p>
@@ -433,7 +433,7 @@ forge create src/Counter.sol:Counter \
         <h2>FAQ</h2>
         <div class="faq-list">
           <details><summary>Do I need ETH on GME CHAIN?</summary><p>No. Gas on GME CHAIN is GME. You only need a little ETH on Robinhood Chain to make the deposit and, later, to claim a withdrawal.</p></details>
-          <details><summary>How long does withdrawing take?</summary><p>About a day on mainnet and about an hour on testnet. Withdrawals wait for the validator's claim to survive the challenge window (7,200 Ethereum blocks on mainnet, shortened from 7 days before launch); testnet uses a shorter window so the whole flow can be tried. The bridge page shows a countdown. Deposits do not wait.</p></details>
+          <details><summary>How long does withdrawing take?</summary><p>About a day on mainnet and 1 to 2 hours on testnet. Withdrawals wait for the validator's claim to survive the challenge window (7,200 Ethereum blocks on mainnet, shortened from 7 days before launch); testnet uses a shorter window so the whole flow can be tried. The bridge page shows a countdown. Deposits do not wait.</p></details>
           <details><summary>Can I bridge from a Safe or another smart wallet?</summary><p>Not through the bridge page. Deposits from contracts are credited to an aliased address on GME CHAIN. Use a regular wallet.</p></details>
           <details><summary>Does holding the GME CHAIN token give me anything at GameStop?</summary><p>No. $GMEC is for GME CHAIN only; its uses are announced together with its contract. It has no connection to GameStop.</p></details>
           <details><summary>What happens if GME is paused by its issuer?</summary><p>Transfers on Robinhood Chain stop, so deposits and claims stop too. GME already on GME CHAIN keeps working as gas there.</p></details>
@@ -448,7 +448,7 @@ forge create src/Counter.sol:Counter \
           <div><dt>Sequencer</dt><dd>The service that orders transactions into blocks.</dd></div>
           <div><dt>Batch poster</dt><dd>Posts compressed blocks to the parent chain so anyone can rebuild the chain.</dd></div>
           <div><dt>Validator / BoLD</dt><dd>Posts claims about the chain's state with a bond; BoLD is Arbitrum's dispute protocol for challenging wrong claims.</dd></div>
-          <div><dt>Challenge window</dt><dd>The time a claim must survive before withdrawals it covers can be claimed: ~1 day on mainnet, ~30 minutes on testnet. With the batch and the claim itself, a testnet withdrawal is claimable about 45 to 60 minutes after it starts.</dd></div>
+          <div><dt>Challenge window</dt><dd>The time a claim must survive before withdrawals it covers can be claimed: ~1 day on mainnet, ~30 minutes on testnet. With the batch and the claim itself, a testnet withdrawal is claimable 1 to 2 hours after it starts.</dd></div>
           <div><dt>Fee token pricer</dt><dd>The contract that converts parent-chain costs (ETH) into GME using Chainlink ETH/USD and the GME price.</dd></div>
           <div><dt>WGME</dt><dd>Wrapped GME, the ERC-20 form of GME used by the exchange. Always one to one.</dd></div>
         </dl>

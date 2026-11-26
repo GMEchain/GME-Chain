@@ -16,7 +16,7 @@ const COPY = {
     steps: [
       ["01", "Get a test kit", "One click sends testnet ETH and tGME to your wallet. Test tokens have no value."],
       ["02", "Bridge in", "Deposit tGME; it arrives as gas on GME CHAIN Testnet in about a minute."],
-      ["03", "Play", "Send, swap, deploy. Withdraw any time and claim it back about an hour later."],
+      ["03", "Play", "Send, swap, deploy. Withdraw any time and claim it back 1 to 2 hours later."],
     ],
     quote: true,
   } : {
