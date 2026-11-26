@@ -30,7 +30,9 @@ function start() {
     "function name() view returns (string)", "function totalSupply() view returns (uint256)",
   ]);
   const wantAbi = parseAbi(["function deposit() payable", "function withdraw(uint256)"]);
-  const factoryAbi = parseAbi(["function getPair(address,address) view returns (address)"]);
+  const factoryAbi = parseAbi(["function getPair(address,address) view returns (address)", "function allPairsLength() view returns (uint256)"]);
+  // a short note while the factory has no pool at all; it disappears by itself once the first pool exists
+  l3.readContract({ address: FACTORY, abi: factoryAbi, functionName: "allPairsLength" }).then((n) => { const el = document.querySelector("[data-no-pools]"); if (el) el.hidden = n > 0n; }).catch(() => {});
   const pairAbi = parseAbi(["function getReserves() view returns (uint112,uint112,uint32)", "function token0() view returns (address)"]);
   const routerAbi = parseAbi([
     "function getAmountsOut(uint256,address[]) view returns (uint256[])",
