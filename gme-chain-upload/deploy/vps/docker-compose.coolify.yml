@@ -1,0 +1,184 @@
+# GME CHAIN on a VPS that already runs Coolify (Hostinger "Ubuntu 24.04 with Coolify").
+# Coolify's Traefik (container coolify-proxy) owns ports 80/443 and issues the HTTPS certificates; these services
+# join its "coolify" network and are routed by labels, the same way /opt/agent-utility is.
+#
+#   Pre-launch (website only):   docker compose -f docker-compose.coolify.yml up -d web
+#   After mainnet is deployed:   docker compose -f docker-compose.coolify.yml --profile chain up -d
+#   Testnet node + faucet:       docker compose -f docker-compose.coolify.yml --profile testnet up -d
+#
+# Settings in deploy/vps/.env:  SITE_HOST (e.g. gmechain.xyz)  RPC_HOST (e.g. rpc.gmechain.xyz)  RPC_TESTNET_HOST (rpc.testnet.gmechain.xyz)
+#                               SITE_ALIAS (optional second hostname for the site, e.g. the temporary sslip.io one)
+# Only switch SITE_HOST/RPC_HOST to a domain once its DNS points here: Let's Encrypt limits failed validations.
+
+name: gmechain
+
+services:
+  # Static website, served inside the network on :8080; Traefik terminates HTTPS in front of it.
+  web:
+    image: caddy:2.8.4-alpine
+    restart: unless-stopped
+    volumes:
+      - ./Caddyfile.internal:/etc/caddy/Caddyfile:ro
+      - ../../site:/srv:ro
+    networks: [coolify]
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: coolify
+      traefik.http.middlewares.gme-https.redirectscheme.scheme: https
+      traefik.http.middlewares.gme-https.redirectscheme.permanent: "true"
+      traefik.http.middlewares.gme-hsts.headers.stsSeconds: "31536000"
+      traefik.http.routers.gme-http.entrypoints: http
+      traefik.http.routers.gme-http.rule: Host(`${SITE_HOST:?set SITE_HOST in deploy/vps/.env}`) || Host(`www.${SITE_HOST}`) || Host(`${SITE_ALIAS:-alias.invalid}`)
+      traefik.http.routers.gme-http.middlewares: gme-https
+      traefik.http.routers.gme.entrypoints: https
+      traefik.http.routers.gme.rule: Host(`${SITE_HOST}`) || Host(`${SITE_ALIAS:-alias.invalid}`)
+      traefik.http.routers.gme.middlewares: gme-hsts
+      traefik.http.routers.gme.tls: "true"
+      traefik.http.routers.gme.tls.certresolver: letsencrypt
+      traefik.http.routers.gme.service: gme-web
+      traefik.http.services.gme-web.loadbalancer.server.port: "8080"
+      # www.<domain> -> <domain>
+      traefik.http.middlewares.gme-www.redirectregex.regex: ^https?://www\.(.+)
+      traefik.http.middlewares.gme-www.redirectregex.replacement: https://$${1}
+      traefik.http.middlewares.gme-www.redirectregex.permanent: "true"
+      traefik.http.routers.gme-www.entrypoints: https
+      traefik.http.routers.gme-www.rule: Host(`www.${SITE_HOST}`)
+      traefik.http.routers.gme-www.middlewares: gme-www
+      traefik.http.routers.gme-www.tls: "true"
+      traefik.http.routers.gme-www.tls.certresolver: letsencrypt
+      traefik.http.routers.gme-www.service: gme-web
+
+  # The chain: sequencer, batch poster and BoLD validator in one Nitro node. Public RPC at RPC_HOST.
+  nitro:
+    image: offchainlabs/nitro-node:v3.12.4-960ca0a
+    profiles: ["chain"]
+    restart: unless-stopped
+    command: ["--conf.file", "/config/nodeConfig.json", "--log-level", "${NITRO_LOG_LEVEL:-INFO}"]
+    volumes:
+      - ../../chain/nodeConfig.mainnet.json:/config/nodeConfig.json:ro
+      - nitro_data:/home/user/.arbitrum
+    networks: [coolify, default]
+    stop_grace_period: 2m
+    logging:
+      driver: json-file
+      options: { max-size: "50m", max-file: "5" }
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: coolify
+      traefik.http.routers.gme-rpc-http.entrypoints: http
+      traefik.http.routers.gme-rpc-http.rule: Host(`${RPC_HOST:-rpc.invalid}`)
+      traefik.http.routers.gme-rpc-http.middlewares: gme-https
+      traefik.http.routers.gme-rpc.entrypoints: https
+      traefik.http.routers.gme-rpc.rule: Host(`${RPC_HOST:-rpc.invalid}`)
+      traefik.http.routers.gme-rpc.tls: "true"
+      traefik.http.routers.gme-rpc.tls.certresolver: letsencrypt
+      traefik.http.routers.gme-rpc.service: gme-rpc
+      traefik.http.services.gme-rpc.loadbalancer.server.port: "8449"
+      traefik.http.routers.gme-ws.entrypoints: https
+      traefik.http.routers.gme-ws.rule: Host(`${RPC_HOST:-rpc.invalid}`) && Header(`Upgrade`, `websocket`)
+      traefik.http.routers.gme-ws.priority: "100"
+      traefik.http.routers.gme-ws.tls: "true"
+      traefik.http.routers.gme-ws.tls.certresolver: letsencrypt
+      traefik.http.routers.gme-ws.service: gme-ws
+      traefik.http.services.gme-ws.loadbalancer.server.port: "8548"
+
+  keeper:
+    build: { context: ../../chain, dockerfile: ../deploy/vps/Dockerfile.scripts }
+    profiles: ["chain"]
+    restart: unless-stopped
+    command: ["node", "scripts/keeper.js", "--mainnet"]
+    env_file: ./secrets/keeper.env
+    environment:
+      L3_RPC: http://nitro:8449
+    volumes:
+      - ../../chain/deployment.mainnet.json:/app/deployment.mainnet.json:ro
+    depends_on: [nitro]
+
+  monitor:
+    build: { context: ../../chain, dockerfile: ../deploy/vps/Dockerfile.scripts }
+    profiles: ["chain"]
+    restart: unless-stopped
+    command: ["node", "scripts/monitor.js", "--mainnet"]
+    env_file: ./secrets/monitor.env
+    environment:
+      L3_RPC: http://nitro:8449
+      KEEPER_HEALTH_URL: http://keeper:8080/health
+    volumes:
+      - ../../chain/deployment.mainnet.json:/app/deployment.mainnet.json:ro
+    depends_on: [nitro, keeper]
+
+  # ---------- GME CHAIN Testnet (12822): its own node and the "Get test kit" faucet ----------
+  nitro-testnet:
+    image: offchainlabs/nitro-node:v3.12.4-960ca0a
+    profiles: ["testnet"]
+    restart: unless-stopped
+    command: ["--conf.file", "/config/nodeConfig.json", "--log-level", "${NITRO_LOG_LEVEL:-INFO}"]
+    volumes:
+      - ../../chain/nodeConfig.testnet.json:/config/nodeConfig.json:ro
+      - nitro_testnet_data:/home/user/.arbitrum
+    networks: [coolify, default]
+    stop_grace_period: 2m
+    logging:
+      driver: json-file
+      options: { max-size: "50m", max-file: "3" }
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: coolify
+      traefik.http.routers.gme-trpc-http.entrypoints: http
+      traefik.http.routers.gme-trpc-http.rule: Host(`${RPC_TESTNET_HOST:-rpc-testnet.invalid}`)
+      traefik.http.routers.gme-trpc-http.middlewares: gme-https
+      traefik.http.routers.gme-trpc.entrypoints: https
+      traefik.http.routers.gme-trpc.rule: Host(`${RPC_TESTNET_HOST:-rpc-testnet.invalid}`)
+      traefik.http.routers.gme-trpc.tls: "true"
+      traefik.http.routers.gme-trpc.tls.certresolver: letsencrypt
+      traefik.http.routers.gme-trpc.service: gme-trpc
+      traefik.http.services.gme-trpc.loadbalancer.server.port: "8449"
+      traefik.http.routers.gme-tws.entrypoints: https
+      traefik.http.routers.gme-tws.rule: Host(`${RPC_TESTNET_HOST:-rpc-testnet.invalid}`) && Header(`Upgrade`, `websocket`)
+      traefik.http.routers.gme-tws.priority: "100"
+      traefik.http.routers.gme-tws.tls: "true"
+      traefik.http.routers.gme-tws.tls.certresolver: letsencrypt
+      traefik.http.routers.gme-tws.service: gme-tws
+      traefik.http.services.gme-tws.loadbalancer.server.port: "8548"
+
+  # POST https://<SITE_HOST>/api/faucet/claim -> testnet ETH + tGME on Robinhood Chain Testnet
+  faucet:
+    build: { context: ../../chain, dockerfile: ../deploy/vps/Dockerfile.scripts }
+    profiles: ["testnet"]
+    restart: unless-stopped
+    command: ["node", "scripts/faucet.js", "--testnet"]
+    env_file: ./secrets/faucet.env
+    volumes:
+      - ../../chain/deployment.testnet.json:/app/deployment.testnet.json:ro
+    networks: [coolify]
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: coolify
+      traefik.http.middlewares.gme-faucet-strip.stripprefix.prefixes: /api/faucet
+      traefik.http.routers.gme-faucet.entrypoints: https
+      traefik.http.routers.gme-faucet.rule: Host(`${SITE_HOST}`) && PathPrefix(`/api/faucet`)
+      traefik.http.routers.gme-faucet.priority: "200" # above the site router, whose rule is longer
+      traefik.http.routers.gme-faucet.middlewares: gme-faucet-strip
+      traefik.http.routers.gme-faucet.tls: "true"
+      traefik.http.routers.gme-faucet.tls.certresolver: letsencrypt
+      traefik.http.routers.gme-faucet.service: gme-faucet
+      traefik.http.services.gme-faucet.loadbalancer.server.port: "8080"
+
+  # small public test transactions so the testnet explorer always shows live activity (scripts/testnet-pulse.js)
+  pulse:
+    build: { context: ../../chain, dockerfile: ../deploy/vps/Dockerfile.scripts }
+    profiles: ["testnet"]
+    restart: unless-stopped
+    command: ["node", "scripts/testnet-pulse.js", "--testnet"]
+    env_file: ./secrets/pulse.env
+    volumes:
+      - ../../chain/deployment.testnet.json:/app/deployment.testnet.json:ro
+    depends_on: [nitro-testnet]
+
+networks:
+  coolify:
+    external: true
+
+volumes:
+  nitro_data:
+  nitro_testnet_data:

@@ -1,0 +1,88 @@
+{
+  "feeTokenPricer": "0x97dcc10f4f99dc0643540921efea2ee043502c24",
+  "feeTokenPricerTx": "0xac1d6708cbfdcec81365b8f8ccdf7c4cec3776d8d7227c1f705839bb7a8cb1c6",
+  "network": "mainnet",
+  "chainId": 12821,
+  "nativeToken": "0x1b0E319c6A659F002271B69dB8A7df2F911c153E",
+  "chainConfig": {
+    "chainId": 12821,
+    "homesteadBlock": 0,
+    "daoForkBlock": null,
+    "daoForkSupport": true,
+    "eip150Block": 0,
+    "eip150Hash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "eip155Block": 0,
+    "eip158Block": 0,
+    "byzantiumBlock": 0,
+    "constantinopleBlock": 0,
+    "petersburgBlock": 0,
+    "istanbulBlock": 0,
+    "muirGlacierBlock": 0,
+    "berlinBlock": 0,
+    "londonBlock": 0,
+    "clique": {
+      "period": 0,
+      "epoch": 0
+    },
+    "arbitrum": {
+      "EnableArbOS": true,
+      "AllowDebugPrecompiles": false,
+      "DataAvailabilityCommittee": false,
+      "InitialArbOSVersion": 51,
+      "InitialChainOwner": "0x9354A2F5DbD6D7F0EF33e678F083C2927690B8D4",
+      "GenesisBlockNum": 0,
+      "MaxCodeSize": 24576,
+      "MaxInitCodeSize": 49152
+    }
+  },
+  "coreContracts": {
+    "rollup": "0xf154270F2c2A5E42846C77C73f56f01Eb8b02f8b",
+    "inbox": "0x3Bf1fBA0f56eC5e5F3150bd6c54d4d85dac4cf51",
+    "nativeToken": "0x1b0E319c6A659F002271B69dB8A7df2F911c153E",
+    "outbox": "0x2C31e5ABCB0b06F2869a3A1bBC2a1dDD83B4ac33",
+    "rollupEventInbox": "0x5DAd5C4800A3f1536a7c46F64964bf68c0e83Ed9",
+    "challengeManager": "0xEdcE524dD14B018EA9B814da90f84032a4ea814F",
+    "adminProxy": "0x7F0873e1447273B550Bdc5c0D3F609992F9d8E00",
+    "sequencerInbox": "0x5eF54C7bDc546E8faC8D3fcd425f91c94d583cf9",
+    "bridge": "0x3eC38611C8a03bFC68C39a54C00972197cAA4085",
+    "upgradeExecutor": "0x6bf544BD69Cab485e47449208Fa855653083fD12",
+    "validatorWalletCreator": "0xB7FE37712e46F28C8f22Ec4bAA33A09fb8B52BD0",
+    "deployedAtBlockNumber": 123547462
+  },
+  "stakeToken": "0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73",
+  "baseStake": "10000000000000000",
+  "confirmPeriodBlocks": "50400",
+  "createRollupTx": "0x0206f62aa38c81412e507f348a33fb5aea085c418e2d0460a1971b85aa9cb798",
+  "createdAtBlock": "123547462",
+  "gasRouter": "0x150415997ad7b9a4bf724dfb552c63fe50f33ecd",
+  "gasRouterTx": "0xc69160386ce75bf34e6904cde53cd25dcb4d03be419c79df4652050e5e5a5161",
+  "tokenBridge": {
+    "parentChainContracts": {
+      "router": "0xbabF154cBD39B06BeaC9d533c25eDa9b77E5FE87",
+      "standardGateway": "0x27CeAef79bC032d65d2005009C794D9F4fD7040d",
+      "customGateway": "0xf3Fe1ab15aF77010A1Ab78dF99d9f4ca185DB0CE",
+      "wethGateway": "0x0000000000000000000000000000000000000000",
+      "weth": "0x0000000000000000000000000000000000000000",
+      "multicall": "0x32E286aC9eF4b7b6327BC2BA173ec7Dcc4BAD5a6"
+    },
+    "orbitChainContracts": {
+      "router": "0x03e1B1ebf8428eb4176c10f604fc222A360Ada50",
+      "standardGateway": "0x3A033e2Fd4d3a17eb50Ab22709824E57aA6730e1",
+      "customGateway": "0x40d80077f56dB87865542aCb730484b3C35da584",
+      "wethGateway": "0x0000000000000000000000000000000000000000",
+      "weth": "0x0000000000000000000000000000000000000000",
+      "proxyAdmin": "0x008B04F03B8BB09E5D42B4A441c8ac5D3B61b728",
+      "beaconProxyFactory": "0x2dc6531Be2902740052a7A4676c4E78060A2023E",
+      "upgradeExecutor": "0x31fbB09fE30cF7B112371856393b934B69cE3Df0",
+      "multicall": "0x548428916e2f312341B05C9c07CF57D6411D3b0b"
+    }
+  },
+  "tokenBridgeTx": "0xe639673d72cbef737a24b57a047c70cc42829be81633574a4e4be5b48a7de5bf",
+  "dex": {
+    "wrappedGme": "0xF47680692201c5c1615FAdc69db4A8Ad6fFA0B01",
+    "factory": "0x4eCCaB543cD16949c40bE19bbAA2542c3a0EA074",
+    "router": "0x14B24b2ef37e3C9b39D8942fDe9666281E54d8b7",
+    "initCodeHash": "0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f",
+    "deployedAt": "2026-11-26T09:11:33.575Z"
+  }
+}

@@ -1,0 +1,9 @@
+# Image for the long-running chain services (keeper, monitor). Build context: chain/
+FROM node:22-alpine
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev --ignore-scripts --no-audit --no-fund
+COPY scripts/ ./scripts/
+# keys come from env_file at run time, never from the image
+USER node
+EXPOSE 8080

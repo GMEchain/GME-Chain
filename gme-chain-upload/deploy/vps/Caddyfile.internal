@@ -1,0 +1,39 @@
+# GME CHAIN website behind Coolify's Traefik (docker-compose.coolify.yml). Plain HTTP on :8080 inside the
+# "coolify" Docker network; Traefik handles the domain, HTTPS and the http -> https redirect.
+{
+	admin off
+	auto_https off
+}
+
+:8080 {
+	root * /srv
+	encode zstd gzip
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		X-Frame-Options DENY
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		-Server
+	}
+
+	# Robinhood Chain Testnet RPC through our own server: some ISPs hijack *.robinhood.com DNS for users.
+	handle_path /rpc/rh-testnet* {
+		reverse_proxy https://rpc.testnet.chain.robinhood.com {
+			header_up Host {upstream_hostport}
+		}
+	}
+
+	# explorer: clean URLs for blocks, transactions and addresses
+	handle /explorer/* {
+		try_files {path} {path}/ /explorer/index.html
+		file_server
+	}
+
+	handle {
+		@pages path / *.html */
+		header @pages Cache-Control "no-cache"
+		@assets path *.css *.js
+		header @assets Cache-Control "public, max-age=60, must-revalidate"
+		file_server
+	}
+}

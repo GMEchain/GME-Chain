@@ -1,0 +1,32 @@
+{
+  "name": "gme-chain-testnet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "forge build",
+    "check": "node scripts/00-check.js",
+    "deploy:tgme": "node scripts/01-deploy-tgme.js",
+    "deploy:rollup": "node scripts/02-create-rollup.js",
+    "node-config": "node scripts/03-node-config.js",
+    "rehearse": "node scripts/rehearse.js",
+    "mainnet:check": "node scripts/00-check.js --mainnet",
+    "mainnet:rollup": "node scripts/02-create-rollup.js --mainnet",
+    "mainnet:node-config": "node scripts/03-node-config.js --mainnet"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@arbitrum/chain-sdk": "^0.28.0",
+    "@openzeppelin/contracts": "^5.6.1",
+    "dotenv": "^18.0.10",
+    "undici": "^8.13.0",
+    "viem": "^1.21.4"
+  },
+  "devDependencies": {
+    "@uniswap/v2-core": "^1.0.1",
+    "@uniswap/v2-periphery": "^1.1.0-beta.0"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "nativeToken": "0x65325eee8c55a7a0f8977863a4e5397490cd38c7",
+  "nativeTokenTx": "0x4a28e442d58610acc00b03f31c357661bd5cfafc3e452f317b6e5807f876817c",
+  "ethUsdFeed": "0x9f1b95a498ac25662353931f8e8be444909c41cd",
+  "ethUsdFeedTx": "0xfc58d86483ea609e4131629c3310c700b6ab01f51917891fef335dcf8d3cbdc6",
+  "feeTokenPricer": "0x070a576383feeed2f66a74dd3238b0de54609fe9",
+  "feeTokenPricerTx": "0x963250302d3814cdbeb764afbc0a553771cfdc16ad0da04cce230b2752571b5f",
+  "network": "testnet",
+  "chainId": 12822,
+  "chainConfig": {
+    "chainId": 12822,
+    "homesteadBlock": 0,
+    "daoForkBlock": null,
+    "daoForkSupport": true,
+    "eip150Block": 0,
+    "eip150Hash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "eip155Block": 0,
+    "eip158Block": 0,
+    "byzantiumBlock": 0,
+    "constantinopleBlock": 0,
+    "petersburgBlock": 0,
+    "istanbulBlock": 0,
+    "muirGlacierBlock": 0,
+    "berlinBlock": 0,
+    "londonBlock": 0,
+    "clique": {
+      "period": 0,
+      "epoch": 0
+    },
+    "arbitrum": {
+      "EnableArbOS": true,
+      "AllowDebugPrecompiles": false,
+      "DataAvailabilityCommittee": false,
+      "InitialArbOSVersion": 51,
+      "InitialChainOwner": "0x25Bc53Ee16617e43a501975ad368145282A08416",
+      "GenesisBlockNum": 0,
+      "MaxCodeSize": 24576,
+      "MaxInitCodeSize": 49152
+    }
+  },
+  "coreContracts": {
+    "rollup": "0x6580C8799D2Fe611b7169cb75a8C883B38ED25Da",
+    "inbox": "0x80FE43145A1EE63E355D93d30086B5F2eBF0F998",
+    "nativeToken": "0x65325EeE8c55a7A0f8977863A4E5397490cD38c7",
+    "outbox": "0x6e632e7E6555d015186811222bfd80993bD86d1E",
+    "rollupEventInbox": "0x2Aaef72145bd830A271af77cbaF23EAFd9b4ECe5",
+    "challengeManager": "0xE882E5C58beFcB2583c1fD080f6c68155BA7c041",
+    "adminProxy": "0xE61BAb32eC8DA3a5079C3b3dffC45C47F5888Af3",
+    "sequencerInbox": "0x0AB4c01F328214B9f52D80AceaA14e4a10a05A6F",
+    "bridge": "0x0A259F55FF61d16D9e167CF09FecdDBA09C80CC7",
+    "upgradeExecutor": "0x9cF54037A61bc86D9596B9A7F8720A09346CBb9A",
+    "validatorWalletCreator": "0xB7FE37712e46F28C8f22Ec4bAA33A09fb8B52BD0",
+    "deployedAtBlockNumber": 158132287
+  },
+  "stakeToken": "0x7943e237c7F95DA44E0301572D358911207852Fa",
+  "baseStake": "1000000000000000",
+  "confirmPeriodBlocks": "150",
+  "createRollupTx": "0xd934c518080957fb93630cd337f91d8c899412473ab9926574e3844b449dece1",
+  "createdAtBlock": "158132287",
+  "dex": {
+    "wrappedGme": "0xe05553A07674EcDAcFC34d71851496FA8792d3D3",
+    "factory": "0xc86C5f2bcf07a95485636f252cE959b38B0E4970",
+    "router": "0xaaf27Fe96a0944e29C4919830388c1d66Ad2A9de",
+    "initCodeHash": "0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f",
+    "deployedAt": "2026-11-26T12:40:14.809Z",
+    "testUsd": "0x03626Eff4afd998Fae80556dceB98F7910eEAB36",
+    "seedPair": "0xB0038A23057F053593fa0413a512c731A563Fc40"
+  }
+}

@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GME CHAIN Swap</title>
+  <meta name="description" content="The exchange of GME CHAIN: swap tokens and provide liquidity, with gas paid in GME.">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="canonical" href="https://gmechain.xyz/swap/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="GME CHAIN">
+  <meta property="og:title" content="GME CHAIN Swap">
+  <meta property="og:description" content="The exchange of GME CHAIN: swap tokens and provide liquidity, with gas paid in GME.">
+  <meta property="og:url" content="https://gmechain.xyz/swap/">
+  <meta property="og:image" content="https://gmechain.xyz/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://gmechain.xyz/og.png">
+  <!-- @head -->
+<meta name="theme-color" content="#000000">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23000000'/%3E%3Cpath d='M12 12V6.4a1.6 1.6 0 0 1 1.6-1.6h4.8A1.6 1.6 0 0 1 20 6.4V12h5.6a1.6 1.6 0 0 1 1.6 1.6v4.8a1.6 1.6 0 0 1-1.6 1.6H20v5.6a1.6 1.6 0 0 1-1.6 1.6h-4.8a1.6 1.6 0 0 1-1.6-1.6V20H6.4a1.6 1.6 0 0 1-1.6-1.6v-4.8A1.6 1.6 0 0 1 6.4 12Z' fill='none' stroke='%23FF2D2D' stroke-width='2.4' stroke-linejoin='round'/%3E%3Cpath d='M16 6.8 18.8 11.2H13.2Z' fill='%23FF2D2D'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Chakra+Petch:wght@400;500;600;700&family=Big+Shoulders+Display:wght@900&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/app.css">
+  <link rel="stylesheet" href="/walletkit.css">
+<!-- /@head -->
+</head>
+<body class="page-app">
+  <!-- @header -->
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false"><symbol id="i-mark" viewBox="0 0 32 32"><path d="M11.6 11.6V5.2a2 2 0 0 1 2-2h4.8a2 2 0 0 1 2 2v6.4h6.4a2 2 0 0 1 2 2v4.8a2 2 0 0 1-2 2h-6.4v6.4a2 2 0 0 1-2 2h-4.8a2 2 0 0 1-2-2v-6.4H5.2a2 2 0 0 1-2-2v-4.8a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M16 5.6 19 10.4H13Z" fill="currentColor"/><circle cx="16" cy="16" r="1.7" fill="currentColor" opacity=".5"/></symbol><symbol id="i-bridge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h14l-3.5-3.5M20 16H6l3.5 3.5"/></symbol><symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v16M12 7v12M18 3v14"/><rect x="4" y="8" width="4" height="7" rx=".6" fill="currentColor" stroke="none"/><rect x="10" y="10" width="4" height="5" rx=".6"/><rect x="16" y="5" width="4" height="8" rx=".6" fill="currentColor" stroke="none"/></symbol><symbol id="i-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M13.5 4l-3 16"/></symbol><symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5 10-11"/></symbol><symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2.5 20h19Z"/><path d="M12 10v4.5M12 17.2v.3"/></symbol><symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3 4.5 6v5.5c0 4.6 3.1 8 7.5 9.5 4.4-1.5 7.5-4.9 7.5-9.5V6Z"/></symbol><symbol id="i-bolt" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 2 4 13.5h6.5L9 22l11-12.5h-6.8Z"/></symbol><symbol id="i-wallet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3.5 7.5h15a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2Zm0 0 12-3.5v3.5"/><circle cx="16.5" cy="13.5" r="1.3" fill="currentColor" stroke="none"/></symbol><symbol id="i-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8.5 7H17v8.5"/></symbol><symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="8.5" y="8.5" width="12" height="12" rx="2"/><path d="M15.5 8.5v-3a2 2 0 0 0-2-2h-8a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h3"/></symbol></svg>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav" data-top>
+  <div class="nav-in">
+    <a class="logo" href="/" aria-label="GME CHAIN home">
+      <svg class="logo-mark" aria-hidden="true"><use href="#i-mark"/></svg>
+      <span class="logo-word">GME<em>chain</em></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/bridge/" data-nav="bridge">Bridge</a>
+      <a href="/swap/" data-nav="swap" aria-current="page">Swap</a>
+      <a href="/explorer/" data-explorer data-nav="explorer">Explorer</a>
+      <a href="/docs/" data-nav="docs">Docs</a>
+      <a href="/roadmap/" data-nav="roadmap">Roadmap</a>
+    </nav>
+    <div class="nav-right">
+      <a class="price-chip" href="/#market" title="Live GME price from Uniswap v3 on Robinhood Chain"><span class="coin" aria-hidden="true">G</span>GME <b data-app-price>…</b></a>
+      <button class="btn btn-go btn-sm" type="button" data-connect>Connect wallet</button>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sheet" data-menu aria-label="Open menu"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<nav class="sheet" id="sheet" aria-label="Menu">
+  <div class="sheet-head">
+    <span class="logo-word">GME<em>chain</em></span>
+    <button class="btn btn-line btn-sm" type="button" data-menu-close>Close</button>
+  </div>
+  <a href="/bridge/"><b>Bridge</b><small>ETH in, GME gas out</small></a>
+  <a href="/swap/"><b>Swap</b><small>trade on GME CHAIN</small></a>
+  <a href="/explorer/" data-explorer><b>Explorer</b><small>blocks and transactions</small></a>
+  <a href="/docs/"><b>Docs</b><small>guides and reference</small></a>
+  <a href="/roadmap/"><b>Roadmap</b><small>done, next, planned</small></a>
+</nav>
+<!-- /@header --><main id="main" class="app-main">
+    <section class="app-hero">
+      <div class="net-switch" data-net-switch aria-label="Network"></div>
+      <p class="kicker">The exchange of GME CHAIN</p>
+      <h1>Swap <em>with</em> GME as gas</h1>
+    </section>
+
+    <p class="notice" data-dex-pending hidden><b>Opening soon.</b> The exchange contracts (Uniswap V2 Factory and Router, plus Wrapped GME) passed a full rehearsal on a fork of GME CHAIN and are waiting for their mainnet deployment. Until then you can <a href="../bridge/">bridge GME in</a> so you are ready.</p>
+
+    <div class="swap-grid">
+      <section class="card bracket" aria-label="Exchange">
+        <div class="swap-tabs seg" role="tablist" aria-label="Exchange mode">
+          <button role="tab" id="tab-swap" aria-controls="panel-swap" aria-selected="true" type="button">Swap</button>
+          <button role="tab" id="tab-pool" aria-controls="panel-pool" aria-selected="false" tabindex="-1" type="button">Pool</button>
+        </div>
+
+        <div id="panel-swap" role="tabpanel" aria-labelledby="tab-swap">
+          <form id="swap-form" class="x-form" novalidate>
+            <div class="swap-head">
+              <h2>Swap</h2>
+              <div class="slip" role="group" aria-label="Slippage tolerance">
+                <span>Slippage</span>
+                <button type="button" data-slip="10" aria-pressed="false">0.1%</button>
+                <button type="button" data-slip="50" aria-pressed="true">0.5%</button>
+                <button type="button" data-slip="100" aria-pressed="false">1%</button>
+              </div>
+            </div>
+            <div class="leg">
+              <div class="leg-head"><span class="label">You pay</span><button type="button" class="link-btn" data-max="in">Max</button></div>
+              <div class="amount"><label class="sr-only" for="amt-in">Amount to pay</label><input id="amt-in" name="in" inputmode="decimal" autocomplete="off" placeholder="0"><button type="button" class="tok-btn" data-tok="in"><span class="tok-ico">GME</span>GME<span aria-hidden="true">▾</span></button></div>
+              <div class="leg-foot"><span>Balance <b data-bal="in">—</b></span></div>
+            </div>
+            <button type="button" class="leg-arrow" data-flip aria-label="Swap direction">⇅</button>
+            <div class="leg">
+              <div class="leg-head"><span class="label">You receive</span></div>
+              <div class="amount"><label class="sr-only" for="amt-out">Estimated amount to receive</label><input id="amt-out" name="out" placeholder="0" readonly tabindex="-1"><button type="button" class="tok-btn" data-tok="out"><span class="tok-ico alt">WGME</span>WGME<span aria-hidden="true">▾</span></button></div>
+              <div class="leg-foot"><span>Balance <b data-bal="out">—</b></span></div>
+            </div>
+            <div class="quote" data-quote hidden>
+              <div><span>Rate</span><b data-q="rate"></b></div>
+              <div><span>Minimum received</span><b data-q="min"></b></div>
+              <div><span>Route</span><b data-q="route"></b></div>
+              <div><span>Fee</span><b>0.3% to liquidity providers</b></div>
+            </div>
+            <button class="btn btn-accent btn-block" type="submit" data-submit="swap">Connect wallet</button>
+            <p class="form-msg" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <div id="panel-pool" role="tabpanel" aria-labelledby="tab-pool" hidden>
+          <form id="pool-form" class="x-form" novalidate>
+            <div class="leg">
+              <div class="leg-head"><span class="label">Token A</span></div>
+              <div class="amount"><label class="sr-only" for="amt-a">Amount of token A</label><input id="amt-a" name="a" inputmode="decimal" autocomplete="off" placeholder="0"><button type="button" class="tok-btn" data-tok="a"><span class="tok-ico">GME</span>GME<span aria-hidden="true">▾</span></button></div>
+            </div>
+            <div class="leg-arrow" aria-hidden="true">+</div>
+            <div class="leg">
+              <div class="leg-head"><span class="label">Token B</span></div>
+              <div class="amount"><label class="sr-only" for="amt-b">Amount of token B</label><input id="amt-b" name="b" inputmode="decimal" autocomplete="off" placeholder="0"><button type="button" class="tok-btn" data-tok="b"><span class="tok-ico alt">WGME</span>WGME<span aria-hidden="true">▾</span></button></div>
+            </div>
+            <p class="quote" data-pool-info>Pick two tokens.</p>
+            <button class="btn btn-accent btn-block" type="submit" data-submit="pool">Add liquidity</button>
+            <div class="leg-foot"><span>Your position <b data-lp>—</b></span>
+              <span><label class="sr-only" for="pct">Share to remove</label><select id="pct" name="pct" class="pill"><option value="25">25%</option><option value="50">50%</option><option value="100" selected>100%</option></select>
+              <button type="button" class="link-btn" data-remove>Remove</button></span></div>
+            <p class="form-msg" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+
+      <section class="card chart-card" aria-label="Price chart">
+        <div class="swap-head"><h2 data-chart-title>GME / —</h2><span class="label">From pool Sync events</span></div>
+        <div class="chart-area" data-chart><span>No pool to chart yet.</span></div>
+        <dl class="kv-mini">
+          <dt>Chain</dt><dd><span data-n="l3">GME CHAIN</span> · <span data-n="l3id">12821</span></dd>
+          <dt>Router</dt><dd data-addr="router">pending</dd>
+          <dt>Factory</dt><dd data-addr="factory">pending</dd>
+          <dt>WGME</dt><dd data-addr="want">pending</dd>
+        </dl>
+      </section>
+    </div>
+    <p class="fine">Uniswap V2 contracts, deployed unmodified from Uniswap's published bytecode; this interface is new. Each trade pays 0.3%, all of it to the pool's liquidity providers.</p>
+  </main>
+
+  <!-- @footer -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="logo" href="/" aria-label="GME CHAIN home">
+          <svg class="logo-mark" aria-hidden="true"><use href="#i-mark"/></svg>
+          <span class="logo-word">GME<em>chain</em></span>
+        </a>
+        <p>The chain that runs on GME. Bring ETH from Robinhood Chain, get GME gas, trade.</p>
+        <button class="copy-chip" type="button" data-copy="0x1b0E319c6A659F002271B69dB8A7df2F911c153E" aria-label="Copy the GME token contract address"><span>GME token</span><code>0x1b0E…153E</code><svg aria-hidden="true"><use href="#i-copy"/></svg></button>
+      </div>
+      <div>
+        <h2 class="foot-h">Play</h2>
+        <ul><li><a href="/bridge/">Bridge</a></li><li><a href="/swap/">Swap</a></li><li><a href="/explorer/" data-explorer>Explorer</a></li></ul>
+      </div>
+      <div>
+        <h2 class="foot-h">Learn</h2>
+        <ul><li><a href="/#start">How it works</a></li><li><a href="/docs/">Docs</a></li><li><a href="/roadmap/">Roadmap</a></li><li><a href="/#faq">FAQ</a></li></ul>
+      </div>
+      <div>
+        <h2 class="foot-h">Network</h2>
+        <ul><li><a href="/#build">Network details</a></li><li><a href="/#risk">Risks</a></li><li><a href="https://robinhoodchain.blockscout.com/token/0x1b0E319c6A659F002271B69dB8A7df2F911c153E" target="_blank" rel="noopener">GME on Blockscout <span aria-hidden="true">↗</span></a></li></ul>
+      </div>
+    </div>
+    <canvas class="foot-word" data-wordmark aria-hidden="true"></canvas>
+    <div class="foot-base">
+      <p>GME CHAIN is independent and not affiliated with GameStop Corp., Robinhood Markets, Inc. or Offchain Labs. Names are used only to describe the assets and technology involved. Nothing on this site is investment advice or an offer of securities. Tokenized stocks carry market, issuer and regulatory risk and are not available everywhere.</p>
+      <p>© 2026 GME CHAIN</p>
+    </div>
+  </div>
+</footer>
+<!-- /@footer -->
+
+  <dialog class="picker" id="picker" aria-labelledby="picker-title">
+    <div class="picker-head"><h2 id="picker-title" class="label">Select a token</h2><button type="button" class="icon-btn" data-close-picker aria-label="Close">✕</button></div>
+    <div class="picker-body">
+      <label class="sr-only" for="picker-q">Search by symbol or paste an address</label>
+      <input id="picker-q" placeholder="Symbol or 0x address" autocomplete="off">
+      <ul id="picker-list"></ul>
+    </div>
+  </dialog>
+  <script type="module" src="../js/appchrome.js"></script>
+  <script src="/js/site.js" defer></script>
+  <script type="module" src="/js/boot.js" data-app="swap" data-mods="/js/swap.js"></script>
+</body>
+</html>

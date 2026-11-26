@@ -1,0 +1,22 @@
+{
+  "name": "gmechain-walletkit",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "esbuild src/index.jsx --bundle --splitting --external:../config.js --minify --format=esm --target=es2020 --outdir=../site/js/walletkit --entry-names=index --chunk-names=c-[hash] --define:process.env.NODE_ENV=\\\"production\\\" --loader:.js=jsx && node -e \"require('fs').copyFileSync('node_modules/@rainbow-me/rainbowkit/dist/index.css','../site/walletkit.css')\""
+  },
+  "dependencies": {
+    "@rainbow-me/rainbowkit": "2.2.11",
+    "@tanstack/react-query": "5.108.2",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "viem": "2.58.4",
+    "wagmi": "2.19.5"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  },
+  "overrides": {
+    "cuer": "0.0.4"
+  }
+}

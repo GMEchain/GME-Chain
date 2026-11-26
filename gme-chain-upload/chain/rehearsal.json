@@ -1,0 +1,121 @@
+{
+  "passed": true,
+  "at": "2026-11-26T08:48:52.389Z",
+  "checks": [
+    {
+      "name": "fork is up",
+      "ok": true,
+      "detail": "block 123547130"
+    },
+    {
+      "name": "ArbSys stand-in installed on fork",
+      "ok": true,
+      "detail": "arbOSVersion 116 = ArbOS 61, as on Robinhood mainnet"
+    },
+    {
+      "name": "ArbGasInfo stand-in installed on fork",
+      "ok": true,
+      "detail": "L1 base fee estimate 0, min gas price 0.02 gwei"
+    },
+    {
+      "name": "real GME transfers work (not paused, deployer not blocked)",
+      "ok": true,
+      "detail": "0.000000000000000001 GME"
+    },
+    {
+      "name": "rehearsal uses real mainnet wallet balances",
+      "ok": true,
+      "detail": "exact"
+    },
+    {
+      "name": "rollup created",
+      "ok": true,
+      "detail": "0xd0f0c3bb50c47cab956498fbc2a72acf6d70afbb3b0cdd0f7e0403f44c301e05"
+    },
+    {
+      "name": "rollup has code",
+      "ok": true,
+      "detail": "0xa661d8EBF1353F4F704A71D4716AD47025Bd0264"
+    },
+    {
+      "name": "inbox has code",
+      "ok": true,
+      "detail": "0xE1F892035E0E258034594A27e352BF2A68C2B10D"
+    },
+    {
+      "name": "outbox has code",
+      "ok": true,
+      "detail": "0x979C677B9cEdEa25d0658f0BEdedFB33eA3CEC3E"
+    },
+    {
+      "name": "bridge has code",
+      "ok": true,
+      "detail": "0xA02870A1f1D5Bb6CC58210C0868CaCaa943fDf7D"
+    },
+    {
+      "name": "sequencerInbox has code",
+      "ok": true,
+      "detail": "0x9490E78BB49f6a336c285ba20D4A47d77c1cb066"
+    },
+    {
+      "name": "upgradeExecutor has code",
+      "ok": true,
+      "detail": "0x6bf544BD69Cab485e47449208Fa855653083fD12"
+    },
+    {
+      "name": "sequencer inbox uses our fee token pricer",
+      "ok": true,
+      "detail": "0xf82d09ac7BBB1c4349656200C9d4b8b7ec64bbDf"
+    },
+    {
+      "name": "pricer returns a sane GME-per-ETH rate from live Chainlink ETH/USD",
+      "ok": true,
+      "detail": "63.298160171652954375 GME/ETH"
+    },
+    {
+      "name": "bridge gas token is real GME",
+      "ok": true,
+      "detail": "0x1b0E319c6A659F002271B69dB8A7df2F911c153E"
+    },
+    {
+      "name": "batch poster authorised",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "validator allowlisted",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "bridge escrow not blocked by Robinhood registry",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "rollup chain ID",
+      "ok": true,
+      "detail": "12821"
+    },
+    {
+      "name": "node config written",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ETH bridge router deployed",
+      "ok": true,
+      "detail": "0xf47680692201c5c1615fadc69db4a8ad6ffa0b01"
+    },
+    {
+      "name": "ETH bridge router points at the new inbox",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "0.01 ETH bridged: swapped to GME and delivered to the GME CHAIN inbox",
+      "ok": true,
+      "detail": "0.631868951517810061 GME into escrow"
+    }
+  ]
+}

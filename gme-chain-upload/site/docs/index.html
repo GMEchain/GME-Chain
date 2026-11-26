@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GME CHAIN Docs</title>
+  <meta name="description" content="GME CHAIN documentation: what the chain is, why gas is paid in the GME Stock Token, bridging, the exchange, the $GMEC token, developer reference and risks.">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="canonical" href="https://gmechain.xyz/docs/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="GME CHAIN">
+  <meta property="og:title" content="GME CHAIN Docs">
+  <meta property="og:description" content="GME CHAIN documentation: what the chain is, why gas is paid in the GME Stock Token, bridging, the exchange, the $GMEC token, developer reference and risks.">
+  <meta property="og:url" content="https://gmechain.xyz/docs/">
+  <meta property="og:image" content="https://gmechain.xyz/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://gmechain.xyz/og.png">
+  <!-- @head -->
+<meta name="theme-color" content="#000000">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23000000'/%3E%3Cpath d='M12 12V6.4a1.6 1.6 0 0 1 1.6-1.6h4.8A1.6 1.6 0 0 1 20 6.4V12h5.6a1.6 1.6 0 0 1 1.6 1.6v4.8a1.6 1.6 0 0 1-1.6 1.6H20v5.6a1.6 1.6 0 0 1-1.6 1.6h-4.8a1.6 1.6 0 0 1-1.6-1.6V20H6.4a1.6 1.6 0 0 1-1.6-1.6v-4.8A1.6 1.6 0 0 1 6.4 12Z' fill='none' stroke='%23FF2D2D' stroke-width='2.4' stroke-linejoin='round'/%3E%3Cpath d='M16 6.8 18.8 11.2H13.2Z' fill='%23FF2D2D'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Chakra+Petch:wght@400;500;600;700&family=Big+Shoulders+Display:wght@900&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/docs.css">
+  <link rel="stylesheet" href="/walletkit.css">
+<!-- /@head -->
+</head>
+<body class="page-docs">
+  <!-- @header -->
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false"><symbol id="i-mark" viewBox="0 0 32 32"><path d="M11.6 11.6V5.2a2 2 0 0 1 2-2h4.8a2 2 0 0 1 2 2v6.4h6.4a2 2 0 0 1 2 2v4.8a2 2 0 0 1-2 2h-6.4v6.4a2 2 0 0 1-2 2h-4.8a2 2 0 0 1-2-2v-6.4H5.2a2 2 0 0 1-2-2v-4.8a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M16 5.6 19 10.4H13Z" fill="currentColor"/><circle cx="16" cy="16" r="1.7" fill="currentColor" opacity=".5"/></symbol><symbol id="i-bridge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h14l-3.5-3.5M20 16H6l3.5 3.5"/></symbol><symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v16M12 7v12M18 3v14"/><rect x="4" y="8" width="4" height="7" rx=".6" fill="currentColor" stroke="none"/><rect x="10" y="10" width="4" height="5" rx=".6"/><rect x="16" y="5" width="4" height="8" rx=".6" fill="currentColor" stroke="none"/></symbol><symbol id="i-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M13.5 4l-3 16"/></symbol><symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5 10-11"/></symbol><symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2.5 20h19Z"/><path d="M12 10v4.5M12 17.2v.3"/></symbol><symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3 4.5 6v5.5c0 4.6 3.1 8 7.5 9.5 4.4-1.5 7.5-4.9 7.5-9.5V6Z"/></symbol><symbol id="i-bolt" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 2 4 13.5h6.5L9 22l11-12.5h-6.8Z"/></symbol><symbol id="i-wallet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3.5 7.5h15a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2Zm0 0 12-3.5v3.5"/><circle cx="16.5" cy="13.5" r="1.3" fill="currentColor" stroke="none"/></symbol><symbol id="i-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8.5 7H17v8.5"/></symbol><symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="8.5" y="8.5" width="12" height="12" rx="2"/><path d="M15.5 8.5v-3a2 2 0 0 0-2-2h-8a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h3"/></symbol></svg>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav" data-top>
+  <div class="nav-in">
+    <a class="logo" href="/" aria-label="GME CHAIN home">
+      <svg class="logo-mark" aria-hidden="true"><use href="#i-mark"/></svg>
+      <span class="logo-word">GME<em>chain</em></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/bridge/" data-nav="bridge">Bridge</a>
+      <a href="/swap/" data-nav="swap">Swap</a>
+      <a href="/explorer/" data-explorer data-nav="explorer">Explorer</a>
+      <a href="/docs/" data-nav="docs" aria-current="page">Docs</a>
+      <a href="/roadmap/" data-nav="roadmap">Roadmap</a>
+    </nav>
+    <div class="nav-right">
+      <a class="price-chip" href="/#market" title="Live GME price from Uniswap v3 on Robinhood Chain"><span class="coin" aria-hidden="true">G</span>GME <b data-app-price>…</b></a>
+      <a class="btn btn-go btn-sm nav-cta" href="/bridge/"><span data-n="navcta">Get GME gas</span></a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sheet" data-menu aria-label="Open menu"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<nav class="sheet" id="sheet" aria-label="Menu">
+  <div class="sheet-head">
+    <span class="logo-word">GME<em>chain</em></span>
+    <button class="btn btn-line btn-sm" type="button" data-menu-close>Close</button>
+  </div>
+  <a href="/bridge/"><b>Bridge</b><small>ETH in, GME gas out</small></a>
+  <a href="/swap/"><b>Swap</b><small>trade on GME CHAIN</small></a>
+  <a href="/explorer/" data-explorer><b>Explorer</b><small>blocks and transactions</small></a>
+  <a href="/docs/"><b>Docs</b><small>guides and reference</small></a>
+  <a href="/roadmap/"><b>Roadmap</b><small>done, next, planned</small></a>
+</nav>
+<!-- /@header --><main id="main" class="docs-main">
+    <aside class="docs-side" aria-label="Documentation contents">
+      <label class="sr-only" for="doc-filter">Filter sections</label>
+      <input id="doc-filter" class="docs-filter" type="search" placeholder="Filter sections…" autocomplete="off" data-doc-filter>
+      <nav aria-label="Sections">
+        <p class="side-group">Start</p>
+        <ul>
+          <li><a href="#mainnet">Launch status</a></li>
+          <li><a href="#testnet">Testnet</a></li>
+          <li><a href="#tgme">What is tGME</a></li>
+          <li><a href="/roadmap/">Roadmap ↗</a></li>
+          <li><a href="#intro">What is GME CHAIN</a></li>
+          <li><a href="#why">Why gas is paid in GME</a></li>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#start">Quick start</a></li>
+        </ul>
+        <p class="side-group">Use</p>
+        <ul>
+          <li><a href="#fees">Fees</a></li>
+          <li><a href="#bridge">Bridging with ETH or GME</a></li>
+          <li><a href="#exchange">The exchange</a></li>
+        </ul>
+        <p class="side-group">Tokens</p>
+        <ul>
+          <li><a href="#token">The GME CHAIN token</a></li>
+          <li><a href="#gme">About the GME Stock Token</a></li>
+        </ul>
+        <p class="side-group">Reference</p>
+        <ul>
+          <li><a href="#developers">For developers</a></li>
+          <li><a href="#contracts">Contract addresses</a></li>
+          <li><a href="#trust">Trust model and risks</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#glossary">Glossary</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <article class="doc" id="doc">
+      <header class="doc-hero">
+        <p class="kicker"><span class="tag plain">docs</span> v1 · updated 26 Nov 2026</p>
+        <h1>GME CHAIN, <em>explained.</em></h1>
+        <p class="lede">Everything you need to use, build on and judge GME CHAIN: what it is, why its gas is the GME Stock Token, how to move GME in and out, what the $GMEC token will do, and what you are trusting when you use it.</p>
+        <dl class="doc-facts">
+          <div><dt>Chain ID</dt><dd>12821 mainnet</dd></div>
+          <div><dt>Gas token</dt><dd>GME (Robinhood)</dd></div>
+          <div><dt>Parent</dt><dd>Robinhood Chain</dd></div>
+          <div><dt>GME price</dt><dd data-app-price>…</dd></div>
+        </dl>
+      </header>
+
+      <section id="mainnet" class="doc-sec">
+        <h2>Launch status <span class="tag-soon">Testnet live</span></h2>
+        <p>The testnet is live: try the whole flow for free. The mainnet contracts are deployed and verified, the mainnet node is running and its validator is staked; the mainnet apps on this site open at launch. Every address is under <a href="#contracts">Contract addresses</a>.</p>
+        <table class="doc-table">
+          <tbody>
+            <tr><th scope="row">Network name</th><td>GME CHAIN</td></tr>
+            <tr><th scope="row">Chain ID</th><td><code>12821</code> (<code>0x3215</code>)</td></tr>
+            <tr><th scope="row">RPC</th><td><code>https://rpc.gmechain.xyz</code></td></tr>
+            <tr><th scope="row">Gas token</th><td>GME <code>0x1b0E319c6A659F002271B69dB8A7df2F911c153E</code> on Robinhood Chain</td></tr>
+            <tr><th scope="row">Parent chain</th><td>Robinhood Chain, chain ID <code>4663</code></td></tr>
+            <tr><th scope="row">Explorer</th><td><a href="/explorer/" data-keep-net>GME CHAIN Explorer</a> (from the first block)</td></tr>
+            <tr><th scope="row">Withdrawals</th><td>Claimable about 7 days after you start (the challenge window, the same rule as Arbitrum One); the bridge page shows a countdown</td></tr>
+          </tbody>
+        </table>
+        <h3>At launch: bridge in, use it, withdraw</h3>
+        <ol class="doc-steps">
+          <li><b>Have ETH</b> on Robinhood Chain. That is all you need: the bridge swaps it to GME for you. Holding GME already? You can deposit it directly.</li>
+          <li><b>Connect.</b> Open the <a href="/bridge/">bridge page</a> and connect a wallet.</li>
+          <li><b>Bridge.</b> Enter an ETH amount. The page shows a live Uniswap quote; one transaction swaps it to GME and deposits it. It arrives on GME CHAIN as gas, usually within a minute.</li>
+          <li><b>Use it.</b> Send, deploy contracts, or trade on the <a href="/swap/">exchange</a>. A transfer costs a fraction of a cent.</li>
+          <li><b>Withdraw.</b> Start a withdrawal on the bridge page. After about 7 days the countdown ends; press <em>Claim</em> to get your GME back on Robinhood Chain, then <em>Convert to ETH</em> if you want ETH.</li>
+        </ol>
+        <div class="callout warn"><b>Real funds</b><p>One operator will run the sequencer, batch poster and validator at first, GME can be paused by its issuer, and the contracts have not had an external audit yet. Start with amounts you are comfortable with. Withdrawals cannot be sped up or cancelled once started.</p></div>
+      </section>
+
+      <section id="testnet" class="doc-sec" data-keep-net>
+        <h2>Testnet <span class="tag-soon">Opening soon</span></h2>
+        <p>GME CHAIN Testnet will run the same software as mainnet, with <strong>tGME</strong>, a free test token with no value, as gas. It opens first, before mainnet, so you can try every feature for free; the values below are reserved for it.</p>
+        <table class="doc-table">
+          <tbody>
+            <tr><th scope="row">Network name</th><td>GME CHAIN Testnet</td></tr>
+            <tr><th scope="row">Chain ID</th><td><code>12822</code> (<code>0x3216</code>)</td></tr>
+            <tr><th scope="row">RPC</th><td><code>https://rpc.testnet.gmechain.xyz</code></td></tr>
+            <tr><th scope="row">Gas token</th><td>tGME on Robinhood Chain Testnet (deployed with the testnet)</td></tr>
+            <tr><th scope="row">Parent chain</th><td>Robinhood Chain Testnet, chain ID <code>46630</code>, RPC <code>https://rpc.testnet.chain.robinhood.com</code></td></tr>
+            <tr><th scope="row">Explorer</th><td><a href="/explorer/testnet/">GME CHAIN Testnet Explorer</a></td></tr>
+            <tr><th scope="row">Withdrawals</th><td>Claimable about 45–60 minutes after you start (batch, assertion, then a 150-block challenge window); the bridge page shows a countdown</td></tr>
+          </tbody>
+        </table>
+        <h3>Try the whole flow</h3>
+        <ol class="doc-steps">
+          <li><b>Connect.</b> Open the <a href="../bridge/">bridge page</a> and connect a wallet: MetaMask, Rabby, Coinbase Wallet, or a mobile wallet through WalletConnect.</li>
+          <li><b>Get a test kit.</b> Press <em>Get test kit</em>. You receive 100 tGME plus a little testnet ETH for gas on Robinhood Chain Testnet, once a day per wallet. No other faucet needed.</li>
+          <li><b>Deposit.</b> Bridge some tGME into GME CHAIN Testnet (approve, then deposit). It arrives as gas within about a minute. Press <em>Add network</em> to see it in your wallet.</li>
+          <li><b>Swap.</b> Trade tGME for tUSD, or add liquidity, on the <a href="../swap/">exchange</a>.</li>
+          <li><b>Withdraw.</b> Start a withdrawal on the bridge page. A countdown shows when the claim opens, usually 45 to 60 minutes later; then press <em>Claim</em>.</li>
+        </ol>
+        <div class="callout warn"><b>Test tokens only</b><p>tGME, tUSD and testnet ETH have no value and cannot be sold. Testnet balances are not converted into anything. Never send real assets to testnet addresses.</p></div>
+        <p class="muted-note">To keep the testnet explorer lively, one public test wallet, <code>0xf84A2cf5c78Cc28e68833e5bf740c153bCA247Ad</code> (the "pulse"), makes a small test transaction every few minutes: tGME transfers, swaps and wraps. It is ours, it only moves test tokens, and it never runs on mainnet.</p>
+        <p class="muted-note">The full guide, with fixes for common problems, is on <a href="https://github.com/GMEchain/gme-chain/blob/main/docs/testnet-guide.md" target="_blank" rel="noopener">GitHub</a>.</p>
+      </section>
+
+      <section id="tgme" class="doc-sec">
+        <h2>What is tGME?</h2>
+        <p><strong>tGME</strong> ("Test GME") is the gas token of GME CHAIN Testnet. It plays the part the real GME Stock Token plays on mainnet, so you can try every feature without spending anything. You hold it on Robinhood Chain Testnet, bridge it into GME CHAIN, and there it becomes your balance and pays every fee.</p>
+        <table class="doc-table">
+          <tbody>
+            <tr><th scope="row">Name / symbol</th><td>Test GME / <code>tGME</code></td></tr>
+            <tr><th scope="row">Standard</th><td>ERC-20, 18 decimals, no transfer fees or rebasing</td></tr>
+            <tr><th scope="row">Address</th><td>published here when the testnet is deployed</td></tr>
+            <tr><th scope="row">On GME CHAIN Testnet</th><td>the native currency: your wallet balance and every fee</td></tr>
+            <tr><th scope="row">How to get it</th><td><em>Get test kit</em> on the <a href="../bridge/">bridge page</a> (100 tGME + testnet ETH, once a day), or call <code>drip()</code> on the contract for 100 tGME a day</td></tr>
+            <tr><th scope="row">Value</th><td>none, and it cannot be sold or exchanged for GME</td></tr>
+          </tbody>
+        </table>
+        <h3>tGME, GME and $GMEC are three different things</h3>
+        <ul class="doc-list">
+          <li><b>tGME</b>: the free test gas token on testnet. No value.</li>
+          <li><b>GME</b>: the Robinhood Stock Token that is the gas token on mainnet. GME CHAIN does not issue it.</li>
+          <li><b>$GMEC</b>: the GME CHAIN token. Not launched yet; its contract will be published on this site only.</li>
+        </ul>
+        <p>On testnet there are two more helpers: <strong>Wrapped tGME</strong>, an ERC-20 version of the native tGME used by the exchange (like WETH for ETH), and <strong>tUSD</strong>, a test dollar token (10,000 a day from its own <code>drip()</code>) that gives the exchange a trading pair. Dollar amounts shown on testnet use the live GME price only to show what fees would cost on mainnet.</p>
+      </section>
+
+      <section id="intro" class="doc-sec">
+        <h2>What is GME CHAIN</h2>
+        <p>GME CHAIN is an independent blockchain, a Layer 3 built with Arbitrum Orbit. It runs on top of Robinhood Chain, which itself settles to Ethereum. It behaves like any EVM chain: the same wallets, the same Solidity contracts, the same tools.</p>
+        <p>The one thing that makes it different is the token you pay gas with. On Ethereum you pay in ETH. <strong>On GME CHAIN every fee is paid in GME</strong>, the Robinhood stock token that tracks GameStop Corp. shares (NYSE: GME).</p>
+        <div class="callout"><b>In one line</b><p>A fast, low-cost EVM chain where the gas token is GameStop's ticker.</p></div>
+        <div class="callout warn"><b>Independent</b><p>GME CHAIN is not made, endorsed or sponsored by GameStop Corp., Robinhood Markets, Inc. or Offchain Labs. "GME" is the ticker of the token used as gas.</p></div>
+      </section>
+
+      <section id="why" class="doc-sec">
+        <h2>Why gas is paid in GME</h2>
+        <p>GME is one of the most widely followed stocks among retail traders. A chain whose unit of account is GME makes that the currency of everything on it: every balance, every fee and every <code>msg.value</code>. You do not need to hold GME to start, either: bring ETH and the bridge swaps it for you.</p>
+        <ul class="doc-list">
+          <li><b>One asset, two jobs.</b> If you already hold GME, you can use the same balance to pay for transactions instead of selling it for ETH first.</li>
+          <li><b>Tiny fees either way.</b> A transfer costs about 28,400 gas at 0.1 gwei, well under a cent at today's GME price (about $0.0001 at $27).</li>
+          <li><b>Real, not a wrapper.</b> The gas is the GME Stock Token itself, locked in the bridge on Robinhood Chain one to one. There is no synthetic version and no separate "gas coin".</li>
+        </ul>
+        <p class="muted-note">Paying gas in GME does not give you shares, votes or any rights in GameStop. The GME Stock Token gives price exposure only, under its issuer's terms (see <a href="#gme">About the GME Stock Token</a>).</p>
+      </section>
+
+      <section id="how" class="doc-sec">
+        <h2>How it works</h2>
+        <ol class="doc-steps">
+          <li><b>You sign.</b> Your wallet sends a transaction to GME CHAIN and pays gas in GME.</li>
+          <li><b>The sequencer orders it</b> into a block within a second or two.</li>
+          <li><b>A batch lands on Robinhood Chain.</b> Blocks are compressed and posted to the sequencer inbox. The batch poster pays ETH for that and is repaid in GME.</li>
+          <li><b>A validator vouches for it.</b> A bonded validator posts the resulting state using BoLD fraud proofs. Anyone can challenge a wrong claim during the challenge window: about 7 days on mainnet, about 30 minutes on testnet. Counting the batch and the claim itself, a testnet withdrawal can be claimed 45 to 60 minutes after it starts.</li>
+          <li><b>Ethereum has the final say.</b> Robinhood Chain settles to Ethereum, so GME CHAIN shares its root of trust with every Arbitrum chain.</li>
+        </ol>
+        <h3>How fees are priced</h3>
+        <p>Posting batches costs ETH on Robinhood Chain, but users pay in GME. A fee pricer contract converts between them using Chainlink's ETH/USD feed and the GME market price. A keeper updates the GME price from the 30-minute time-weighted average of the deepest GME pool on Robinhood Chain (Uniswap v3 GME/USDG), checked against a second pool, with guards for low liquidity, stale data, large jumps, paused trading and corporate actions, and freezes rather than guessing when markets are closed or unusual.</p>
+      </section>
+
+      <section id="start" class="doc-sec">
+        <h2>Quick start</h2>
+        <ol class="doc-steps">
+          <li><b>Have ETH on Robinhood Chain.</b> The bridge turns it into GME for you. If you already hold the GME Stock Token there, check its address: <code>0x1b0E319c6A659F002271B69dB8A7df2F911c153E</code>.</li>
+          <li><b>Add GME CHAIN to your wallet.</b> Use the button below or the values in <a href="#developers">For developers</a>.</li>
+          <li><b>Bridge ETH in.</b> Open the <a href="../bridge/">bridge</a>: one transaction swaps your ETH to GME and deposits it. It arrives as gas on GME CHAIN, usually within a minute.</li>
+          <li><b>Use it.</b> Send, deploy, or trade on the <a href="../swap/">exchange</a>. Every fee comes out of your GME.</li>
+        </ol>
+        <div class="doc-cta">
+          <button class="btn btn-accent" type="button" data-add-l3>Add GME CHAIN to wallet</button>
+          <a class="btn btn-ghost" href="../bridge/">Open the bridge <span aria-hidden="true">→</span></a>
+        </div>
+        <p class="form-msg" role="status" aria-live="polite" data-add-msg></p>
+      </section>
+
+      <section id="fees" class="doc-sec">
+        <h2>Fees</h2>
+        <table class="doc-table">
+          <tbody>
+            <tr><th scope="row">Gas price</th><td>0.1 gwei (in GME)</td></tr>
+            <tr><th scope="row">GME transfer</th><td>28,402 gas ≈ 0.0000028 GME ≈ $0.00008 at $27</td></tr>
+            <tr><th scope="row">Deposit from Robinhood Chain</th><td>With ETH: one transaction; the Uniswap pool fee (0.05% on the WETH/GME pool) is part of the quote. With GME: one approval (first time) and one deposit. Gas is paid in ETH on Robinhood Chain either way. The bridge itself has no fee.</td></tr>
+            <tr><th scope="row">Withdrawal</th><td>A small GME fee on GME CHAIN, then ETH on Robinhood Chain to claim</td></tr>
+            <tr><th scope="row">Swap</th><td>0.3% to liquidity providers, plus gas</td></tr>
+          </tbody>
+        </table>
+        <p class="muted-note">Dollar figures move with the GME price. The live figure is on the <a href="../#fees">home page</a>.</p>
+      </section>
+
+      <section id="bridge" class="doc-sec">
+        <h2>Bridging with ETH or GME</h2>
+        <h3>Deposit with ETH: Robinhood Chain → GME CHAIN</h3>
+        <ol class="doc-steps">
+          <li>Connect a regular wallet (an EOA) and choose <em>Pay with ETH</em>.</li>
+          <li>Enter an amount. The page quotes every Uniswap v3 route between WETH and GME on Robinhood Chain and shows what will arrive.</li>
+          <li>Confirm one transaction. The <b>GmeGasRouter</b> contract wraps your ETH, swaps it to GME (reverting if the price moved more than 1%), locks the GME in the GME CHAIN bridge and credits it to your address as gas, usually within a minute.</li>
+        </ol>
+        <h3>Deposit with GME</h3>
+        <ol class="doc-steps">
+          <li>Choose <em>Pay with GME</em>, approve the GME CHAIN inbox (first time only) and deposit. The same amount arrives as gas.</li>
+        </ol>
+        <h3>Withdrawal: GME CHAIN → Robinhood Chain → ETH</h3>
+        <ol class="doc-steps">
+          <li>Start the withdrawal on GME CHAIN. Your GME is burned there and a message is created. Keep a little GME for this transaction's gas.</li>
+          <li>Wait for the challenge window: about 7 days on mainnet (50,400 Ethereum blocks). The bridge page shows a countdown. This is the security model, not a delay we can shorten.</li>
+          <li>Claim on Robinhood Chain from the bridge page. Your GME is released from the bridge to you.</li>
+          <li>Want ETH? <em>Convert to ETH</em> on the same page swaps it through the GmeGasRouter in one transaction, with the same 1% price limit.</li>
+        </ol>
+        <div class="callout"><b>The router holds nothing</b><p>GmeGasRouter has no owner, no fee and no upgrade. Each call spends its whole input and sends every output on in the same transaction, and the deposit ticket names you as both receiver and refund address, so the GME can only end up with you. Source: <a href="https://github.com/GMEchain/gme-chain/blob/main/chain/contracts/GmeGasRouter.sol">GmeGasRouter.sol</a>.</p></div>
+        <div class="callout"><b>By hand</b><p>Paying with ETH calls <code>depositEth(path, minGmeOut, to, gasLimit, maxFeePerGas)</code> on the GmeGasRouter. Paying with GME calls <code>approve</code> and <code>createRetryableTicket(…)</code> on the inbox. Withdrawing calls <code>withdrawEth(destination)</code> on ArbSys and <code>executeTransaction(…)</code> on the outbox; converting calls <code>swapGmeToEth(amountIn, path, minEthOut, to)</code>.</p></div>
+      </section>
+
+      <section id="exchange" class="doc-sec">
+        <h2>The exchange</h2>
+        <p>The GME CHAIN exchange runs the Uniswap V2 contracts, deployed unmodified from Uniswap's published bytecode, with Wrapped GME (WGME) as the base asset. Anyone can create a pool and add liquidity. Each trade pays the standard 0.3% fee to the pool's liquidity providers.</p>
+        <ul class="doc-list">
+          <li><b>GME and WGME</b> are the same asset. Wrapping is one to one and always reversible.</li>
+          <li><b>Pools start empty.</b> The first deposit into a pool sets its starting price.</li>
+          <li><b>Check addresses.</b> Anyone can create a token with any name. Trade only tokens whose contract you have verified.</li>
+        </ul>
+        <div class="callout warn"><b>Status</b><p>The exchange is deployed with mainnet and opens on the <a href="../swap/">swap page</a> at launch. Pools are created by their liquidity providers.</p></div>
+      </section>
+
+      <section id="token" class="doc-sec">
+        <h2>The $GMEC token <span class="tag-soon">Planned</span></h2>
+        <p><strong>$GMEC</strong> will be the GME CHAIN token, on Robinhood Chain. It has not launched. Gas stays GME; $GMEC is for the chain's own economy.</p>
+        <table class="doc-table addr">
+          <tbody>
+            <tr><th scope="row">Contract (Robinhood Chain, 4663)</th><td>Not launched yet. Published on this site only.</td></tr>
+            <tr><th scope="row">Ticker</th><td>GMEC</td></tr>
+          </tbody>
+        </table>
+        <p>What it will be used for is announced together with its contract.</p>
+        <h3>What it is not</h3>
+        <ul class="doc-list">
+          <li><b>Not a GameStop token.</b> It has no connection to GameStop Corp., gives no rights in GameStop or in GME, and does nothing outside GME CHAIN.</li>
+          <li><b>Not any GMEC you can find today.</b> Other tokens already use the ticker GMEC, for example a Coinbase tokenized GameStop stock. None of them is ours. Check the contract, never the ticker.</li>
+        </ul>
+        <p class="muted-note">Nothing on this page is an offer or a promise of value. Utilities describe how the token will be used on the chain, not what it will be worth.</p>
+      </section>
+
+      <section id="gme" class="doc-sec">
+        <h2>About the GME Stock Token</h2>
+        <table class="doc-table">
+          <tbody>
+            <tr><th scope="row">Name on chain</th><td>GameStop • Robinhood Token</td></tr>
+            <tr><th scope="row">Address</th><td><code>0x1b0E319c6A659F002271B69dB8A7df2F911c153E</code> on Robinhood Chain</td></tr>
+            <tr><th scope="row">Issuer</th><td>Robinhood Assets (Jersey) Limited</td></tr>
+            <tr><th scope="row">What it is</th><td>A tokenized debt security that tracks the share price. Holders get price exposure, not shares or shareholder rights.</td></tr>
+            <tr><th scope="row">Who can hold it</th><td>Not US persons; also restricted in Canada, the UK, Switzerland, the UAE and sanctioned places. The issuer's terms decide.</td></tr>
+          </tbody>
+        </table>
+        <h3>What the issuer can do</h3>
+        <ul class="doc-list">
+          <li><b>Pause</b> all GME transfers. Deposits and withdrawals would stop while paused.</li>
+          <li><b>Block</b> any address, including the GME CHAIN bridge. GME held there could not move.</li>
+          <li><b>Burn</b> GME from any address, and <b>upgrade</b> the token contract for every stock token at once.</li>
+          <li><b>Adjust</b> a multiplier after dividends or splits. Balances stay the same; our fee price follows the market.</li>
+        </ul>
+        <p class="muted-note">Several unrelated tokens use the GME ticker. Always check the address above.</p>
+      </section>
+
+      <section id="developers" class="doc-sec">
+        <h2>For developers</h2>
+        <table class="doc-table">
+          <tbody>
+            <tr><th scope="row">Network name</th><td>GME CHAIN</td></tr>
+            <tr><th scope="row">Chain ID</th><td><code>12821</code> (<code>0x3215</code>)</td></tr>
+            <tr><th scope="row">RPC</th><td><code>https://rpc.gmechain.xyz</code></td></tr>
+            <tr><th scope="row">Currency</th><td>GME, 18 decimals</td></tr>
+            <tr><th scope="row">Stack</th><td>Arbitrum Nitro, Rollup mode, BoLD</td></tr>
+            <tr><th scope="row">Block explorer</th><td>From launch: mainnet at <code>/explorer/</code>, testnet at <code>/explorer/testnet/</code></td></tr>
+          </tbody>
+        </table>
+        <p>Everything EVM works unchanged. The difference to keep in mind: <code>msg.value</code>, <code>address.balance</code> and gas are all in GME.</p>
+        <pre class="term"><code><span class="c">// viem</span>
+import { defineChain } from "viem";
+export const gmeChain = defineChain({
+  id: 12821,
+  name: "GME CHAIN",
+  nativeCurrency: { name: "GME", symbol: "GME", decimals: 18 },
+  rpcUrls: { default: { http: ["https://rpc.gmechain.xyz"] } },
+});</code></pre>
+        <pre class="term"><code><span class="c"># Foundry</span>
+forge create src/Counter.sol:Counter \
+  --rpc-url https://rpc.gmechain.xyz \
+  --private-key $KEY --broadcast</code></pre>
+        <ul class="doc-list">
+          <li>The standard CREATE2 deployer (<code>0x4e59…956c</code>) and Multicall are deployed at launch.</li>
+          <li>Bridged ERC-20s arrive through the standard gateway of the token bridge.</li>
+          <li>Arbitrum precompiles are available: <code>ArbSys</code> at <code>0x64</code>, <code>ArbGasInfo</code> at <code>0x6C</code>, <code>NodeInterface</code> at <code>0xC8</code>.</li>
+        </ul>
+      </section>
+
+      <section id="contracts" class="doc-sec">
+        <h2>Contract addresses</h2>
+        <p>Check an address here before you interact. Anyone can deploy look-alike tokens.</p>
+        <h3>Already on Robinhood Chain (4663)</h3>
+        <table class="doc-table addr">
+          <tbody>
+            <tr><th scope="row">GME Stock Token (gas)</th><td><code>0x1b0E319c6A659F002271B69dB8A7df2F911c153E</code></td></tr>
+            <tr><th scope="row">Uniswap v3 GME/USDG 1% (price source)</th><td><code>0xe9713f453adb9245b19559790c96f470a18f2fdf</code></td></tr>
+            <tr><th scope="row">Uniswap v3 WETH/GME 0.05% (ETH bridge route)</th><td><code>0xc6bcc95043dc48c204bb2d57fb264a10efe0a607</code></td></tr>
+            <tr><th scope="row">Uniswap SwapRouter02</th><td><code>0xcaf681a66d020601342297493863e78c959e5cb2</code></td></tr>
+            <tr><th scope="row">Uniswap QuoterV2</th><td><code>0x33e885ed0ec9bf04ecfb19341582aadcb4c8a9e7</code></td></tr>
+            <tr><th scope="row">WETH</th><td><code>0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73</code></td></tr>
+            <tr><th scope="row">Chainlink ETH / USD</th><td><code>0x78F3556b67E17Df817D51Ef5a990cDaF09E8d3A9</code></td></tr>
+          </tbody>
+        </table>
+        <h3>Mainnet, on Robinhood Chain (4663)</h3>
+        <table class="doc-table addr">
+          <tbody>
+            <tr><th scope="row">Rollup</th><td><code>0xf154270F2c2A5E42846C77C73f56f01Eb8b02f8b</code></td></tr>
+            <tr><th scope="row">Inbox (deposits)</th><td><code>0x3Bf1fBA0f56eC5e5F3150bd6c54d4d85dac4cf51</code></td></tr>
+            <tr><th scope="row">Bridge (GME escrow)</th><td><code>0x3eC38611C8a03bFC68C39a54C00972197cAA4085</code></td></tr>
+            <tr><th scope="row">Outbox (claims)</th><td><code>0x2C31e5ABCB0b06F2869a3A1bBC2a1dDD83B4ac33</code></td></tr>
+            <tr><th scope="row">Sequencer inbox</th><td><code>0x5eF54C7bDc546E8faC8D3fcd425f91c94d583cf9</code></td></tr>
+            <tr><th scope="row">GmeFeeTokenPricer</th><td><code>0x97dcc10f4f99dc0643540921efea2ee043502c24</code></td></tr>
+            <tr><th scope="row">GmeGasRouter (bridge with ETH)</th><td><code>0x150415997ad7b9a4bf724dfb552c63fe50f33ecd</code></td></tr>
+            <tr><th scope="row">Token bridge router</th><td><code>0xbabF154cBD39B06BeaC9d533c25eDa9b77E5FE87</code></td></tr>
+          </tbody>
+        </table>
+        <h3>Mainnet, on GME CHAIN (12821)</h3>
+        <table class="doc-table addr">
+          <tbody>
+            <tr><th scope="row">Wrapped GME</th><td><code>0xF47680692201c5c1615FAdc69db4A8Ad6fFA0B01</code></td></tr>
+            <tr><th scope="row">Exchange factory</th><td><code>0x4eCCaB543cD16949c40bE19bbAA2542c3a0EA074</code></td></tr>
+            <tr><th scope="row">Exchange router</th><td><code>0x14B24b2ef37e3C9b39D8942fDe9666281E54d8b7</code></td></tr>
+            <tr><th scope="row">Token bridge router</th><td><code>0x03e1B1ebf8428eb4176c10f604fc222A360Ada50</code></td></tr>
+          </tbody>
+        </table>
+        <h3>Testnet (12822)</h3>
+        <table class="doc-table addr">
+          <tbody>
+            <tr><th scope="row">tGME (Robinhood Testnet)</th><td><code>0x65325eee8c55a7a0f8977863a4e5397490cd38c7</code></td></tr>
+            <tr><th scope="row">Inbox (Robinhood Testnet)</th><td><code>0x80FE43145A1EE63E355D93d30086B5F2eBF0F998</code></td></tr>
+            <tr><th scope="row">Bridge (Robinhood Testnet)</th><td><code>0x0A259F55FF61d16D9e167CF09FecdDBA09C80CC7</code></td></tr>
+            <tr><th scope="row">Wrapped tGME</th><td><code>0xe05553A07674EcDAcFC34d71851496FA8792d3D3</code></td></tr>
+            <tr><th scope="row">Exchange router</th><td><code>0xaaf27Fe96a0944e29C4919830388c1d66Ad2A9de</code></td></tr>
+            <tr><th scope="row">tUSD</th><td><code>0x03626Eff4afd998Fae80556dceB98F7910eEAB36</code></td></tr>
+          </tbody>
+        </table>
+        <p class="muted-note">The full list, with every gateway and helper, is in <a href="https://github.com/GMEchain/gme-chain/blob/main/docs/contracts.md" target="_blank" rel="noopener">docs/contracts.md</a>.</p>
+        <p class="muted-note">Several unrelated tokens on Robinhood Chain call themselves "GameStop" or "GME". Only the GME Stock Token above is the gas token.</p>
+      </section>
+
+      <section id="trust" class="doc-sec">
+        <h2>Trust model and risks</h2>
+        <ul class="doc-list">
+          <li><b>One operator at launch.</b> A single operator runs the sequencer, the batch poster and the validator. That is normal for a new Arbitrum chain and the main thing you are trusting.</li>
+          <li><b>Censorship has a way out.</b> If the sequencer ignores you, you can push a transaction through the delayed inbox on Robinhood Chain; it must be included after 4 days (28,800 Ethereum blocks).</li>
+          <li><b>Wrong state can be challenged.</b> The validator posts a bond and its claims can be disputed with BoLD fraud proofs during the challenge window (~7 days on mainnet, ~30 minutes on testnet).</li>
+          <li><b>Upgrades are possible.</b> The chain's contracts can be upgraded by its owner through the upgrade executor. There is no timelock or multisig yet.</li>
+          <li><b>The gas token has an issuer.</b> Robinhood can pause, block, burn and upgrade GME (see <a href="#gme">About the GME Stock Token</a>).</li>
+          <li><b>Beta software.</b> The bridge and swap pages and the GmeGasRouter are new and not externally audited; they sit over audited Arbitrum and Uniswap contracts. Use amounts you can afford to have delayed.</li>
+          <li><b>Price risk.</b> GME tracks a share price. Your gas balance's dollar value moves with it.</li>
+        </ul>
+        <h3>How the code is checked</h3>
+        <ul class="doc-list">
+          <li><b>Open source.</b> Every contract, script and page is on <a href="https://github.com/GMEchain/gme-chain" target="_blank" rel="noopener">GitHub</a> (MIT).</li>
+          <li><b>Automatic tests.</b> Every change runs the contract tests (unit, fuzz, and fork tests against Robinhood Chain mainnet) and a check that no keys are committed: <a href="https://github.com/GMEchain/gme-chain/actions/workflows/ci.yml" target="_blank" rel="noopener">CI results</a>.</li>
+          <li><b>On-chain code = this code.</b> CI compiles the sources and compares them byte for byte with every contract deployed on mainnet; anyone can run the same check. Every contract, operator wallet, owner power and fee flow is listed in <a href="https://github.com/GMEchain/gme-chain/blob/main/TRANSPARENCY.md" target="_blank" rel="noopener">TRANSPARENCY.md</a>.</li>
+          <li><b>Slither security scan.</b> CI runs Slither, the static analyzer auditors use, on every change and fails on any high-severity finding. Each run's report is on its CI summary page.</li>
+          <li><b>Not an audit.</b> These are automatic checks. The contracts have not had an external audit yet.</li>
+        </ul>
+      </section>
+
+      <section id="faq" class="doc-sec">
+        <h2>FAQ</h2>
+        <div class="faq-list">
+          <details><summary>Do I need ETH on GME CHAIN?</summary><p>No. Gas on GME CHAIN is GME. You only need a little ETH on Robinhood Chain to make the deposit and, later, to claim a withdrawal.</p></details>
+          <details><summary>How long does withdrawing take?</summary><p>About 7 days on mainnet and about an hour on testnet. Withdrawals wait for the validator's claim to survive the challenge window, the same rule as Arbitrum One; testnet uses a short window so the whole flow can be tried. The bridge page shows a countdown. Deposits do not wait.</p></details>
+          <details><summary>Can I bridge from a Safe or another smart wallet?</summary><p>Not through the bridge page. Deposits from contracts are credited to an aliased address on GME CHAIN. Use a regular wallet.</p></details>
+          <details><summary>Does holding the GME CHAIN token give me anything at GameStop?</summary><p>No. $GMEC is for GME CHAIN only; its uses are announced together with its contract. It has no connection to GameStop.</p></details>
+          <details><summary>What happens if GME is paused by its issuer?</summary><p>Transfers on Robinhood Chain stop, so deposits and claims stop too. GME already on GME CHAIN keeps working as gas there.</p></details>
+          <details><summary>Is there a block explorer?</summary><p>Yes. The <a href="/explorer/testnet/">GME CHAIN Explorer</a> shows blocks, transactions and addresses live from the chain, for mainnet and testnet.</p></details>
+        </div>
+      </section>
+
+      <section id="glossary" class="doc-sec">
+        <h2>Glossary</h2>
+        <dl class="glossary">
+          <div><dt>Layer 3 (L3)</dt><dd>A chain that settles to a Layer 2. GME CHAIN settles to Robinhood Chain, which settles to Ethereum.</dd></div>
+          <div><dt>Sequencer</dt><dd>The service that orders transactions into blocks.</dd></div>
+          <div><dt>Batch poster</dt><dd>Posts compressed blocks to the parent chain so anyone can rebuild the chain.</dd></div>
+          <div><dt>Validator / BoLD</dt><dd>Posts claims about the chain's state with a bond; BoLD is Arbitrum's dispute protocol for challenging wrong claims.</dd></div>
+          <div><dt>Challenge window</dt><dd>The time a claim must survive before withdrawals it covers can be claimed: ~7 days on mainnet, ~30 minutes on testnet.</dd></div>
+          <div><dt>Fee token pricer</dt><dd>The contract that converts parent-chain costs (ETH) into GME using Chainlink ETH/USD and the GME price.</dd></div>
+          <div><dt>WGME</dt><dd>Wrapped GME, the ERC-20 form of GME used by the exchange. Always one to one.</dd></div>
+        </dl>
+      </section>
+
+      <nav class="doc-next" aria-label="Next steps">
+        <a class="app-card spot" href="../bridge/"><span class="app-no">Next</span><span class="app-name">Bridge</span><span class="app-go">Move GME in <span aria-hidden="true">→</span></span></a>
+        <a class="app-card spot" href="../swap/"><span class="app-no">Then</span><span class="app-name">Swap</span><span class="app-go">Trade on GME CHAIN <span aria-hidden="true">→</span></span></a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- @footer -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="logo" href="/" aria-label="GME CHAIN home">
+          <svg class="logo-mark" aria-hidden="true"><use href="#i-mark"/></svg>
+          <span class="logo-word">GME<em>chain</em></span>
+        </a>
+        <p>The chain that runs on GME. Bring ETH from Robinhood Chain, get GME gas, trade.</p>
+        <button class="copy-chip" type="button" data-copy="0x1b0E319c6A659F002271B69dB8A7df2F911c153E" aria-label="Copy the GME token contract address"><span>GME token</span><code>0x1b0E…153E</code><svg aria-hidden="true"><use href="#i-copy"/></svg></button>
+      </div>
+      <div>
+        <h2 class="foot-h">Play</h2>
+        <ul><li><a href="/bridge/">Bridge</a></li><li><a href="/swap/">Swap</a></li><li><a href="/explorer/" data-explorer>Explorer</a></li></ul>
+      </div>
+      <div>
+        <h2 class="foot-h">Learn</h2>
+        <ul><li><a href="/#start">How it works</a></li><li><a href="/docs/">Docs</a></li><li><a href="/roadmap/">Roadmap</a></li><li><a href="/#faq">FAQ</a></li></ul>
+      </div>
+      <div>
+        <h2 class="foot-h">Network</h2>
+        <ul><li><a href="/#build">Network details</a></li><li><a href="/#risk">Risks</a></li><li><a href="https://robinhoodchain.blockscout.com/token/0x1b0E319c6A659F002271B69dB8A7df2F911c153E" target="_blank" rel="noopener">GME on Blockscout <span aria-hidden="true">↗</span></a></li></ul>
+      </div>
+    </div>
+    <canvas class="foot-word" data-wordmark aria-hidden="true"></canvas>
+    <div class="foot-base">
+      <p>GME CHAIN is independent and not affiliated with GameStop Corp., Robinhood Markets, Inc. or Offchain Labs. Names are used only to describe the assets and technology involved. Nothing on this site is investment advice or an offer of securities. Tokenized stocks carry market, issuer and regulatory risk and are not available everywhere.</p>
+      <p>© 2026 GME CHAIN</p>
+    </div>
+  </div>
+</footer>
+<!-- /@footer -->
+
+  <script type="module" src="../js/appchrome.js"></script>
+  <script type="module" src="../js/docs.js"></script>
+  <script src="/js/site.js" defer></script>
+</body>
+</html>
