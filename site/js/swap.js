@@ -379,10 +379,11 @@ function start() {
     const lo = Math.min(...pts), hi = Math.max(...pts), pad = 24;
     const X = (i) => pad + (i / (pts.length - 1)) * (w - pad * 2);
     const Y = (v) => h - pad - ((v - lo) / (hi - lo || 1)) * (h - pad * 2);
-    const g = ctx.createLinearGradient(0, 0, 0, h); g.addColorStop(0, "rgba(43, 255, 136, .28)"); g.addColorStop(1, "rgba(43, 255, 136, 0)");
+    const rgb = pts[pts.length - 1] >= pts[0] ? "59, 224, 126" : "255, 45, 45"; // up: --ok green, down: GME red
+    const g = ctx.createLinearGradient(0, 0, 0, h); g.addColorStop(0, `rgba(${rgb}, .28)`); g.addColorStop(1, `rgba(${rgb}, 0)`);
     ctx.beginPath(); pts.forEach((v, i) => (i ? ctx.lineTo(X(i), Y(v)) : ctx.moveTo(X(i), Y(v)))); ctx.lineTo(X(pts.length - 1), h - pad); ctx.lineTo(X(0), h - pad); ctx.fillStyle = g; ctx.fill();
-    ctx.beginPath(); pts.forEach((v, i) => (i ? ctx.lineTo(X(i), Y(v)) : ctx.moveTo(X(i), Y(v)))); ctx.strokeStyle = "#2BFF88"; ctx.lineWidth = 2; ctx.stroke();
-    ctx.fillStyle = "#A9B1BA"; ctx.font = "500 12px 'JetBrains Mono', monospace";
+    ctx.beginPath(); pts.forEach((v, i) => (i ? ctx.lineTo(X(i), Y(v)) : ctx.moveTo(X(i), Y(v)))); ctx.strokeStyle = `rgb(${rgb})`; ctx.lineWidth = 2; ctx.stroke();
+    ctx.fillStyle = "#A9B1BA"; ctx.font = "500 12px 'M PLUS 1 Code', ui-monospace, monospace";
     ctx.fillText(`${pts[pts.length - 1].toPrecision(5)} ${S.out.symbol}`, pad, 16);
   }
   [btnIn, btnOut, $("[data-flip]")].forEach((b) => b.addEventListener("click", () => setTimeout(chart, 0)));
