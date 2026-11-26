@@ -24,6 +24,8 @@ const MAX_BYTES = 300 * 1024;
 const PER_HOUR = Number(process.env.UPLOADS_PER_HOUR || 30);
 const MAX_TOTAL = Number(process.env.MAX_TOTAL_MB || 2000) * 1024 * 1024;
 fs.mkdirSync(DIR, { recursive: true });
+const writable = () => { try { fs.accessSync(DIR, fs.constants.W_OK); return true; } catch { return false; } };
+if (!writable()) console.error(`${DIR} is not writable by this user: uploads will fail`);
 
 const TYPES = { png: "image/png", jpg: "image/jpeg", webp: "image/webp" };
 /** Image type from the file's first bytes (magic numbers), or null. */
@@ -59,7 +61,7 @@ const json = (res, code, body) => { res.writeHead(code, { "content-type": "appli
 http.createServer(async (req, res) => {
   try {
     const url = new URL(req.url, "https://media.local");
-    if (req.method === "GET" && url.pathname === "/health") return json(res, 200, { ok: true, files: fs.readdirSync(DIR).length, totalMB: Math.round(total / 1048576) });
+    if (req.method === "GET" && url.pathname === "/health") return json(res, 200, { ok: true, writable: writable(), files: fs.readdirSync(DIR).length, totalMB: Math.round(total / 1048576) });
 
     const m = /^\/i\/([0-9a-f]{64})\.(png|jpg|webp)$/.exec(url.pathname);
     if ((req.method === "GET" || req.method === "HEAD") && m) {

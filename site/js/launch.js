@@ -313,7 +313,11 @@ $("[data-create]").addEventListener("submit", async (e) => {
   btn.disabled = true;
   try {
     let image = "";
-    if (imageBlob) { status(msg, "Uploading the image…"); image = await uploadImage(imageBlob); }
+    if (imageBlob) {
+      status(msg, "Uploading the image…");
+      try { image = await uploadImage(imageBlob); }
+      catch (err) { throw new Error(`${err.message.replace(/\.?$/, ".")} You can also press Remove under the image and create the token without one.`); }
+    }
     const meta = JSON.stringify({ description: f.description.value.trim(), ...(image ? { image } : {}), ...(link ? { link } : {}) });
     const cFee = await read("createFee");
     const need = cFee + buyAmt;

@@ -146,7 +146,7 @@ http.createServer(async (req, res) => {
         l3.getBalance({ address: me.address }).catch(() => 0n),
       ]);
       const open = !!COST && redeemer?.toLowerCase() === me.address.toLowerCase() && gasLeft >= GAS * 2n; // same rule as a claim; the pot is filled from launchpad fee income only
-      return json(res, 200, { ok: true, open, network: NETWORK, staking: STAKING, redeemer: me.address, gasPerClaim: formatEther(GAS), creditsPerClaim: COST ? formatEther(COST) : null, budgetLeftToday: formatEther(BUDGET > spentToday ? BUDGET - spentToday : 0n), poolGas: formatEther(gasLeft), pending: pending.length });
+      return json(res, 200, { ok: true, open, network: NETWORK, staking: STAKING, redeemer: me.address, gasPerClaim: formatEther(GAS), creditsPerClaim: COST ? formatEther(COST) : null, budgetLeftToday: formatEther(BUDGET > spentToday ? BUDGET - spentToday : 0n), stateWritable: (() => { try { fs.mkdirSync(path.dirname(STATE_FILE), { recursive: true }); fs.accessSync(path.dirname(STATE_FILE), fs.constants.W_OK); return true; } catch { return false; } })(), poolGas: formatEther(gasLeft), pending: pending.length });
     }
     if (req.method !== "POST" || !req.url.startsWith("/claim")) return json(res, 404, { error: "not found" });
     let body = "";

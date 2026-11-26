@@ -27,6 +27,7 @@ echo "wallet bundle: $(ls $APP/site/js/walletkit | wc -l) files, viem.js $(test 
 cd $APP/deploy/vps
 cp $SRC/deploy/vps/Caddyfile.internal Caddyfile.internal
 cp $SRC/deploy/vps/docker-compose.coolify.yml docker-compose.coolify.yml
+cp $SRC/deploy/vps/Dockerfile.scripts Dockerfile.scripts # the image of every chain service
 if ! docker run --rm -v "$PWD/Caddyfile.internal:/etc/caddy/Caddyfile:ro" caddy:2.8.4-alpine caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile >/tmp/caddy-validate.log 2>&1; then
   tail -5 /tmp/caddy-validate.log; cp "$B/Caddyfile.internal" "$B/docker-compose.coolify.yml" .; echo "CADDYFILE INVALID, restored the old one"; exit 1
 fi
@@ -40,6 +41,8 @@ cp $SRC/chain/package.json $SRC/chain/package-lock.json $SRC/chain/deployment.ma
 # withdrawal delivery wallets: generated here once, the key never leaves this server
 DC="docker compose -f docker-compose.coolify.yml --profile chain --profile testnet"
 $DC build -q keeper
+# the services run as the image's "node" user (uid 1000): their data volumes must belong to it
+for v in gmechain_media_data gmechain_credits_data; do docker volume create "$v" >/dev/null; docker run --rm -v "$v":/d alpine:3.20 chown -R 1000:1000 /d; done
 newkey() { # $1 = env file, $2 = file to copy PARENT_RPC from, $3 = variable prefix (default CLAIMER)
   [ -s "secrets/$1" ] && return 0
   P=${3:-CLAIMER}
@@ -63,6 +66,7 @@ docker logs --tail 2 gmechain-claimer-1 2>&1 | cut -c1-200
 docker logs --tail 2 gmechain-claimer-testnet-1 2>&1 | cut -c1-200
 echo "--- gas credits wallet (staking redeemer; use it for scripts/09-credits-setup.js): $(grep '^REDEEMER_ADDRESS=' secrets/credits.env | cut -d= -f2)"
 printf 'media -> '; curl -s -m 10 https://gmechain.xyz/media/health; echo
+printf 'credits -> '; curl -s -m 10 https://gmechain.xyz/api/credits/info; echo
 
 echo "--- check"
 docker ps --format '{{.Names}} {{.Status}}' | grep gmechain
