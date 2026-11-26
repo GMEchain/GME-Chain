@@ -9,6 +9,9 @@ What has been built on GME CHAIN, newest first. Dates are UTC. Every on-chain va
 - Assertions confirm in order and each keeps its parent's window, so the one-day window is fully in effect from about **2026-12-04**. Mainnet is not open yet.
 - The site, the docs, the bridge countdown and the roadmap all show the new time.
 
+### Tested on mainnet with real funds
+- The day-one user flow ran on mainnet from the deployer with small amounts ([chain/scripts/mainnet-smoke.js](chain/scripts/mainnet-smoke.js)): 0.001 ETH bridged through GmeGasRouter and arrived as GME gas, 0.01 GME swapped for USDG on the exchange, a GME transfer, and a 0.01 GME withdrawal started back to Robinhood Chain (the first mainnet withdrawal, tx `0x7807e5e3d22464d112c2182206af1ec1ce6264383d781f58c8f8058401eba4d4` on GME CHAIN). That withdrawal is delivered after the challenge window.
+
 ### Exchange
 - **First pool: GME/USDG.** A starter pool of 2 GME and 53.47 USDG, opened at the market price of Robinhood Chain's deepest GME pool (pair [`0x0cc2…B85f`](docs/contracts.md)). USDG is Global Dollar bridged from Robinhood Chain through the canonical token bridge. The deployer holds the LP tokens; anyone can add liquidity.
 
