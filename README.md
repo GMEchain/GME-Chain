@@ -12,8 +12,21 @@
   <a href="https://gmechain.xyz/docs/">Docs</a> ·
   <a href="https://gmechain.xyz/roadmap/">Roadmap</a> ·
   <a href="CHANGELOG.md">Changelog</a> ·
+  <a href="https://gmechain.xyz/launch/">Launchpad</a> ·
+  <a href="https://gmechain.xyz/stake/">Stake</a> ·
   <a href="https://x.com/GMEChainXYZ">X</a>
 </p>
+
+## $GMEC, the official token
+
+| | |
+|---|---|
+| Contract | [`0xa8c53b1dAcFbd07895dC8D2c638F1bFDe10C0122`](https://robinhoodchain.blockscout.com/token/0xa8c53b1dAcFbd07895dC8D2c638F1bFDe10C0122) |
+| Chain | Robinhood Chain (chain ID 4663) |
+| Name / symbol | GME Chain / GMEC, 18 decimals |
+| Trade | [FOMO](https://fomo.family/tokens/robinhood/0xa8c53b1dacfbd07895dc8d2c638f1bfde10c0122) · [Pons](https://ponsfamily.com/launchpad/0xa8c53b1dacfbd07895dc8d2c638f1bfde10c0122) |
+
+This is the only $GMEC published by GME CHAIN, here and on [gmechain.xyz](https://gmechain.xyz). Other tokens using the GMEC ticker are not ours. Gas on GME CHAIN is always GME; $GMEC is used for [staking for gas credits](docs/staking-guide.md) and is bought back and burned from [exchange and launchpad fees](docs/fee-burn.md).
 
 ---
 
