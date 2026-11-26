@@ -13,6 +13,9 @@
 		Referrer-Policy strict-origin-when-cross-origin
 		X-Frame-Options DENY
 		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		# Scripts only from this site, the TradingView chart and one hashed inline line (adds the "js" class).
+		# connect-src stays open to https/wss because wallets talk to RPCs and relays of their own choosing.
+		Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-WZRJfWvsnNCPcxzZwvyhovnZGqhZaC+8gPGPRbx6wTk=' 'wasm-unsafe-eval' https://s3.tradingview.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https: wss:; frame-src https://*.tradingview.com https://*.tradingview-widget.com https://*.walletconnect.org https://*.walletconnect.com https://keys.coinbase.com; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
 		-Server
 	}
 

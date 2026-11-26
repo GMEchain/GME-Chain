@@ -108,7 +108,6 @@ export const LIVE = {
 // Where the site reads the live GME price: the Uniswap v3 GME/USDG pool on Robinhood Chain (the same pool the
 // keeper uses), and once GME CHAIN mainnet exists, its fee pricer as a fallback. Read-only.
 export const PRICE_SOURCE = { pool: UNISWAP.pools.gmeUsdg1, pricer: PROFILES.mainnet.ADDR.pricer, rpcs: PROFILES.mainnet.L2.rpcs };
-export const VIEM = "https://cdn.jsdelivr.net/npm/viem@2.21.60/+esm";
 
 // WalletConnect Cloud project id (cloud.reown.com), allow-listed for gmechain.xyz. Empty = browser wallets only.
 export const WALLETCONNECT_PROJECT_ID = "ea1a8f037bfb827e204cc89e6ef534dd";

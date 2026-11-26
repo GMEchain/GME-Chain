@@ -27,6 +27,10 @@ services:
       traefik.http.middlewares.gme-https.redirectscheme.scheme: https
       traefik.http.middlewares.gme-https.redirectscheme.permanent: "true"
       traefik.http.middlewares.gme-hsts.headers.stsSeconds: "31536000"
+      # per client IP on the public RPCs: a JSON-RPC batch counts as one request
+      traefik.http.middlewares.gme-rpc-limit.ratelimit.average: "40"
+      traefik.http.middlewares.gme-rpc-limit.ratelimit.burst: "120"
+      traefik.http.middlewares.gme-rpc-limit.ratelimit.period: 1s
       traefik.http.routers.gme-http.entrypoints: http
       traefik.http.routers.gme-http.rule: Host(`${SITE_HOST:?set SITE_HOST in deploy/vps/.env}`) || Host(`www.${SITE_HOST}`) || Host(`${SITE_ALIAS:-alias.invalid}`)
       traefik.http.routers.gme-http.middlewares: gme-https
@@ -70,6 +74,7 @@ services:
       traefik.http.routers.gme-rpc-http.middlewares: gme-https
       traefik.http.routers.gme-rpc.entrypoints: https
       traefik.http.routers.gme-rpc.rule: Host(`${RPC_HOST:-rpc.invalid}`)
+      traefik.http.routers.gme-rpc.middlewares: gme-rpc-limit
       traefik.http.routers.gme-rpc.tls: "true"
       traefik.http.routers.gme-rpc.tls.certresolver: letsencrypt
       traefik.http.routers.gme-rpc.service: gme-rpc
@@ -77,6 +82,7 @@ services:
       traefik.http.routers.gme-ws.entrypoints: https
       traefik.http.routers.gme-ws.rule: Host(`${RPC_HOST:-rpc.invalid}`) && Header(`Upgrade`, `websocket`)
       traefik.http.routers.gme-ws.priority: "100"
+      traefik.http.routers.gme-ws.middlewares: gme-rpc-limit
       traefik.http.routers.gme-ws.tls: "true"
       traefik.http.routers.gme-ws.tls.certresolver: letsencrypt
       traefik.http.routers.gme-ws.service: gme-ws
@@ -129,6 +135,7 @@ services:
       traefik.http.routers.gme-trpc-http.middlewares: gme-https
       traefik.http.routers.gme-trpc.entrypoints: https
       traefik.http.routers.gme-trpc.rule: Host(`${RPC_TESTNET_HOST:-rpc-testnet.invalid}`)
+      traefik.http.routers.gme-trpc.middlewares: gme-rpc-limit
       traefik.http.routers.gme-trpc.tls: "true"
       traefik.http.routers.gme-trpc.tls.certresolver: letsencrypt
       traefik.http.routers.gme-trpc.service: gme-trpc
@@ -136,6 +143,7 @@ services:
       traefik.http.routers.gme-tws.entrypoints: https
       traefik.http.routers.gme-tws.rule: Host(`${RPC_TESTNET_HOST:-rpc-testnet.invalid}`) && Header(`Upgrade`, `websocket`)
       traefik.http.routers.gme-tws.priority: "100"
+      traefik.http.routers.gme-tws.middlewares: gme-rpc-limit
       traefik.http.routers.gme-tws.tls: "true"
       traefik.http.routers.gme-tws.tls.certresolver: letsencrypt
       traefik.http.routers.gme-tws.service: gme-tws

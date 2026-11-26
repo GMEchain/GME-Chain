@@ -64,7 +64,7 @@ The fee pricer converts the chain's ETH costs into GME using Chainlink's ETH/USD
 
 ## Know the risks
 
-- **One operator** runs the sequencer, the batch poster and the validator today. The validator posts a bond and its claims can be challenged during the window.
+- **One operator** runs the sequencer, the batch poster and the validator today. The validator posts a bond; while the allowlist is on, only our validator can post or dispute state claims.
 - **GME is issued by Robinhood.** If the issuer pauses GME, deposits and withdrawals of GME pause too.
 - **The contracts have not had an external audit yet.** Start with amounts you are comfortable with.
 - GME CHAIN is independent and is not affiliated with GameStop Corp., Robinhood Markets, Inc. or Offchain Labs. Nothing here is an offer or investment advice.

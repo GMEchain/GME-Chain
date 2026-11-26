@@ -71,6 +71,7 @@ Testnet runs its own wallets, all holding test tokens only. Two of them act in p
 - **No external audit.** The contracts are covered by automated tests (unit, fuzz and fork), which are not an audit.
 - **No multisig or timelock** at launch. One key controls upgrades and settings.
 - **One operator** runs the sequencer, batch poster and validator.
+- **Validator allowlist is on.** Only our validator can post state claims or dispute them (`validatorWhitelistDisabled()` is `false` on the rollup). It opens once the bond is raised from 0.01 WETH.
 - **Off-chain services** (price keeper, monitor, testnet faucet and pulse) run on the operator's server with only their own keys there; their code is in [chain/scripts](chain/scripts) and the server layout in [deploy/vps](deploy/vps).
 
 ## How to report a problem

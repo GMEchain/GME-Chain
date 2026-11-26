@@ -28,7 +28,7 @@ if (tok === 0n) throw new Error("Deployer holds no gas token; it pays the retrya
 const chainConfig = prepareChainConfig({
   chainId: CHAIN_ID,
   arbitrum: {
-    InitialChainOwner: deployer.address, // moved to the Safe multisig by 05-transfer-ownership.js
+    InitialChainOwner: deployer.address, // to be moved to a multisig (see TRANSPARENCY.md)
     DataAvailabilityCommittee: false, // Rollup mode: all data posted to Robinhood Chain
   },
 });

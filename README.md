@@ -10,7 +10,8 @@
   <a href="https://gmechain.xyz">Website</a> ·
   <a href="https://gmechain.xyz/bridge/">Bridge</a> ·
   <a href="https://gmechain.xyz/docs/">Docs</a> ·
-  <a href="https://gmechain.xyz/roadmap/">Roadmap</a>
+  <a href="https://gmechain.xyz/roadmap/">Roadmap</a> ·
+  <a href="https://x.com/GMEChainXYZ">X</a>
 </p>
 
 ---
@@ -79,7 +80,7 @@ flowchart LR
 2. **You sign** transactions on GME CHAIN and pay gas in GME.
 3. **The sequencer** orders them into blocks, usually within a second.
 4. **The batch poster** posts compressed blocks to Robinhood Chain. It pays ETH there and is repaid in GME at a rate from Chainlink ETH/USD and the GME price ([`GmeFeeTokenPricer.sol`](chain/contracts/GmeFeeTokenPricer.sol)). The keeper feeds that price from the 30-minute TWAP of the deepest GME pool, checked against a second pool and an off-chain quote.
-5. **A bonded validator** posts the resulting state. Anyone can challenge a wrong claim during the challenge window (BoLD).
+5. **A bonded validator** posts the resulting state. A wrong claim can be disputed during the challenge window (BoLD); at launch the validator allowlist is on, so only our validator can post or dispute claims.
 6. **Ethereum** has the final say, through Robinhood Chain.
 
 More: [docs/how-it-works.md](docs/how-it-works.md)
@@ -124,7 +125,7 @@ Chain: [chain/README.md](chain/README.md). Server: [docs/vps-guide.md](docs/vps-
 
 ## Trust model
 
-At launch one operator runs the sequencer, the batch poster and the validator. That is normal for a new Arbitrum chain and it is the main trust assumption to know about: the sequencer can delay or reorder transactions, but it cannot forge state, because the validator's claims are bonded and open to challenge, and withdrawals wait for the challenge window. Chain ownership starts with the deployer key and is planned to move to a multisig.
+At launch one operator runs the sequencer, the batch poster and the validator. That is normal for a new Arbitrum chain and it is the main trust assumption to know about: the sequencer can delay or reorder transactions, and while the validator allowlist is on, withdrawals rely on the operator's validator posting honest state. Every batch is public on Robinhood Chain, so anyone can check it, and withdrawals wait for the challenge window. Chain ownership starts with the deployer key and is planned to move to a multisig.
 
 ## Security
 

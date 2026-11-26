@@ -17,7 +17,7 @@ GME CHAIN is an [Arbitrum Orbit](https://docs.arbitrum.io/launch-orbit-chain/orb
 1. **Sign.** Your wallet sends a transaction to the GME CHAIN RPC. Gas is priced and paid in GME (tGME on testnet). Balances and `msg.value` are in GME too.
 2. **Order.** The sequencer puts it in a block and returns a receipt, usually within a second.
 3. **Batch.** The batch poster compresses many blocks into one batch and posts it to the SequencerInbox on Robinhood Chain. That is where the chain's data lives; anyone can rebuild GME CHAIN's state from it.
-4. **Vouch.** A bonded validator posts an assertion: a claim about the resulting state. During the challenge window anyone can dispute a wrong claim with a fraud proof (BoLD).
+4. **Vouch.** A bonded validator posts an assertion: a claim about the resulting state. During the challenge window a wrong claim can be disputed with a fraud proof (BoLD). At launch the validator allowlist is on, so only our validator can post or dispute claims.
 5. **Settle.** Robinhood Chain settles to Ethereum, so GME CHAIN shares the root of trust of every Arbitrum chain.
 
 ## Paying for the parent chain in GME
@@ -62,9 +62,9 @@ These controls apply to every chain that uses a Robinhood stock token as gas. If
 
 | Role | Today |
 |---|---|
-| Sequencer, batch poster, validator | one operator (us) |
+| Sequencer, batch poster, validator (allowlisted) | one operator (us) |
 | Chain owner (upgrades, settings) | deployer key |
 | Keeper (GME/USD price) | one operator (us) |
 | Infrastructure | One VPS: Nitro node, website, keeper, monitor ([deploy/vps](../deploy/vps)) |
 
-This is normal for a new Arbitrum chain, and it is the main trust assumption to know about. The sequencer can delay or reorder transactions but cannot forge state, because the validator's claims are bonded and can be challenged, and withdrawals wait for the challenge window.
+This is normal for a new Arbitrum chain, and it is the main trust assumption to know about. The sequencer can delay or reorder transactions. While the validator allowlist is on, withdrawals rely on our validator posting honest state; every batch is public on Robinhood Chain so anyone can check it, and withdrawals wait for the challenge window.

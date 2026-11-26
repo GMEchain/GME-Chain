@@ -1,11 +1,12 @@
 // Shared wallet + RPC helpers for the bridge and swap apps.
 // Wallet selection runs through RainbowKit (js/walletkit, window.gmeWallet); a plain injected wallet is the fallback.
-import { L2, L3, VIEM, TOKEN } from "./config.js";
+import { L2, L3, TOKEN } from "./config.js";
 
-// viem and RainbowKit come from our own bundle (js/walletkit); the CDN copy of viem is only a fallback.
+// viem and RainbowKit come from our own bundle (js/walletkit). Without RainbowKit, viem alone (also self-hosted)
+// still drives the injected wallet. Nothing is loaded from a CDN.
 let viemMod = null;
 try { viemMod = (await import("./walletkit/index.js")).viem; } catch (e) { console.warn("RainbowKit unavailable, using the injected wallet", e); }
-if (!viemMod) viemMod = await import(VIEM);
+if (!viemMod) viemMod = (await import("./walletkit/viem.js")).viem;
 export const viem = viemMod;
 const { createPublicClient, createWalletClient, custom, http, fallback, defineChain } = viem;
 
