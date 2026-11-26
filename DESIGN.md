@@ -39,6 +39,8 @@ Pixel type, like a jersey number on an arcade cabinet. All fonts are self-hosted
 - Motion: tape, blinking "PRESS START", hopping markers, the countdown, values that bump when they change.
   Everything stops under `prefers-reduced-motion`.
 - The explorer is the "game log": a scoreboard with zero-padded counters, a stage-select grid of the latest 48 blocks, and CRT screens (scanlines) for blocks as a high-score table and transactions as a move log. It polls every 5 seconds and flashes new rows in.
+- Docs are the "player's manual": contents with page numbers (P.01…) and dotted leaders, every section a page with a red P.xx tab, steps as control-pad buttons, tips and warnings as HINT / WARNING boxes.
+- The roadmap is the "world map": each phase a world with a segmented progress bar, each item a stage marked Clear, Live, Next or Locked.
 - No badges or pills. No diamonds.
 
 ## Files
