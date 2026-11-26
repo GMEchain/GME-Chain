@@ -17,12 +17,13 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://gmechain.xyz/og.png?v=2">
+  <meta name="twitter:site" content="@GMEChainXYZ">
   <!-- @head -->
 <meta name="theme-color" content="#000000">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23000000'/%3E%3Cpath d='M12 12V6.4a1.6 1.6 0 0 1 1.6-1.6h4.8A1.6 1.6 0 0 1 20 6.4V12h5.6a1.6 1.6 0 0 1 1.6 1.6v4.8a1.6 1.6 0 0 1-1.6 1.6H20v5.6a1.6 1.6 0 0 1-1.6 1.6h-4.8a1.6 1.6 0 0 1-1.6-1.6V20H6.4a1.6 1.6 0 0 1-1.6-1.6v-4.8A1.6 1.6 0 0 1 6.4 12Z' fill='none' stroke='%23FF2D2D' stroke-width='2.4' stroke-linejoin='round'/%3E%3Cpath d='M16 6.8 18.8 11.2H13.2Z' fill='%23FF2D2D'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Chakra+Petch:wght@400;500;600;700&family=Big+Shoulders+Display:wght@900&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=BIZ+UDPGothic:wght@400;700&family=DotGothic16&family=M+PLUS+1+Code:wght@400;600&family=Big+Shoulders+Display:wght@900&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/docs.css">
   <link rel="stylesheet" href="/walletkit.css">
@@ -140,7 +141,7 @@
       </section>
 
       <section id="testnet" class="doc-sec" data-keep-net>
-        <h2>Testnet <span class="tag-soon">Opening soon</span></h2>
+        <h2>Testnet <span class="tag-soon">Live</span></h2>
         <p>GME CHAIN Testnet will run the same software as mainnet, with <strong>tGME</strong>, a free test token with no value, as gas. It opens first, before mainnet, so you can try every feature for free; the values below are reserved for it.</p>
         <table class="doc-table">
           <tbody>
@@ -213,7 +214,7 @@
           <li><b>You sign.</b> Your wallet sends a transaction to GME CHAIN and pays gas in GME.</li>
           <li><b>The sequencer orders it</b> into a block within a second or two.</li>
           <li><b>A batch lands on Robinhood Chain.</b> Blocks are compressed and posted to the sequencer inbox. The batch poster pays ETH for that and is repaid in GME.</li>
-          <li><b>A validator vouches for it.</b> A bonded validator posts the resulting state using BoLD fraud proofs. Anyone can challenge a wrong claim during the challenge window: about 7 days on mainnet, about 30 minutes on testnet. Counting the batch and the claim itself, a testnet withdrawal can be claimed 45 to 60 minutes after it starts.</li>
+          <li><b>A validator vouches for it.</b> A bonded validator posts the resulting state using BoLD fraud proofs, and a wrong claim can be disputed during the challenge window: about 7 days on mainnet, about 30 minutes on testnet. At launch the validator allowlist is on, so only our validator can post or dispute claims. Counting the batch and the claim itself, a testnet withdrawal can be claimed 45 to 60 minutes after it starts.</li>
           <li><b>Ethereum has the final say.</b> Robinhood Chain settles to Ethereum, so GME CHAIN shares its root of trust with every Arbitrum chain.</li>
         </ol>
         <h3>How fees are priced</h3>
@@ -411,7 +412,7 @@ forge create src/Counter.sol:Counter \
         <ul class="doc-list">
           <li><b>One operator at launch.</b> A single operator runs the sequencer, the batch poster and the validator. That is normal for a new Arbitrum chain and the main thing you are trusting.</li>
           <li><b>Censorship has a way out.</b> If the sequencer ignores you, you can push a transaction through the delayed inbox on Robinhood Chain; it must be included after 4 days (28,800 Ethereum blocks).</li>
-          <li><b>Wrong state can be challenged.</b> The validator posts a bond and its claims can be disputed with BoLD fraud proofs during the challenge window (~7 days on mainnet, ~30 minutes on testnet).</li>
+          <li><b>The validator allowlist is on at launch.</b> Only our validator can post state claims or dispute them, so until the allowlist opens, withdrawals rely on the operator posting honest state. Every batch is public on Robinhood Chain and can be checked by anyone. The allowlist opens once the bond is raised and the chain has run for a while.</li>
           <li><b>Upgrades are possible.</b> The chain's contracts can be upgraded by its owner through the upgrade executor. There is no timelock or multisig yet.</li>
           <li><b>The gas token has an issuer.</b> Robinhood can pause, block, burn and upgrade GME (see <a href="#gme">About the GME Stock Token</a>).</li>
           <li><b>Beta software.</b> The bridge and swap pages and the GmeGasRouter are new and not externally audited; they sit over audited Arbitrum and Uniswap contracts. Use amounts you can afford to have delayed.</li>
@@ -445,7 +446,7 @@ forge create src/Counter.sol:Counter \
           <div><dt>Sequencer</dt><dd>The service that orders transactions into blocks.</dd></div>
           <div><dt>Batch poster</dt><dd>Posts compressed blocks to the parent chain so anyone can rebuild the chain.</dd></div>
           <div><dt>Validator / BoLD</dt><dd>Posts claims about the chain's state with a bond; BoLD is Arbitrum's dispute protocol for challenging wrong claims.</dd></div>
-          <div><dt>Challenge window</dt><dd>The time a claim must survive before withdrawals it covers can be claimed: ~7 days on mainnet, ~30 minutes on testnet.</dd></div>
+          <div><dt>Challenge window</dt><dd>The time a claim must survive before withdrawals it covers can be claimed: ~7 days on mainnet, ~30 minutes on testnet. With the batch and the claim itself, a testnet withdrawal is claimable about 45 to 60 minutes after it starts.</dd></div>
           <div><dt>Fee token pricer</dt><dd>The contract that converts parent-chain costs (ETH) into GME using Chainlink ETH/USD and the GME price.</dd></div>
           <div><dt>WGME</dt><dd>Wrapped GME, the ERC-20 form of GME used by the exchange. Always one to one.</dd></div>
         </dl>
@@ -481,6 +482,10 @@ forge create src/Counter.sol:Counter \
       <div>
         <h2 class="foot-h">Network</h2>
         <ul><li><a href="/#build">Network details</a></li><li><a href="/#risk">Risks</a></li><li><a href="https://robinhoodchain.blockscout.com/token/0x1b0E319c6A659F002271B69dB8A7df2F911c153E" target="_blank" rel="noopener">GME on Blockscout <span aria-hidden="true">↗</span></a></li></ul>
+      </div>
+      <div>
+        <h2 class="foot-h">Follow</h2>
+        <ul><li><a href="https://x.com/GMEChainXYZ" target="_blank" rel="noopener">X <span aria-hidden="true">↗</span></a></li><li><a href="https://github.com/GMEchain/GME-Chain" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a></li></ul>
       </div>
     </div>
     <canvas class="foot-word" data-wordmark aria-hidden="true"></canvas>

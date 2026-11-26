@@ -37,7 +37,7 @@ function labelArt() {
   const g = c.getContext("2d");
   g.fillStyle = "#000"; g.fillRect(0, 0, 240, 200);
   g.fillStyle = "#0000ff";
-  g.font = '900 150px "Big Shoulders Display", Impact, "Arial Narrow", sans-serif';
+  g.font = '900 150px "Big Shoulders Display", Impact, "Arial Narrow", sans-serif'; // the logo's face
   g.textAlign = "center"; g.textBaseline = "middle";
   g.fillText("GME", 120, 104);
   g.fillRect(24, 182, 192, 10);                                    // a stripe under the name

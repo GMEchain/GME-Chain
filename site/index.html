@@ -17,13 +17,14 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://gmechain.xyz/og.png?v=2">
+  <meta name="twitter:site" content="@GMEChainXYZ">
   <script>document.documentElement.classList.add("js");</script>
   <!-- @head -->
 <meta name="theme-color" content="#000000">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23000000'/%3E%3Cpath d='M12 12V6.4a1.6 1.6 0 0 1 1.6-1.6h4.8A1.6 1.6 0 0 1 20 6.4V12h5.6a1.6 1.6 0 0 1 1.6 1.6v4.8a1.6 1.6 0 0 1-1.6 1.6H20v5.6a1.6 1.6 0 0 1-1.6 1.6h-4.8a1.6 1.6 0 0 1-1.6-1.6V20H6.4a1.6 1.6 0 0 1-1.6-1.6v-4.8A1.6 1.6 0 0 1 6.4 12Z' fill='none' stroke='%23FF2D2D' stroke-width='2.4' stroke-linejoin='round'/%3E%3Cpath d='M16 6.8 18.8 11.2H13.2Z' fill='%23FF2D2D'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Chakra+Petch:wght@400;500;600;700&family=Big+Shoulders+Display:wght@900&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=BIZ+UDPGothic:wght@400;700&family=DotGothic16&family=M+PLUS+1+Code:wght@400;600&family=Big+Shoulders+Display:wght@900&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/home.css">
 <!-- /@head -->
@@ -71,7 +72,7 @@
 <section class="title-screen" aria-labelledby="hero-title">
   <div class="horizon" aria-hidden="true"></div>
   <div class="wrap ts-in">
-    <p class="world rv"><b>1-1</b><span data-n="strip">Testnet opening soon</span></p>
+    <p class="world rv"><b>1-1</b><span data-n="strip">Testnet live · mainnet soon</span></p>
     <h1 id="hero-title" class="rv" style="--i:1">The chain that<br>runs on <em>GME</em></h1>
     <p class="lead rv" style="--i:2">A Layer 3 on Robinhood Chain where every fee is paid in GME, the GameStop stock token. Insert ETH: one transaction swaps it to GME and loads it as your gas.</p>
     <div class="ts-cta rv" style="--i:3">
@@ -186,7 +187,7 @@
     <div class="levelmap rv" aria-labelledby="map-title">
       <div class="lm-copy">
         <h3 id="map-title">Ethereum is the final boss.</h3>
-        <p class="muted">Blocks are batched to Robinhood Chain, which settles to Ethereum. State claims are bonded and anyone can challenge a wrong one (BoLD fraud proofs). That's why withdrawals wait 7 days.</p>
+        <p class="muted">Blocks are batched to Robinhood Chain, which settles to Ethereum. A bonded validator posts the chain's state there, and a wrong claim can be disputed with BoLD fraud proofs during the 7-day window. At launch only our allowlisted validator can post or dispute claims; the allowlist opens later.</p>
       </div>
       <ol class="lm-path" aria-label="Where GME CHAIN settles">
         <li class="lm-node you"><span class="lm-dot">P1</span><b>GME CHAIN</b><small>you play here</small></li>
@@ -329,7 +330,7 @@ forge create src/Counter.sol:Counter \
         <div>
           <h3 class="risk-h down">Know first</h3>
           <ul class="risk-list warn">
-            <li><b>One operator at launch</b> runs the sequencer, batch poster and validator. It can delay transactions but cannot forge state.</li>
+            <li><b>One operator at launch</b> runs the sequencer, the batch poster and the only allowlisted validator. It can delay transactions, and until the allowlist opens, withdrawals rely on it posting honest state. Every batch is public on Robinhood Chain, so anyone can check it.</li>
             <li><b>GME has an issuer.</b> Robinhood can pause GME, block addresses (including the bridge), burn balances and upgrade the token.</li>
             <li><b>Not for everyone.</b> The GME token is not available to US persons and is restricted in some other places.</li>
             <li><b>New software.</b> No external audit yet. Start with amounts you're comfortable with.</li>
@@ -359,7 +360,7 @@ forge create src/Counter.sol:Counter \
       </details>
       <details class="rv">
         <summary><span class="tip-n">03</span>What does it cost?</summary>
-        <p>A transfer on GME CHAIN costs a fraction of a cent. Bridging in costs normal Robinhood Chain gas plus the Uniswap pool fee, which is already inside the quote you see. The bridge itself takes no fee.</p>
+        <p>A transfer on GME CHAIN costs a fraction of a cent. Bridging in costs normal Robinhood Chain gas plus the Uniswap pool fee, which is already inside the quote you see. Withdrawing costs GME CHAIN gas to start (a fraction of a cent) and Robinhood Chain gas to claim. The bridge itself takes no fee.</p>
       </details>
       <details class="rv">
         <summary><span class="tip-n">04</span>How long do deposits and withdrawals take?</summary>
@@ -419,6 +420,10 @@ forge create src/Counter.sol:Counter \
       <div>
         <h2 class="foot-h">Network</h2>
         <ul><li><a href="/#build">Network details</a></li><li><a href="/#risk">Risks</a></li><li><a href="https://robinhoodchain.blockscout.com/token/0x1b0E319c6A659F002271B69dB8A7df2F911c153E" target="_blank" rel="noopener">GME on Blockscout <span aria-hidden="true">↗</span></a></li></ul>
+      </div>
+      <div>
+        <h2 class="foot-h">Follow</h2>
+        <ul><li><a href="https://x.com/GMEChainXYZ" target="_blank" rel="noopener">X <span aria-hidden="true">↗</span></a></li><li><a href="https://github.com/GMEchain/GME-Chain" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a></li></ul>
       </div>
     </div>
     <canvas class="foot-word" data-wordmark aria-hidden="true"></canvas>

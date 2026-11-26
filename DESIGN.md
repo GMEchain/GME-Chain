@@ -21,10 +21,13 @@ codes, a warning screen, loading tips and a "Continue?" countdown. Colours are G
 
 | Role | Font |
 | --- | --- |
-| Headlines, big numbers, game labels | Bungee |
-| Body and UI | Chakra Petch 400 to 700 |
-| Tilted tape | Big Shoulders Display 900 |
-| Logo wordmark (fixed) | "GME" Big Shoulders Display 900 + "chain" Instrument Serif italic |
+| Headlines, big numbers, tilted tape (`--display`) | Dela Gothic One |
+| Small uppercase labels: nav, kickers, tags, table heads (`--hud`) | DotGothic16, one weight, never bold |
+| Body and UI (`--font`) | BIZ UDPGothic 400 and 700 |
+| Code and addresses (`--mono`) | M PLUS 1 Code 400 and 600 |
+| Logo wordmark (fixed), also the cartridge label and footer particles | "GME" Big Shoulders Display 900 + "chain" Instrument Serif italic |
+
+Japanese arcade-cabinet type: a heavy gothic for the shouting, a dot-matrix face for the HUD that matches the ASCII particles. No stock "gaming" fonts.
 
 ## Pieces
 

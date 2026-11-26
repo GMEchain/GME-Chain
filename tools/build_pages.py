@@ -15,8 +15,8 @@ FAVICON = ("data:image/svg+xml," + (
 
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
          '  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
-         '  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Chakra+Petch:wght@400;500;600;700'
-         '&family=Big+Shoulders+Display:wght@900&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">')
+         '  <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=BIZ+UDPGothic:wght@400;700&family=DotGothic16'
+         '&family=M+PLUS+1+Code:wght@400;600&family=Big+Shoulders+Display:wght@900&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">')
 CONNECT = '<button class="btn btn-go btn-sm" type="button" data-connect>Connect wallet</button>'
 BRIDGE_LINK = '<a class="btn btn-go btn-sm nav-cta" href="/bridge/"><span data-n="navcta">Get GME gas</span></a>'
 
