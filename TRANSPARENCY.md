@@ -68,7 +68,7 @@ Testnet runs its own wallets, all holding test tokens only. Two of them act in p
 ## Not in place yet
 
 - **Mainnet apps are not open yet.** The contracts are deployed; the website switches to them at launch.
-- **No external audit.** The contracts are covered by automated tests (unit, fuzz and fork) and static analysis ([how each finding was assessed](docs/static-analysis.md)), which are not an audit.
+- **No external audit.** The contracts are covered by automated tests (unit, fuzz and fork), which are not an audit.
 - **No multisig or timelock** at launch. One key controls upgrades and settings.
 - **One operator** runs the sequencer, batch poster and validator.
 - **Off-chain services** (price keeper, monitor, testnet faucet and pulse) run on the operator's server with only their own keys there; their code is in [chain/scripts](chain/scripts) and the server layout in [deploy/vps](deploy/vps).
