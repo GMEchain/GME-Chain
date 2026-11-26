@@ -153,6 +153,10 @@ async function refreshBalances() {
   updateButtons();
 }
 
+// The mainnet challenge window went from 7 days to about one day on 2026-11-27. Claims made under the old window
+// keep it, so until about 2026-12-05 mainnet withdrawals take longer; the note hides itself after that.
+{ const n = document.querySelector("[data-window-transition]"); if (n) n.hidden = !(NETWORK === "mainnet" && Date.now() < Date.UTC(2026, 11, 6)); }
+
 // ---------- tabs ----------
 $$(".bridge-tabs [role=tab]").forEach((t, i, all) => {
   const select = (tab, focus) => {
