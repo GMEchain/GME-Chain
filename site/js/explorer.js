@@ -127,6 +127,7 @@ async function home() {
       <div><dt>Players</dt><dd data-s="addrs"><i class="sk"></i></dd><small>addresses</small></div>
       <div><dt>Gas</dt><dd data-s="gas"><i class="sk"></i></dd><small>gas price</small></div>
       <div><dt>Cost</dt><dd data-s="cost"><i class="sk"></i></dd><small>one transfer</small></div>
+      <div><dt>Spent</dt><dd data-s="spent"><i class="sk"></i></dd><small>paid as gas</small></div>
     </dl>
     ${screen("Stage select", "latest 48 blocks · brighter = more moves", `<div class="stage" data-heat></div>`, 'aria-label="Recent blocks by activity"')}
     <div class="ex-cols">
@@ -143,12 +144,14 @@ async function home() {
   let seen = new Set(blocks.map((b) => hexN(b.number)));
 
   const render = (fresh = new Set()) => {
-    let txs = 0, today = 0; const addrs = new Set(); const dayAgo = Date.now() / 1000 - 86400;
+    let txs = 0, today = 0, spent = 0n; const addrs = new Set(); const dayAgo = Date.now() / 1000 - 86400;
+    for (const b of blocks) spent += big(b.gasUsed) * big(b.baseFeePerGas || "0x0"); // Nitro has no tips: every fee is gas used x base fee
     for (const b of blocks) for (const t of userTx(b)) { txs++; if (hexN(b.timestamp) > dayAgo) today++; if (t.from) addrs.add(t.from.toLowerCase()); if (t.to) addrs.add(t.to.toLowerCase()); }
     set("height", pad6(head)); set("txs", pad6(txs)); set("addrs", pad6(addrs.size));
     set("today", `${today.toLocaleString("en-US")} today`);
     set("gas", `${(Number(gas) / 1e9).toLocaleString("en-US", { maximumSignificantDigits: 3 })}<small> gwei</small>`);
     set("cost", `${tiny(Number(gas * 21000n) / 1e18)}<small> ${TOKEN}</small>`);
+    set("spent", `${tiny(Number(spent) / 1e18)}<small> ${TOKEN}</small>`);
     const last = blocks.slice(0, 48).reverse();
     const maxTx = Math.max(1, ...last.map((b) => userTx(b).length));
     const empty = Array.from({ length: Math.max(0, 48 - last.length) }, () => `<span class="tile off" aria-hidden="true"></span>`).join("");

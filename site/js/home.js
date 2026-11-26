@@ -5,6 +5,7 @@ import { onGmePrice } from "./gmeprice.js";
 import { bestEthToGme, gmeSupply, parseEth, fmtUnits, rpcBatch } from "./quote.js";
 import "./netui.js";
 import { mountCartridge } from "./cartridge.js";
+import { mountMarketClock } from "./marketclock.js";
 
 const stage = document.querySelector("[data-stage]");
 if (stage) mountCartridge(stage);
@@ -80,6 +81,8 @@ async function refreshL2() {
   } catch { /* keep last values */ }
 }
 gmeSupply().then((s) => setLive("supply", `${fmtUnits(s, 0)} GME`, "data-market")).catch(() => setLive("supply", "unavailable", "data-market"));
+
+mountMarketClock($("[data-mclock]"));
 
 // ---------- the order ticket ----------
 const tkInput = $("#tk-eth"), tkOut = $("[data-tk-out]"), tkTx = $("[data-tk-tx]"), tkRoute = $("[data-tk-route]");

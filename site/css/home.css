@@ -137,6 +137,13 @@
 .tv-side > div { display: grid; gap: 6px; padding: 16px 18px; border: 2px solid var(--edge); border-radius: 18px; background: var(--panel); }
 .tv-side dd { font-weight: 700; font-size: 1.0625rem; }
 .tv-side .mf-coin dd { font: 400 2.4rem/1 var(--display); color: #fff; }
+.mclock dd, .realgme dd { display: grid; gap: 6px; font-weight: 400; }
+.mc-row { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.mc-k { font: 400 .875rem/1 var(--hud); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.mc-row b { font: 400 1.4rem/1 var(--display); text-transform: uppercase; color: var(--up); }
+.mclock.is-open .mc-row:first-child b, .mc-chain b { color: var(--ok); }
+.mc-chain { padding-top: 8px; border-top: 2px dashed var(--edge); }
+.mclock small, .realgme small { font-size: .8125rem; line-height: 1.45; color: var(--muted); }
 .market-note { margin-top: 16px; }
 @media (max-width: 900px) { .tv-grid { grid-template-columns: 1fr; } }
 

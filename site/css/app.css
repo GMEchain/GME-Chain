@@ -174,13 +174,13 @@ select.pill { padding: 4px 28px 4px 10px; border: 2px solid var(--edge); border-
 [data-search-msg]:not(:empty) { color: #FF6A6A; }
 @media (max-width: 920px) { .ex-hero { grid-template-columns: minmax(0, 1fr); } }
 
-.ex-board { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-bottom: 18px; }
+.ex-board { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; margin-bottom: 18px; }
 .ex-board > div { position: relative; display: grid; gap: 6px; align-content: start; padding: 16px 18px 14px; border: 2px solid var(--edge); border-radius: 14px; background: linear-gradient(180deg, #0d0d0d, #050505); overflow: hidden; }
 .ex-board > div::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .03) 0 1px, transparent 1px 3px); }
 .ex-board dt { font: 400 .875rem/1 var(--hud); letter-spacing: .14em; text-transform: uppercase; color: var(--up); }
-.ex-board dd { font: 400 clamp(1.8rem, 2.6vw, 2.4rem)/1 var(--display); color: #fff; text-shadow: 0 0 14px rgba(255, 45, 45, .45); font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ex-board dd { font: 400 clamp(1.6rem, 2.2vw, 2.1rem)/1 var(--display); color: #fff; text-shadow: 0 0 14px rgba(255, 45, 45, .45); font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ex-board dd i { font-style: normal; color: rgba(255, 255, 255, .14); text-shadow: none; }
-.ex-board dd small { font: 400 .875rem var(--hud); letter-spacing: .06em; color: var(--muted); text-shadow: none; }
+.ex-board dd small { display: block; margin-top: 4px; font: 400 .875rem/1 var(--hud); letter-spacing: .06em; color: var(--muted); text-shadow: none; }
 .ex-board > div > small { font-size: .75rem; color: var(--muted); }
 @media (max-width: 920px) { .ex-board { grid-template-columns: repeat(2, minmax(0, 1fr)); } .ex-board > div:first-child { grid-column: 1 / -1; } }
 .sk { display: inline-block; width: 6ch; height: .9em; border-radius: 4px; background: linear-gradient(90deg, var(--panel-2) 25%, #2A2A2E 50%, var(--panel-2) 75%); background-size: 200% 100%; animation: sk 1.2s linear infinite; }
