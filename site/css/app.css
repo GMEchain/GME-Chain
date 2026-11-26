@@ -179,7 +179,7 @@ select.pill { padding: 4px 28px 4px 10px; border: 2px solid var(--edge); border-
 @keyframes ex-blink { 50% { opacity: 0; } }
 @keyframes ex-flash { from { background: rgba(255, 45, 45, .4); box-shadow: 0 0 0 2px var(--up), 0 0 24px rgba(255, 45, 45, .6); } }
 .ex-hero { grid-template-columns: minmax(0, 1fr) minmax(0, 520px); align-items: end; gap: 18px 40px; }
-.ex-hero .net-toggle, .ex-hero [data-search-msg] { grid-column: 1 / -1; }
+.ex-hero .net-toggle, .ex-hero [data-search-msg], .ex-hero .ex-transition { grid-column: 1 / -1; }
 .ex-title { display: grid; gap: 10px; }
 .ex-sub { color: var(--fg-2); max-width: 44ch; }
 .ex-search { display: flex; align-items: center; gap: 10px; padding: 6px 6px 6px 16px; border: 2px solid var(--edge); border-radius: 14px; background: #050505; color: var(--fg); box-shadow: 0 0 32px rgba(255, 45, 45, .08); }

@@ -27,6 +27,8 @@ const KNOWN = {
     [P.DEX.factory.toLowerCase()]: "Exchange factory",
     [P.DEX.router.toLowerCase()]: "Exchange router",
     ...(P.DEX.testUsd ? { [P.DEX.testUsd.toLowerCase()]: "tUSD (test token)" } : {}),
+    ...(P.DEX.usdg ? { [P.DEX.usdg.toLowerCase()]: "USDG (bridged)" } : {}),
+    ...(P.DEX.usdgPair ? { [P.DEX.usdgPair.toLowerCase()]: `${TOKEN}/USDG pool` } : {}),
   } : {}),
 };
 const TX_TYPES = { "0x0": "legacy", "0x1": "access list", "0x2": "EIP-1559", "0x64": "deposit", "0x65": "unsigned", "0x66": "contract", "0x68": "retry", "0x69": "retryable", "0x6a": "system" };
@@ -81,6 +83,9 @@ function method(tx) {
   if (!tx.input || tx.input === "0x") return "transfer";
   return SELECTORS[tx.input.slice(0, 10)] || "contract call";
 }
+
+// Mainnet only, until about 2026-12-05: claims made under the old 7-day window keep it (same note as the bridge).
+{ const n = document.querySelector("[data-window-transition]"); if (n) n.hidden = !(NET === "mainnet" && Date.now() < Date.UTC(2026, 11, 6)); }
 
 // ---------- chrome: network toggle + search ----------
 function chrome() {
