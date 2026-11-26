@@ -35,3 +35,4 @@ _private/
 .vscode/
 __pycache__/
 *.pyc
+chain/_*.mjs
