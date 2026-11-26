@@ -11,6 +11,7 @@
   <a href="https://gmechain.xyz/bridge/">Bridge</a> ·
   <a href="https://gmechain.xyz/docs/">Docs</a> ·
   <a href="https://gmechain.xyz/roadmap/">Roadmap</a> ·
+  <a href="CHANGELOG.md">Changelog</a> ·
   <a href="https://x.com/GMEChainXYZ">X</a>
 </p>
 
