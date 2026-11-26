@@ -29,11 +29,11 @@ What is done, what comes next, and what is planned. Statuses are kept up to date
 | 2-6 | First exchange pool on mainnet: GME/USDG, opened at the market price | Done |
 | 2-7 | Mainnet apps open on gmechain.xyz | Next |
 
-## World 3. $GMEC (planned)
+## World 3. $GMEC (done)
 
 | Stage | Item | Status |
 | --- | --- | --- |
-| 3-1 | $GMEC launch on Robinhood Chain; the only contract is the one published on gmechain.xyz | Planned |
+| 3-1 | $GMEC live on Robinhood Chain: 0xa8c5…0122, the only official contract, published on gmechain.xyz | Done |
 
 ## World 4. Lock it down (planned)
 

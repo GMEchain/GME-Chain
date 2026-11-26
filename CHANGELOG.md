@@ -9,6 +9,9 @@ What has been built on GME CHAIN, newest first. Dates are UTC. Every on-chain va
 - Assertions confirm in order and each keeps its parent's window, so the few assertions made around the change still carry the 7-day window. They are moved onto the new window with the owner's `forceConfirmAssertion`, each only after standing for at least a day ([chain/scripts/force-confirm.js](chain/scripts/force-confirm.js)), so withdrawals are about a day from the first days on.
 - The site, the docs, the bridge countdown and the roadmap all show the new time.
 
+### $GMEC
+- **$GMEC is published:** [`0xa8c53b1dAcFbd07895dC8D2c638F1bFDe10C0122`](https://robinhoodchain.blockscout.com/token/0xa8c53b1dAcFbd07895dC8D2c638F1bFDe10C0122) on Robinhood Chain (name GME Chain, symbol GMEC, 18 decimals, 1,000,000,000 supply; not a proxy, so its code cannot be swapped). It is the only official contract; the site shows it in the footer, the FAQ and the docs. Gas stays GME.
+
 ### Tested on mainnet with real funds
 - The day-one user flow ran on mainnet from the deployer with small amounts ([chain/scripts/mainnet-smoke.js](chain/scripts/mainnet-smoke.js)): 0.001 ETH bridged through GmeGasRouter and arrived as GME gas, 0.01 GME swapped for USDG on the exchange, a GME transfer, and a 0.01 GME withdrawal started back to Robinhood Chain (the first mainnet withdrawal, tx `0x7807e5e3d22464d112c2182206af1ec1ce6264383d781f58c8f8058401eba4d4` on GME CHAIN). That withdrawal is delivered after the challenge window.
 

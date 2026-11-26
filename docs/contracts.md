@@ -20,6 +20,7 @@ GME CHAIN builds on these. Each was checked on chain on 26 November 2026.
 | Uniswap QuoterV2 | `0x33e885ed0ec9bf04ecfb19341582aadcb4c8a9e7` |
 | WETH | `0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73` |
 | USDG | `0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168` |
+| **$GMEC**, the GME CHAIN token (the only official contract) | `0xa8c53b1dAcFbd07895dC8D2c638F1bFDe10C0122` |
 | Chainlink ETH / USD | `0x78F3556b67E17Df817D51Ef5a990cDaF09E8d3A9` |
 | Arbitrum TokenBridgeCreator | `0x8B1EFf64E1eAd493A82C6798f5708183AF91A3AD` |
 

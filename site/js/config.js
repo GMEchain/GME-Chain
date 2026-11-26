@@ -113,7 +113,7 @@ export const PRICE_SOURCE = { pool: UNISWAP.pools.gmeUsdg1, pricer: PROFILES.mai
 
 // $GMEC, the GME CHAIN token on Robinhood Chain. null until launch; once set, the footer, the FAQ and the docs
 // show this contract (js/site.js). This is the only place the official address lives.
-export const GMEC = { address: null, chainId: 4663, explorer: "https://robinhoodchain.blockscout.com/token/" };
+export const GMEC = { address: "0xa8c53b1dAcFbd07895dC8D2c638F1bFDe10C0122", chainId: 4663, explorer: "https://robinhoodchain.blockscout.com/token/" };
 
 // WalletConnect Cloud project id (cloud.reown.com), allow-listed for gmechain.xyz. Empty = browser wallets only.
 export const WALLETCONNECT_PROJECT_ID = "ea1a8f037bfb827e204cc89e6ef534dd";
