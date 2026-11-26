@@ -192,7 +192,7 @@ services:
     command: ["node", "scripts/claimer.js", "--mainnet"]
     env_file: ./secrets/claimer.env
     environment:
-      L3_RPC: http://nitro:8449
+      L3_RPC: https://rpc.gmechain.xyz # public RPC, like pulse: the internal one failed from these containers
     volumes:
       - ../../chain/deployment.mainnet.json:/app/deployment.mainnet.json:ro
     depends_on: [nitro]
@@ -204,7 +204,7 @@ services:
     command: ["node", "scripts/claimer.js", "--testnet"]
     env_file: ./secrets/claimer-testnet.env
     environment:
-      L3_RPC: http://nitro-testnet:8449
+      L3_RPC: https://rpc.testnet.gmechain.xyz
     volumes:
       - ../../chain/deployment.testnet.json:/app/deployment.testnet.json:ro
     depends_on: [nitro-testnet]

@@ -96,7 +96,14 @@ async function tick() {
 
 async function loop() {
   try { await tick(); status.ok = true; status.lastError = null; }
-  catch (e) { status.ok = false; status.lastError = { at: new Date().toISOString(), message: (e.shortMessage || e.message || String(e)).split("\n")[0] }; log("error", status.lastError); }
+  catch (e) {
+    // name the host that failed, never the full URL (RPC URLs can carry API keys)
+    let host = null;
+    try { const u = e.url || e.cause?.url; host = u ? new URL(u).host : null; } catch {}
+    status.ok = false;
+    status.lastError = { at: new Date().toISOString(), message: (e.shortMessage || e.message || String(e)).split("\n")[0], host };
+    log("error", status.lastError);
+  }
   finally { status.lastTick = new Date().toISOString(); setTimeout(loop, CFG.intervalSec * 1000); }
 }
 
