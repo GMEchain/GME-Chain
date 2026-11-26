@@ -1,0 +1,38 @@
+# Secrets: never commit
+.env
+.env.*
+*.env
+!.env.example
+chain/nodeConfig.*.json
+chain/nodeConfig.json
+chain/orbitSetupScriptConfig.json
+
+# Build output and dependencies
+node_modules/
+chain/out/
+chain/cache/
+chain/broadcast/
+chain/lib/
+
+# Local rehearsal artefacts
+chain/deployment.fork.json
+chain/*.log
+chain/gme-pools.json
+walletkit/node_modules/
+
+# Wallet bundle: build output of walletkit/ (RainbowKit, wagmi, viem). Rebuild with `cd walletkit && npm run build`.
+site/js/walletkit/
+site/walletkit.css
+chain/slither.sarif
+
+# VPS secrets (deploy/vps): per-service key files and the domain settings
+deploy/vps/secrets/
+deploy/vps/.env
+
+# Local-only code that is not part of the public project
+_private/
+
+# Editor and Python leftovers
+.vscode/
+__pycache__/
+*.pyc
