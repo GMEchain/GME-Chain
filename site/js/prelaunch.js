@@ -26,7 +26,7 @@ const COPY = {
     steps: [
       ["01", "Connect", "MetaMask, Rabby, OKX, Phantom, Coinbase Wallet, or any WalletConnect wallet."],
       ["02", "Enter ETH", "One transaction swaps your ETH to GME on Uniswap v3 (1% price limit) and bridges it."],
-      ["03", "Play", "GME arrives as gas on GME CHAIN in about a minute. Withdraw any time; claim after 7 days."],
+      ["03", "Play", "GME arrives as gas on GME CHAIN in about a minute. Withdraw any time; claim after about a day."],
     ],
     quote: true,
   },

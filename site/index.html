@@ -112,7 +112,7 @@
         <li class="rv"><span class="pad">A</span><div><b>Connect</b><p>Open the <a class="link" href="/bridge/">bridge</a> with MetaMask, Rabby, OKX, Phantom, Coinbase Wallet or any WalletConnect wallet.</p></div><span class="ctl-t">10 s</span></li>
         <li class="rv" style="--i:1"><span class="pad">B</span><div><b>Pick an amount</b><p>The shop shows exactly how much GME gas you get, at a live Uniswap price.</p></div><span class="ctl-t">live</span></li>
         <li class="rv" style="--i:2"><span class="pad start">▶</span><div><b>Confirm once</b><p>One transaction swaps, deposits and credits it as gas on GME CHAIN.</p></div><span class="ctl-t">~1 min</span></li>
-        <li class="rv" style="--i:3"><span class="pad sel">◀</span><div><b>Leave any time</b><p>Withdraw, claim on Robinhood Chain after the 7-day safety window, swap back to ETH in one click.</p></div><span class="ctl-t">7 days</span></li>
+        <li class="rv" style="--i:3"><span class="pad sel">◀</span><div><b>Leave any time</b><p>Withdraw, claim on Robinhood Chain after the one-day safety window, swap back to ETH in one click.</p></div><span class="ctl-t">~1 day</span></li>
       </ol>
 
       <div class="shopwin rv" style="--i:1" aria-labelledby="tk-title">
@@ -156,7 +156,7 @@
         <div id="tk-sell" role="tabpanel" aria-labelledby="tk-sell-t" class="sw-body" hidden>
           <ol class="tk-sell">
             <li><b>Withdraw</b><span>Start it on the bridge page. Your GME leaves GME CHAIN.</span></li>
-            <li><b>Wait 7 days</b><span>The challenge window. A countdown shows when it opens.</span></li>
+            <li><b>Wait about a day</b><span>The challenge window. A countdown shows when it opens.</span></li>
             <li><b>Claim</b><span>GME arrives on Robinhood Chain.</span></li>
             <li><b>Back to ETH</b><span>One click swaps it to ETH on Uniswap v3, same 1% limit.</span></li>
           </ol>
@@ -187,7 +187,7 @@
     <div class="levelmap rv" aria-labelledby="map-title">
       <div class="lm-copy">
         <h3 id="map-title">Ethereum is the final boss.</h3>
-        <p class="muted">Blocks are batched to Robinhood Chain, which settles to Ethereum. A bonded validator posts the chain's state there, and a wrong claim can be disputed with BoLD fraud proofs during the 7-day window. At launch only our allowlisted validator can post or dispute claims; the allowlist opens later.</p>
+        <p class="muted">Blocks are batched to Robinhood Chain, which settles to Ethereum. A bonded validator posts the chain's state there, and a wrong claim can be disputed with BoLD fraud proofs during the one-day window. At launch only our allowlisted validator can post or dispute claims; the allowlist opens later.</p>
       </div>
       <ol class="lm-path" aria-label="Where GME CHAIN settles">
         <li class="lm-node you"><span class="lm-dot">P1</span><b>GME CHAIN</b><small>you play here</small></li>
@@ -325,7 +325,7 @@ forge create src/Counter.sol:Counter \
             <li><b>Verified code.</b> Every contract we deployed matches its published source byte for byte, and anyone can re-run the check.</li>
             <li><b>The ETH bridge holds nothing.</b> GmeGasRouter has no owner and no fee. Each call spends its whole input, and the deposit can only land at your address.</li>
             <li><b>Exact approvals.</b> The site never asks for unlimited token approvals.</li>
-            <li><b>A real safety window.</b> Withdrawals wait 7 days so a wrong state claim can be challenged.</li>
+            <li><b>A real safety window.</b> Withdrawals wait about a day so a wrong state claim can be challenged.</li>
           </ul>
         </div>
         <div>
@@ -365,7 +365,7 @@ forge create src/Counter.sol:Counter \
       </details>
       <details class="rv">
         <summary><span class="tip-n">04</span>How long do deposits and withdrawals take?</summary>
-        <p>Deposits arrive in about a minute. Withdrawals take about 7 days: that's the challenge window that keeps the bridge safe. The bridge page shows a countdown and a Claim button, then lets you convert back to ETH.</p>
+        <p>Deposits arrive in about a minute. Withdrawals take about a day: that's the challenge window that keeps the bridge safe. The bridge page shows a countdown and a Claim button, then lets you convert back to ETH.</p>
       </details>
       <details class="rv">
         <summary><span class="tip-n">05</span>Which wallets work?</summary>

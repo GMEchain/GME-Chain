@@ -126,7 +126,7 @@
             <tr><th scope="row">Gas token</th><td>GME <code>0x1b0E319c6A659F002271B69dB8A7df2F911c153E</code> on Robinhood Chain</td></tr>
             <tr><th scope="row">Parent chain</th><td>Robinhood Chain, chain ID <code>4663</code></td></tr>
             <tr><th scope="row">Explorer</th><td><a href="/explorer/" data-keep-net>GME CHAIN Explorer</a> (from the first block)</td></tr>
-            <tr><th scope="row">Withdrawals</th><td>Claimable about 7 days after you start (the challenge window, the same rule as Arbitrum One); the bridge page shows a countdown</td></tr>
+            <tr><th scope="row">Withdrawals</th><td>Claimable about a day after you start (the challenge window, 7,200 Ethereum blocks); the bridge page shows a countdown</td></tr>
           </tbody>
         </table>
         <h3>At launch: bridge in, use it, withdraw</h3>
@@ -135,7 +135,7 @@
           <li><b>Connect.</b> Open the <a href="/bridge/">bridge page</a> and connect a wallet.</li>
           <li><b>Bridge.</b> Enter an ETH amount. The page shows a live Uniswap quote; one transaction swaps it to GME and deposits it. It arrives on GME CHAIN as gas, usually within a minute.</li>
           <li><b>Use it.</b> Send, deploy contracts, or trade on the <a href="/swap/">exchange</a>. A transfer costs a fraction of a cent.</li>
-          <li><b>Withdraw.</b> Start a withdrawal on the bridge page. After about 7 days the countdown ends; press <em>Claim</em> to get your GME back on Robinhood Chain, then <em>Convert to ETH</em> if you want ETH.</li>
+          <li><b>Withdraw.</b> Start a withdrawal on the bridge page. After about a day the countdown ends; press <em>Claim</em> to get your GME back on Robinhood Chain, then <em>Convert to ETH</em> if you want ETH.</li>
         </ol>
         <div class="callout warn"><b>Real funds</b><p>One operator will run the sequencer, batch poster and validator at first, GME can be paused by its issuer, and the contracts have not had an external audit yet. Start with amounts you are comfortable with. Withdrawals cannot be sped up or cancelled once started.</p></div>
       </section>
@@ -215,7 +215,7 @@
           <li><b>You sign.</b> Your wallet sends a transaction to GME CHAIN and pays gas in GME.</li>
           <li><b>The sequencer orders it</b> into a block within a second or two.</li>
           <li><b>A batch lands on Robinhood Chain.</b> Blocks are compressed and posted to the sequencer inbox. The batch poster pays ETH for that and is repaid in GME.</li>
-          <li><b>A validator vouches for it.</b> A bonded validator posts the resulting state using BoLD fraud proofs, and a wrong claim can be disputed during the challenge window: about 7 days on mainnet, about 30 minutes on testnet. At launch the validator allowlist is on, so only our validator can post or dispute claims. Counting the batch and the claim itself, a testnet withdrawal can be claimed 45 to 60 minutes after it starts.</li>
+          <li><b>A validator vouches for it.</b> A bonded validator posts the resulting state using BoLD fraud proofs, and a wrong claim can be disputed during the challenge window: about a day on mainnet, about 30 minutes on testnet. At launch the validator allowlist is on, so only our validator can post or dispute claims. Counting the batch and the claim itself, a testnet withdrawal can be claimed 45 to 60 minutes after it starts.</li>
           <li><b>Ethereum has the final say.</b> Robinhood Chain settles to Ethereum, so GME CHAIN shares its root of trust with every Arbitrum chain.</li>
         </ol>
         <h3>How fees are priced</h3>
@@ -266,7 +266,7 @@
         <h3>Withdrawal: GME CHAIN → Robinhood Chain → ETH</h3>
         <ol class="doc-steps">
           <li>Start the withdrawal on GME CHAIN. Your GME is burned there and a message is created. Keep a little GME for this transaction's gas.</li>
-          <li>Wait for the challenge window: about 7 days on mainnet (50,400 Ethereum blocks). The bridge page shows a countdown. This is the security model, not a delay we can shorten.</li>
+          <li>Wait for the challenge window: about a day on mainnet (7,200 Ethereum blocks). The bridge page shows a countdown. This is the security model: a wrong state claim can be disputed during it.</li>
           <li>Claim on Robinhood Chain from the bridge page. Your GME is released from the bridge to you.</li>
           <li>Want ETH? <em>Convert to ETH</em> on the same page swaps it through the GmeGasRouter in one transaction, with the same 1% price limit.</li>
         </ol>
@@ -433,7 +433,7 @@ forge create src/Counter.sol:Counter \
         <h2>FAQ</h2>
         <div class="faq-list">
           <details><summary>Do I need ETH on GME CHAIN?</summary><p>No. Gas on GME CHAIN is GME. You only need a little ETH on Robinhood Chain to make the deposit and, later, to claim a withdrawal.</p></details>
-          <details><summary>How long does withdrawing take?</summary><p>About 7 days on mainnet and about an hour on testnet. Withdrawals wait for the validator's claim to survive the challenge window, the same rule as Arbitrum One; testnet uses a short window so the whole flow can be tried. The bridge page shows a countdown. Deposits do not wait.</p></details>
+          <details><summary>How long does withdrawing take?</summary><p>About a day on mainnet and about an hour on testnet. Withdrawals wait for the validator's claim to survive the challenge window (7,200 Ethereum blocks on mainnet, shortened from 7 days before launch); testnet uses a shorter window so the whole flow can be tried. The bridge page shows a countdown. Deposits do not wait.</p></details>
           <details><summary>Can I bridge from a Safe or another smart wallet?</summary><p>Not through the bridge page. Deposits from contracts are credited to an aliased address on GME CHAIN. Use a regular wallet.</p></details>
           <details><summary>Does holding the GME CHAIN token give me anything at GameStop?</summary><p>No. $GMEC is for GME CHAIN only; its uses are announced together with its contract. It has no connection to GameStop.</p></details>
           <details><summary>What happens if GME is paused by its issuer?</summary><p>Transfers on Robinhood Chain stop, so deposits and claims stop too. GME already on GME CHAIN keeps working as gas there.</p></details>
@@ -448,7 +448,7 @@ forge create src/Counter.sol:Counter \
           <div><dt>Sequencer</dt><dd>The service that orders transactions into blocks.</dd></div>
           <div><dt>Batch poster</dt><dd>Posts compressed blocks to the parent chain so anyone can rebuild the chain.</dd></div>
           <div><dt>Validator / BoLD</dt><dd>Posts claims about the chain's state with a bond; BoLD is Arbitrum's dispute protocol for challenging wrong claims.</dd></div>
-          <div><dt>Challenge window</dt><dd>The time a claim must survive before withdrawals it covers can be claimed: ~7 days on mainnet, ~30 minutes on testnet. With the batch and the claim itself, a testnet withdrawal is claimable about 45 to 60 minutes after it starts.</dd></div>
+          <div><dt>Challenge window</dt><dd>The time a claim must survive before withdrawals it covers can be claimed: ~1 day on mainnet, ~30 minutes on testnet. With the batch and the claim itself, a testnet withdrawal is claimable about 45 to 60 minutes after it starts.</dd></div>
           <div><dt>Fee token pricer</dt><dd>The contract that converts parent-chain costs (ETH) into GME using Chainlink ETH/USD and the GME price.</dd></div>
           <div><dt>WGME</dt><dd>Wrapped GME, the ERC-20 form of GME used by the exchange. Always one to one.</dd></div>
         </dl>

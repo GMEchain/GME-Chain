@@ -25,7 +25,8 @@ What is done, what comes next, and what is planned. Statuses are kept up to date
 | 2-2 | Mainnet contracts on Robinhood Chain: rollup, bridge with ETH, fee pricer, token bridge, all verified | Done |
 | 2-3 | Mainnet node at rpc.gmechain.xyz, validator staked, monitoring | Live |
 | 2-4 | Mainnet exchange (Uniswap V2) and Wrapped GME on GME CHAIN | Done |
-| 2-5 | Mainnet apps open on gmechain.xyz | Next |
+| 2-5 | Withdrawals in about a day: the mainnet challenge window set to 7,200 Ethereum blocks, down from 7 days | Done |
+| 2-6 | Mainnet apps open on gmechain.xyz | Next |
 
 ## World 3. $GMEC (planned)
 
@@ -49,7 +50,7 @@ What is done, what comes next, and what is planned. Statuses are kept up to date
 | --- | --- | --- |
 | 5-1 | Bridge more Robinhood stock tokens to GME CHAIN, not only GME | Planned |
 | 5-2 | Stock-token pairs on the exchange, with price charts on the swap page | Planned |
-| 5-3 | Fast withdrawals through liquidity providers, without the 7-day wait | Planned |
+| 5-3 | Fast withdrawals through liquidity providers, instant instead of a day | Planned |
 | 5-4 | First transaction free: a new wallet gets its first gas covered, so it can start without buying GME first | Planned |
 | 5-5 | GME CHAIN listed in wallet network lists, so it can be added with one tap | Planned |
 
@@ -65,5 +66,5 @@ What is done, what comes next, and what is planned. Statuses are kept up to date
 ## Not changing
 
 - **Gas stays GME.** $GMEC is for the chain's own economy, not a replacement for GME as gas.
-- **The mainnet challenge window stays about 7 days.** It protects the funds in the bridge; fast withdrawals will come from liquidity providers instead.
+- **The mainnet challenge window is about one day.** It protects the funds in the bridge; instant withdrawals will come from liquidity providers instead.
 - **GME CHAIN is independent** of GameStop Corp., Robinhood Markets, Inc. and Offchain Labs.

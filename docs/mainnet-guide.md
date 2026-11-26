@@ -43,10 +43,10 @@ Already hold GME on Robinhood Chain? Choose **Pay with GME**: approve once, then
 
 ## 3. Withdraw GME back to Robinhood Chain
 
-Withdrawing has two steps, and the second one comes about **7 days** later.
+Withdrawing has two steps, and the second one comes about **a day** later.
 
 1. On the bridge page, open **Withdraw**, enter an amount and confirm one transaction on GME CHAIN.
-2. The withdrawal appears under **Your withdrawals** with a countdown. It waits for the challenge window: the validator's claim about the chain's state has to stand for about 7 days, the same rule Arbitrum One uses. This is what keeps the bridge safe.
+2. The withdrawal appears under **Your withdrawals** with a countdown. It waits for the challenge window: the validator's claim about the chain's state has to stand for about a day (7,200 Ethereum blocks). This is what keeps the bridge safe.
 3. When the countdown ends, press **Claim** and confirm one transaction on Robinhood Chain. Your GME is back on Robinhood Chain.
 4. Want ETH instead? Under **Receive ETH: convert claimed GME**, enter the amount (the page fills it in after a claim), approve once and confirm. You get ETH in one transaction, with the same 1% price limit.
 

@@ -59,7 +59,7 @@ Several unrelated tokens on Robinhood Chain call themselves "GameStop" or "GME" 
 | Gas token | GME Stock Token | tGME (test, no value) |
 | Parent chain | Robinhood Chain (4663) | Robinhood Chain Testnet (46630) |
 | Settles to | Ethereum (through Robinhood Chain) | Ethereum (through Robinhood Chain) |
-| Withdrawal wait | about 7 days | about 1 hour |
+| Withdrawal wait | about 1 day | about 1 hour |
 
 All addresses: [docs/contracts.md](docs/contracts.md)
 

@@ -51,7 +51,7 @@
   },
   "stakeToken": "0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73",
   "baseStake": "10000000000000000",
-  "confirmPeriodBlocks": "50400",
+  "confirmPeriodBlocks": "7200",
   "createRollupTx": "0x0206f62aa38c81412e507f348a33fb5aea085c418e2d0460a1971b85aa9cb798",
   "createdAtBlock": "123547462",
   "gasRouter": "0x150415997ad7b9a4bf724dfb552c63fe50f33ecd",
@@ -84,5 +84,6 @@
     "router": "0x14B24b2ef37e3C9b39D8942fDe9666281E54d8b7",
     "initCodeHash": "0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f",
     "deployedAt": "2026-11-26T09:11:33.575Z"
-  }
+  },
+  "confirmPeriodChangedTx": "0xddaaac3be7b85b8ee48531930985281bc8d6a6037751dcc5dc78b9b8c63da748"
 }
