@@ -20,10 +20,10 @@ if not re.fullmatch(r"0x[0-9a-fA-F]{40}", a.gmec):
     raise SystemExit("--gmec must be a 0x address with 40 hex characters")
 
 s = CONFIG.read_text(encoding="utf-8")
-slot = re.compile(r'export const GMEC = \{ address: (null|"0x[0-9a-fA-F]{40}"), chainId: 4663')
+slot = re.compile(r'export const GMEC = \{(\s*)address: (null|"0x[0-9a-fA-F]{40}"), chainId: 4663')
 if not slot.search(s):
     raise SystemExit("GMEC slot not found in config.js")
-s = slot.sub(f'export const GMEC = {{ address: "{a.gmec}", chainId: 4663', s)
+s = slot.sub(lambda m: f'export const GMEC = {{{m.group(1)}address: "{a.gmec}", chainId: 4663', s)
 if not a.no_mainnet:
     if "export const MAINNET_OPEN = false;" in s:
         s = s.replace("export const MAINNET_OPEN = false;", "export const MAINNET_OPEN = true;")

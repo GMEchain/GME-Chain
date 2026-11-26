@@ -166,6 +166,7 @@ h1 em, h2 em, .display em { font-style: normal; color: var(--up); }
 .foot-grid { display: grid; grid-template-columns: 1.6fr repeat(4, 1fr); gap: 32px; }
 .foot-brand { display: grid; gap: 18px; align-content: start; max-width: 36ch; color: var(--fg-2); }
 .foot-brand .logo { color: var(--fg); }
+.gmec-links { margin-top: -8px; font-size: .875rem; color: var(--muted); }
 .foot .copy-chip { justify-self: start; }
 .foot-h { font: 400 .8125rem/1 var(--hud); letter-spacing: .12em; text-transform: uppercase; color: var(--vio-2); margin-bottom: 16px; }
 .foot ul { display: grid; gap: 10px; }

@@ -54,6 +54,16 @@
     $$("[data-gmec-short]").forEach((el) => { el.textContent = `${a.slice(0, 6)}…${a.slice(-4)}`; });
     $$("[data-gmec-copy]").forEach((el) => { el.dataset.copy = a; });
     $$("[data-gmec-link]").forEach((el) => { el.href = GMEC.explorer + a; });
+    // where to trade it: links from config.js, https only, built as elements (never parsed as HTML)
+    const links = (GMEC.links || []).filter((l) => l && /^https:\/\/[^\s"'<>]+$/.test(l.url) && l.name);
+    $$("[data-gmec-links]").forEach((el) => {
+      el.replaceChildren(...links.flatMap((l, i) => {
+        const x = document.createElement("a");
+        Object.assign(x, { href: l.url, textContent: `${l.name} ↗`, target: "_blank", rel: "noopener", className: "link" });
+        return i ? [document.createTextNode(" · "), x] : [x];
+      }));
+      el.hidden = !links.length;
+    });
     $$('[data-gmec="soon"]').forEach((el) => { el.hidden = true; });
     $$('[data-gmec="live"]').forEach((el) => { el.hidden = false; });
   }).catch(() => {});
