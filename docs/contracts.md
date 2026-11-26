@@ -56,6 +56,8 @@ Rollup created on Robinhood Chain at block 123,547,462 (26 November 2026).
 | Wrapped GME (WGME) | `0xF47680692201c5c1615FAdc69db4A8Ad6fFA0B01` |
 | Exchange factory (Uniswap V2) | `0x4eCCaB543cD16949c40bE19bbAA2542c3a0EA074` |
 | Exchange router (Uniswap V2 Router02) | `0x14B24b2ef37e3C9b39D8942fDe9666281E54d8b7` |
+| USDG, bridged from Robinhood Chain (6 decimals) | `0x70B8053E45C6273f573a788299EF667677F4C9e5` |
+| GME/USDG pool (Uniswap V2 pair, opened 2026-11-27) | `0x0cc257A03a13d4B01c0Ec573aD2Fc755b9F1B85f` |
 
 ## Testnet
 

@@ -83,7 +83,14 @@
     "factory": "0x4eCCaB543cD16949c40bE19bbAA2542c3a0EA074",
     "router": "0x14B24b2ef37e3C9b39D8942fDe9666281E54d8b7",
     "initCodeHash": "0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f",
-    "deployedAt": "2026-11-26T09:11:33.575Z"
+    "deployedAt": "2026-11-26T09:11:33.575Z",
+    "usdg": "0x70B8053E45C6273f573a788299EF667677F4C9e5",
+    "usdgPair": "0x0cc257A03a13d4B01c0Ec573aD2Fc755b9F1B85f",
+    "usdgSeedTx": "0x5109b37623cd4c9c53870adfbe0ca5dc8f8a4bf798c27ccd6eedeb97a1d06107",
+    "usdgSeedGme": "2",
+    "lpHolder": "0x9354A2F5DbD6D7F0EF33e678F083C2927690B8D4",
+    "usdgSeedUsdg": "53.474785",
+    "usdgSeededAt": "2026-11-27"
   },
   "confirmPeriodChangedTx": "0xddaaac3be7b85b8ee48531930985281bc8d6a6037751dcc5dc78b9b8c63da748"
 }

@@ -9,6 +9,9 @@ What has been built on GME CHAIN, newest first. Dates are UTC. Every on-chain va
 - Assertions confirm in order and each keeps its parent's window, so the one-day window is fully in effect from about **2026-12-04**. Mainnet is not open yet.
 - The site, the docs, the bridge countdown and the roadmap all show the new time.
 
+### Exchange
+- **First pool: GME/USDG.** A starter pool of 2 GME and 53.47 USDG, opened at the market price of Robinhood Chain's deepest GME pool (pair [`0x0cc2…B85f`](docs/contracts.md)). USDG is Global Dollar bridged from Robinhood Chain through the canonical token bridge. The deployer holds the LP tokens; anyone can add liquidity.
+
 ### Bridge
 - **Withdrawal delivery.** After the window, a delivery wallet claims confirmed withdrawals on Robinhood Chain for their owners and pays the claim gas, so nobody has to come back to press Claim. The funds always go to the withdrawal's own destination. Only plain GME withdrawals (from 0.01 GME) and token withdrawals through GME CHAIN's own gateways are delivered, with a gas cap per claim and a daily cap. Anyone can still claim their own withdrawal at any time. Code: [chain/scripts/claimer.js](chain/scripts/claimer.js).
 - **One card.** Bring in and take out share one card: the arrow between the two sides flips the direction, a history button opens your withdrawals, and each side says when the money arrives.
