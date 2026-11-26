@@ -52,6 +52,14 @@ curl -sL https://raw.githubusercontent.com/GMEchain/GME-Chain/main/deploy/vps/au
 
 Matikan dengan `rm /etc/cron.d/gmechain-pull`. Log-nya: `journalctl -t gmechain-pull`.
 
+**Bundle wallet, Caddy dan Traefik.** Auto-deploy hanya menyalin `site/`. Untuk bundle wallet (dibangun di server, tidak ada di git), header Caddy (CSP) dan label Traefik (rate limit RPC), jalankan sekali setelah berubah:
+
+```bash
+curl -sL https://raw.githubusercontent.com/GMEchain/GME-Chain/main/deploy/vps/update-server.sh | sh
+```
+
+Semua yang diganti di-backup ke `/opt/gmechain-backups/`; Caddyfile yang tidak valid dikembalikan dan tidak ada yang di-restart.
+
 **Manual.** `site/` di-mount langsung ke container `web`, jadi cukup ganti isinya. **Sinkronkan di tempat** (rsync), jangan ganti foldernya, karena container tetap memegang folder lama.
 
 ```bash
@@ -63,10 +71,16 @@ Hostinger membatasi koneksi SSH beruntun dari satu IP; kalau port 22 tiba-tiba t
 
 ## Launch mainnet
 
-Alamat mainnet sudah terisi di `site/js/config.js`. Saat launch:
+Alamat mainnet sudah terisi di `site/js/config.js`. Saat launch, dengan contract address $GMEC di tangan:
 
-1. Ubah `export const MAINNET_OPEN = false;` jadi `true` di `site/js/config.js`.
-2. Upload ulang `site/`. Website langsung pindah ke mainnet, dan testnet tetap bisa dibuka lewat `?net=testnet`.
+```bash
+node chain/scripts/launch-check.js --mainnet          # kesiapan chain, operator, keeper, bridge; harus 0 FAIL
+node chain/scripts/gmec-check.js --mainnet 0x...      # CA $GMEC: kontrak ERC-20 dengan simbol GMEC di Robinhood Chain
+python tools/launch.py --gmec 0x...                   # isi CA $GMEC dan buka mainnet di config.js
+git commit -am "Launch mainnet" && git push           # auto-deploy menerbitkan dalam 2 menit
+```
+
+Website langsung pindah ke mainnet, footer/FAQ/docs menampilkan contract $GMEC, dan testnet tetap bisa dibuka lewat `?net=testnet`. Kedua skrip cek hanya membaca; tidak ada kunci yang dipakai dan tidak ada transaksi yang dikirim. `--no-mainnet` menerbitkan $GMEC tanpa membuka mainnet.
 
 ## Operasional
 

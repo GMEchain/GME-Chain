@@ -46,6 +46,18 @@
     setTimeout(() => b.classList.remove("copied"), 1400);
   });
 
+  // ---------- $GMEC: hidden until its contract is set in config.js, then shown wherever the page asks ----------
+  if ($$("[data-gmec]").length) import("/js/config.js").then(({ GMEC }) => {
+    const a = GMEC && GMEC.address;
+    if (!a || !/^0x[0-9a-fA-F]{40}$/.test(a)) return; // only a well-formed address is ever written into the page
+    $$("[data-gmec-addr]").forEach((el) => { el.textContent = a; });
+    $$("[data-gmec-short]").forEach((el) => { el.textContent = `${a.slice(0, 6)}…${a.slice(-4)}`; });
+    $$("[data-gmec-copy]").forEach((el) => { el.dataset.copy = a; });
+    $$("[data-gmec-link]").forEach((el) => { el.href = GMEC.explorer + a; });
+    $$('[data-gmec="soon"]').forEach((el) => { el.hidden = true; });
+    $$('[data-gmec="live"]').forEach((el) => { el.hidden = false; });
+  }).catch(() => {});
+
   // ---------- reveal on scroll ----------
   const items = $$(".rv");
   if (reduced || !("IntersectionObserver" in window)) items.forEach((el) => el.classList.add("in"));
