@@ -2,7 +2,9 @@
 // USDG crosses through the canonical token bridge; GME is the chain's gas. The pool is seeded at the price of the
 // deepest GME market, the Uniswap v3 GME/USDG pool on Robinhood Chain, and refuses to run when prices disagree.
 //
-//   node scripts/seed-usdg-pool.js --mainnet --dry      full rehearsal on two local forks, no real funds (default)
+//   node scripts/seed-usdg-pool.js --mainnet --dry      full rehearsal on two local forks with the deployer's real balances (default)
+//   node scripts/seed-usdg-pool.js --mainnet --go       everything below in order, after one confirmation
+//   node scripts/seed-usdg-pool.js --mainnet --buy      buy the missing GME and USDG with ETH on Uniswap v3 (1% price limit)
 //   node scripts/seed-usdg-pool.js --mainnet --bridge   bridge USDG and GME from Robinhood Chain to GME CHAIN
 //   node scripts/seed-usdg-pool.js --mainnet --seed     create and seed the pool on GME CHAIN
 // SEED_GME sets the GME side (default 40); the USDG side follows from the market price.
@@ -12,11 +14,12 @@ import { spawn } from "node:child_process";
 import { createPublicClient, createWalletClient, defineChain, http, parseAbi, parseEther, formatEther, formatUnits, getAddress, zeroAddress } from "viem";
 import sdk from "@arbitrum/sdk";
 import { ethers } from "ethers";
-import { NETWORK, S, GME_TOKEN, account, loadDeployment, saveDeployment, confirmMainnet, parentPublicClient } from "./lib.js";
+import { encodeFunctionData } from "viem";
+import { NETWORK, S, GME_TOKEN, parentChain, account, walletClient, loadDeployment, saveDeployment, confirmMainnet, parentPublicClient } from "./lib.js";
 
 const { Erc20Bridger, EthBridger, registerCustomArbitrumNetwork } = sdk;
 if (NETWORK !== "mainnet") throw new Error("Run with --mainnet (add --dry, --bridge or --seed).");
-const MODE = process.argv.includes("--seed") ? "seed" : process.argv.includes("--bridge") ? "bridge" : "dry";
+const MODE = ["go", "buy", "bridge", "seed"].find((m) => process.argv.includes(`--${m}`)) || "dry";
 const USDG = getAddress("0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168"); // Global Dollar on Robinhood Chain, 6 decimals
 const MARKET = getAddress("0xe9713f453adb9245b19559790c96f470a18f2fdf"); // Uniswap v3 GME/USDG 1%: token0 GME, token1 USDG
 const SEED_GME = parseEther(process.env.SEED_GME || "40");
@@ -54,6 +57,38 @@ async function market() {
   console.log(`GME market: spot $${spot.toFixed(4)} (Uniswap v3 GME/USDG), keeper TWAP $${twap.toFixed(4)}, gap ${(gap * 100).toFixed(2)}%`);
   if (gap > 0.02) throw new Error("Spot and TWAP disagree by more than 2%: the market may be moving or manipulated. Nothing was sent; try again later.");
   return { usdgFor, spot };
+}
+
+// ---------- buy the missing GME and USDG with ETH (Uniswap v3 on Robinhood Chain) ----------
+const UNI = { router: "0xcaf681a66d020601342297493863e78c959e5cb2", quoter: "0x33e885ed0ec9bf04ecfb19341582aadcb4c8a9e7", weth: getAddress(dep.stakeToken) };
+const uniAbi = parseAbi([
+  "function quoteExactOutputSingle((address tokenIn,address tokenOut,uint256 amount,uint24 fee,uint160 sqrtPriceLimitX96)) view returns (uint256 amountIn,uint160,uint32,uint256)",
+  "function exactOutputSingle((address tokenIn,address tokenOut,uint24 fee,address recipient,uint256 amountOut,uint256 amountInMaximum,uint160 sqrtPriceLimitX96)) payable returns (uint256)",
+  "function multicall(uint256 deadline, bytes[] data) payable returns (bytes[])",
+  "function refundETH() payable",
+]);
+async function buy(pub, wallet, me, wantGme, wantUsdg) {
+  for (const [token, want, dec, sym] of [[GME_TOKEN, wantGme, 18, "GME"], [USDG, wantUsdg, 6, "USDG"]]) {
+    const have = await pub.readContract({ address: token, abi: abi.erc20, functionName: "balanceOf", args: [me] });
+    if (have >= want) { console.log(`buy: already have ${formatUnits(have, dec)} ${sym}`); continue; }
+    const out = want - have;
+    let best = null;
+    for (const fee of [500, 3000, 10000]) {
+      const q = await pub.readContract({ address: UNI.quoter, abi: uniAbi, functionName: "quoteExactOutputSingle", args: [{ tokenIn: UNI.weth, tokenOut: token, amount: out, fee, sqrtPriceLimitX96: 0n }] }).catch(() => null);
+      if (q && (!best || q[0] < best.amountIn)) best = { fee, amountIn: q[0] };
+    }
+    if (!best) throw new Error(`No Uniswap v3 route from ETH to ${sym}. Nothing was sent.`);
+    const max = (best.amountIn * 101n) / 100n; // 1% price limit
+    const deadline = BigInt(Math.floor(Date.now() / 1000) + 600);
+    const calls = [
+      encodeFunctionData({ abi: uniAbi, functionName: "exactOutputSingle", args: [{ tokenIn: UNI.weth, tokenOut: token, fee: best.fee, recipient: me, amountOut: out, amountInMaximum: max, sqrtPriceLimitX96: 0n }] }),
+      encodeFunctionData({ abi: uniAbi, functionName: "refundETH" }),
+    ];
+    const h = await wallet.writeContract({ address: UNI.router, abi: uniAbi, functionName: "multicall", args: [deadline, calls], value: max });
+    const r = await pub.waitForTransactionReceipt({ hash: h });
+    if (r.status !== "success") throw new Error(`buying ${sym} reverted: ${h}`);
+    console.log(`buy: ${formatUnits(out, dec)} ${sym} for at most ${formatEther(max)} ETH (pool fee ${best.fee / 10000}%) in ${h}`);
+  }
 }
 
 // ---------- token bridge (Arbitrum SDK, ethers v5) ----------
@@ -153,13 +188,11 @@ async function rehearse() {
   const f2 = await fork(S.rpc, 8551, 4663), f3 = await fork(L3_RPC, 8552, 12821);
   try {
     // --- Robinhood Chain fork: give the deployer USDG and GME from the market pool, then bridge through the real gateways
-    for (const [token, amt] of [[USDG, usdgNeeded], [GME_TOKEN, SEED_GME + parseEther("1")]]) {
-      await call(f2.rpc, "anvil_impersonateAccount", [MARKET]);
-      await call(f2.rpc, "anvil_setBalance", [MARKET, "0xDE0B6B3A7640000"]);
-      const data = (await import("viem")).encodeFunctionData({ abi: abi.erc20, functionName: "transfer", args: [me, amt] });
-      await call(f2.rpc, "eth_sendTransaction", [{ from: MARKET, to: token, data }]);
-    }
     await call(f2.rpc, "anvil_impersonateAccount", [me]);
+    const pub2 = createPublicClient({ chain: parentChain, transport: http(f2.rpc) });
+    const eth0 = await pub2.getBalance({ address: me });
+    await buy(pub2, createWalletClient({ chain: parentChain, transport: http(f2.rpc), account: me }), me, SEED_GME + parseEther("0.02"), usdgNeeded);
+    console.log(`  bought with the deployer's real balances: ${formatEther(eth0 - (await pub2.getBalance({ address: me })))} ETH spent, ${formatEther(await pub2.getBalance({ address: me }))} ETH left`);
     const p2 = new ethers.providers.JsonRpcProvider(f2.rpc);
     await bridgeIn(p2.getSigner(me), usdgNeeded, SEED_GME + parseEther("0.01"), false);
     console.log("  parent side OK: both deposits accepted by the real inbox and gateway on the fork");
@@ -204,20 +237,42 @@ async function rehearse() {
     // --- the real seed, then a user swap
     await call(f3.rpc, "anvil_impersonateAccount", [me]);
     const res = await seed(l3, w3, me, usdgFor);
-    const path2 = [DEX.wrappedGme, usdgL3], oneGme = parseEther("1");
+    const path2 = [DEX.wrappedGme, usdgL3], oneGme = parseEther(process.env.TEST_SWAP_GME || "0.05");
     const [, out] = await l3.readContract({ address: DEX.router, abi: abi.router, functionName: "getAmountsOut", args: [oneGme, path2] });
-    console.log(`  swap quote: 1 GME -> ${formatUnits(out, 6)} USDG on GME CHAIN (market $${spot.toFixed(2)}, includes 0.3% fee and price impact)`);
+    console.log(`  swap quote: ${formatEther(oneGme)} GME -> ${formatUnits(out, 6)} USDG on GME CHAIN (market $${(Number(formatEther(oneGme)) * spot).toFixed(2)}, includes 0.3% fee and price impact)`);
     const swapHash = await w3.writeContract({ address: DEX.router, abi: abi.router, functionName: "swapExactETHForTokens", args: [(out * 99n) / 100n, path2, me, BigInt(Math.floor(Date.now() / 1000) + 600)], value: oneGme });
     const sr = await l3.waitForTransactionReceipt({ hash: swapHash });
     console.log(`  user swap: ${sr.status === "success" ? "OK" : "FAILED"}`);
     if (sr.status !== "success") throw new Error("swap failed on the fork");
-    console.log(`\nREHEARSAL PASSED. On mainnet the deployer needs on Robinhood Chain: ${formatUnits(usdgNeeded, 6)} USDG, ${formatEther(SEED_GME + parseEther("0.06"))} GME (pool + gas + bridge fees) and a little ETH.`);
+    console.log(`\nREHEARSAL PASSED with the deployer's real balances. Run it for real with: node scripts/seed-usdg-pool.js --mainnet --go`);
     return res;
   } finally { f2.p.kill(); f3.p.kill(); }
 }
 
 // ---------- main ----------
+async function seedNow(acct) {
+  const { usdgFor } = await market(); // fresh price right before seeding
+  const l3 = createPublicClient({ chain: gmeChain(L3_RPC), transport: http(L3_RPC) });
+  const w3 = createWalletClient({ chain: gmeChain(L3_RPC), transport: http(L3_RPC), account: acct });
+  const res = await seed(l3, w3, acct.address, usdgFor);
+  saveDeployment({ dex: { ...loadDeployment().dex, usdg: res.usdgL3, usdgPair: res.pair, usdgSeedTx: res.tx, usdgSeedGme: formatEther(SEED_GME), lpHolder: acct.address } });
+  console.log(`\nPool live: GME/USDG ${res.pair}. Set DEX.usdg in site/js/config.js to ${res.usdgL3}.`);
+}
 if (MODE === "dry") await rehearse();
+else if (MODE === "go" || MODE === "buy") {
+  const { usdgFor } = await market();
+  const usdgNeeded = (usdgFor(SEED_GME) * 101n) / 100n;
+  await confirmMainnet(MODE === "go"
+    ? `Buy GME and USDG with ETH, bridge them to GME CHAIN, and seed GME/USDG with ${formatEther(SEED_GME)} GME + ~${formatUnits(usdgFor(SEED_GME), 6)} USDG`
+    : `Buy GME and USDG with ETH for a ${formatEther(SEED_GME)} GME pool`);
+  const acct = account("DEPLOYER");
+  await buy(parentPublicClient, walletClient("DEPLOYER"), acct.address, SEED_GME + parseEther("0.02"), usdgNeeded);
+  if (MODE === "go") {
+    const signer = new ethers.Wallet(process.env.DEPLOYER_PRIVATE_KEY, new ethers.providers.JsonRpcProvider(S.rpc));
+    await bridgeIn(signer, usdgNeeded, SEED_GME + parseEther("0.01"), true);
+    await seedNow(acct);
+  }
+}
 else if (MODE === "bridge") {
   const { usdgFor } = await market();
   const usdgNeeded = (usdgFor(SEED_GME) * 101n) / 100n;
@@ -226,11 +281,6 @@ else if (MODE === "bridge") {
   if (signer.address.toLowerCase() !== process.env.DEPLOYER_ADDRESS.toLowerCase()) throw new Error("Deployer key does not match DEPLOYER_ADDRESS. Nothing was sent.");
   await bridgeIn(signer, usdgNeeded, SEED_GME + parseEther("0.01"), true);
 } else {
-  const { usdgFor } = await market();
   await confirmMainnet(`Create and seed the GME/USDG pool on GME CHAIN with ${formatEther(SEED_GME)} GME`);
-  const acct = account("DEPLOYER");
-  const l3 = createPublicClient({ chain: gmeChain(L3_RPC), transport: http(L3_RPC) });
-  const w3 = createWalletClient({ chain: gmeChain(L3_RPC), transport: http(L3_RPC), account: acct });
-  const res = await seed(l3, w3, acct.address, usdgFor);
-  saveDeployment({ dex: { ...loadDeployment().dex, usdg: res.usdgL3, usdgPair: res.pair, usdgSeedTx: res.tx, usdgSeedGme: formatEther(SEED_GME), lpHolder: acct.address } });
+  await seedNow(account("DEPLOYER"));
 }
