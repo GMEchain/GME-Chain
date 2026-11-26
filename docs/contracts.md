@@ -40,8 +40,8 @@ Rollup created on Robinhood Chain at block 123,547,462 (26 November 2026).
 | Outbox (claims) | `0x2C31e5ABCB0b06F2869a3A1bBC2a1dDD83B4ac33` |
 | Sequencer inbox | `0x5eF54C7bDc546E8faC8D3fcd425f91c94d583cf9` |
 | Upgrade executor | `0x6bf544BD69Cab485e47449208Fa855653083fD12` |
-| GmeFeeTokenPricer | `0x97dcc10f4f99dc0643540921efea2ee043502c24` |
-| GmeGasRouter (bridge with ETH) | `0x150415997ad7b9a4bf724dfb552c63fe50f33ecd` |
+| GmeFeeTokenPricer ([verified on Sourcify](https://repo.sourcify.dev/4663/0x97dcc10f4f99dc0643540921efea2ee043502c24)) | `0x97dcc10f4f99dc0643540921efea2ee043502c24` |
+| GmeGasRouter, bridge with ETH ([verified on Sourcify](https://repo.sourcify.dev/4663/0x150415997ad7b9a4bf724dfb552c63fe50f33ecd)) | `0x150415997ad7b9a4bf724dfb552c63fe50f33ecd` |
 | Token bridge router | `0xbabF154cBD39B06BeaC9d533c25eDa9b77E5FE87` |
 | Token bridge standard gateway | `0x27CeAef79bC032d65d2005009C794D9F4fD7040d` |
 

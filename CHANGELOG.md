@@ -5,6 +5,7 @@ What has been built on GME CHAIN, newest first. Dates are UTC. Every on-chain va
 ## 2026-11-27 · Mainnet launch
 
 ### Mainnet is open
+- **Verified on Sourcify:** [GmeFeeTokenPricer](https://repo.sourcify.dev/4663/0x97dcc10f4f99dc0643540921efea2ee043502c24) and [GmeGasRouter](https://repo.sourcify.dev/4663/0x150415997ad7b9a4bf724dfb552c63fe50f33ecd), the contracts we wrote for Robinhood Chain mainnet, are exact matches on Sourcify, so anyone can read the source next to the deployed code.
 - **gmechain.xyz runs on GME CHAIN mainnet:** bridge ETH in as GME gas, swap on the exchange, explore blocks and withdraw back. The testnet stays open for trying everything for free.
 
 

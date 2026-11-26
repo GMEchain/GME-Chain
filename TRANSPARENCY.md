@@ -12,7 +12,7 @@ Every contract we wrote is, on chain, exactly the code in this repository. You c
 cd chain && npm ci && forge build && node scripts/verify-bytecode.js
 ```
 
-It compiles the sources here and compares them byte for byte with the code deployed on Robinhood Chain and on GME CHAIN. Only constructor-set values may differ. The [CI](.github/workflows/ci.yml) runs it on every push. GmeFeeTokenPricer and GmeGasRouter are also an exact match on Sourcify.
+It compiles the sources here and compares them byte for byte with the code deployed on Robinhood Chain and on GME CHAIN. Our two Robinhood Chain contracts are also verified on [Sourcify](https://sourcify.dev), the open verification service of the Ethereum community, as exact matches: [GmeFeeTokenPricer](https://repo.sourcify.dev/4663/0x97dcc10f4f99dc0643540921efea2ee043502c24) and [GmeGasRouter](https://repo.sourcify.dev/4663/0x150415997ad7b9a4bf724dfb552c63fe50f33ecd). Only constructor-set values may differ. The [CI](.github/workflows/ci.yml) runs it on every push. GmeFeeTokenPricer and GmeGasRouter are also an exact match on Sourcify.
 
 The chain's own core contracts (rollup, bridge, inbox, outbox, token bridge) are the standard Arbitrum Nitro contracts deployed by Offchain Labs' [orbit SDK](https://github.com/OffchainLabs/arbitrum-chain-sdk), not code written here.
 
