@@ -93,9 +93,12 @@
 
     <div class="bx">
       <section class="bx-ticket" aria-label="Bridge">
-        <div class="bridge-tabs tk-tabs" role="tablist" aria-label="Direction">
-          <button role="tab" id="tab-in" aria-controls="panel-in" aria-selected="true" type="button">Bring in</button>
-          <button role="tab" id="tab-out" aria-controls="panel-out" aria-selected="false" tabindex="-1" type="button">Take out</button>
+        <div class="bx-top">
+          <div class="bridge-tabs tk-tabs" role="tablist" aria-label="Direction">
+            <button role="tab" id="tab-in" aria-controls="panel-in" aria-selected="true" type="button">Bring in</button>
+            <button role="tab" id="tab-out" aria-controls="panel-out" aria-selected="false" tabindex="-1" type="button">Take out</button>
+          </div>
+          <button class="bx-hist" type="button" data-history aria-label="Your withdrawals" title="Your withdrawals"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/></svg></button>
         </div>
 
         <div id="panel-in" role="tabpanel" aria-labelledby="tab-in" class="bx-body">
@@ -118,12 +121,13 @@
               </label>
               <div class="leg-foot" id="dep-bal"><span>Balance <b data-dep-bal>—</b></span><span class="pct-row" role="group" aria-label="Amount" data-pct="deposit"><button type="button" data-p="10" aria-pressed="false">10%</button><button type="button" data-p="25" aria-pressed="false">25%</button><button type="button" data-p="50" aria-pressed="false">50%</button><button type="button" data-p="75" aria-pressed="false">75%</button><button type="button" data-p="100" aria-pressed="false">100%</button></span></div>
             </div>
-            <div class="leg-arrow" aria-hidden="true">↓</div>
+            <button class="leg-arrow" type="button" data-flip aria-label="Switch direction" title="Switch direction">⇅</button>
             <div class="leg leg-get">
               <div class="leg-head"><span class="label">You get</span><span class="chain-tag"><i class="dot-gme"></i><span data-n="l3">GME CHAIN</span></span></div>
               <p class="receive" data-receive>Your ETH is swapped to GME on Uniswap v3 (best route, 1% price limit) and arrives as native gas at the same address.</p>
             </div>
             <button class="btn btn-accent btn-block btn-lg" type="submit">Connect wallet</button>
+            <p class="bx-eta"><span class="eta-k">Arrival</span> about a minute after your <span data-n="l2">Robinhood Chain</span> transaction confirms</p>
             <p class="form-msg" role="status" aria-live="polite"></p>
           </form>
         </div>
@@ -139,12 +143,13 @@
               </label>
               <div class="leg-foot" id="wd-bal"><span>Balance <b data-bal="l3">—</b></span><span class="pct-row" role="group" aria-label="Amount" data-pct="withdraw"><button type="button" data-p="10" aria-pressed="false">10%</button><button type="button" data-p="25" aria-pressed="false">25%</button><button type="button" data-p="50" aria-pressed="false">50%</button><button type="button" data-p="75" aria-pressed="false">75%</button><button type="button" data-p="100" aria-pressed="false">100%</button></span></div>
             </div>
-            <div class="leg-arrow" aria-hidden="true">↓</div>
+            <button class="leg-arrow" type="button" data-flip aria-label="Switch direction" title="Switch direction">⇅</button>
             <div class="leg leg-get">
               <div class="leg-head"><span class="label">You claim</span><span class="chain-tag"><i class="dot-rh"></i><span data-n="l2">Robinhood Chain</span></span></div>
               <p class="receive">Two steps: start it here now, then claim it on <span data-n="l2">Robinhood Chain</span> <span data-show="mainnet">about 7 days later, after the challenge window</span><span data-show="testnet" hidden>usually 45 to 60 minutes later</span>. A countdown shows when.</p>
             </div>
             <button class="btn btn-accent btn-block btn-lg" type="submit">Connect wallet</button>
+            <p class="bx-eta"><span class="eta-k">Claimable</span> <span data-show="mainnet">about 7 days after you start</span><span data-show="testnet" hidden>about an hour after you start</span></p>
             <p class="form-msg" role="status" aria-live="polite"></p>
           </form>
           <div class="w-head">
@@ -171,6 +176,17 @@
         </div>
       </section>
 
+      <div class="bx-info">
+        <div>
+          <h2>Where does it arrive?</h2>
+          <p>At the same address on <span data-n="l3">GME CHAIN</span>, as native gas. Your wallet shows it once you add the network; the explorer shows it right away.</p>
+        </div>
+        <div>
+          <h2>Withdrawal delivery</h2>
+          <p>Start it here, then claim it on <span data-n="l2">Robinhood Chain</span> when the window ends (<span data-show="mainnet">about 7 days</span><span data-show="testnet" hidden>about an hour</span>). <button class="link-btn" type="button" data-history>Track a withdrawal</button></p>
+        </div>
+      </div>
+
       <aside class="route" aria-labelledby="route-title">
         <div class="route-head"><h2 id="route-title" class="label">Live route</h2><span class="label">your deposit, step by step</span></div>
         <ol class="route-track">
@@ -179,10 +195,6 @@
           <li><i aria-hidden="true"></i><div><b>GME locked on <span data-n="l2">Robinhood Chain</span></b><small>Held by the bridge contract, one to one</small><em>In the bridge <b data-stat="escrow">…</b> · node <b data-stat="parent">…</b></em></div></li>
           <li><i aria-hidden="true"></i><div><b>Gas on <span data-n="l3">GME CHAIN</span></b><small>Credited by the sequencer, usually within a minute</small><em>Yours <b data-bal="l3">—</b> · chain <b data-stat="l3">…</b></em></div></li>
         </ol>
-        <div class="route-out">
-          <p class="label">Taking it out</p>
-          <p>Burn on <span data-n="l3">GME CHAIN</span> → wait <span data-show="mainnet">~7 days</span><span data-show="testnet" hidden>~1 hour</span> for the challenge window → claim on <span data-n="l2">Robinhood Chain</span><span data-show="mainnet"> → swap back to ETH</span>.</p>
-        </div>
         <div class="route-actions">
           <button class="btn btn-line btn-sm" type="button" data-add-l3>Add <span data-n="l3">GME CHAIN</span> to wallet</button>
           <a class="btn btn-line btn-sm" href="../swap/">Trade on the exchange <span class="ar" aria-hidden="true">→</span></a>

@@ -30,8 +30,24 @@ body:has(.app-main), body:has(.ex-main) { background: var(--bg) radial-gradient(
 @media (max-width: 760px) { .powerup { grid-template-columns: auto 1fr; } .pu-go { grid-column: 1 / -1; justify-items: stretch; } }
 
 /* ---------- bridge: ticket + live route ---------- */
-.bx { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 32px); align-items: start; }
-@media (max-width: 940px) { .bx { grid-template-columns: minmax(0, 1fr); } }
+/* one card in the middle, answers and the live route under it */
+.bx { display: grid; grid-template-columns: minmax(0, 580px); justify-content: center; gap: clamp(20px, 3vw, 28px); }
+.bx-main .bx-head { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; }
+.bx-main .bx-intro { justify-items: center; max-width: 62ch; }
+.bx-main .net-switch { justify-self: center; }
+.bx-main .bx-note { max-width: 580px; margin-inline: auto; text-align: center; }
+.bx-main .powerup { max-width: 780px; margin-inline: auto; }
+.bx-top { display: grid; grid-template-columns: minmax(0, 1fr) auto; background: var(--up); }
+.bx-hist { display: grid; place-items: center; width: 58px; border: 0; border-left: 2px solid rgba(0, 0, 0, .22); background: transparent; color: #fff; transition: background .15s; }
+.bx-hist:hover { background: rgba(0, 0, 0, .22); }
+.bx-hist:focus-visible { outline: 3px solid #fff; outline-offset: -5px; }
+.bx-eta { margin-top: 10px; text-align: center; font-size: .875rem; color: var(--muted); }
+.eta-k { margin-right: 6px; font: 400 .9375rem var(--hud); letter-spacing: .1em; text-transform: uppercase; color: var(--up); }
+.bx-info { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.bx-info > div { padding: 16px 18px; border: 2px solid var(--edge); border-radius: 16px; background: var(--panel); }
+.bx-info h2 { margin-bottom: 6px; font: 400 1.15rem/1.1 var(--display); text-transform: uppercase; }
+.bx-info p { font-size: .9375rem; color: var(--fg-2); }
+@media (max-width: 640px) { .bx-info { grid-template-columns: minmax(0, 1fr); } }
 .bx-ticket { border: 3px solid var(--up); border-radius: var(--r-lg); background: linear-gradient(180deg, #1A0A0B, #0B0B0C 40%); box-shadow: 0 0 0 6px rgba(255, 45, 45, .1), 0 40px 80px -30px #000; overflow: hidden; }
 .bx-ticket .bridge-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding: 0; border-radius: 0; background: var(--up); }
 .bx-ticket .bridge-tabs button { padding: 16px; border: 0; border-radius: 0; background: transparent; color: rgba(255, 255, 255, .7); font: 400 1rem/1 var(--display); letter-spacing: .04em; }
@@ -39,7 +55,7 @@ body:has(.app-main), body:has(.ex-main) { background: var(--bg) radial-gradient(
 .bx-body { padding: 20px; }
 .bx-note { margin-top: 24px; max-width: 80ch; }
 
-.route { position: sticky; top: calc(var(--nav-h) + 24px); padding: 22px; border: 2px solid var(--edge); border-radius: var(--r-lg); background: var(--panel); }
+.route { position: relative; padding: 22px; border: 2px solid var(--edge); border-radius: var(--r-lg); background: var(--panel); }
 .route-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 18px; }
 .route-head h2 { font: 400 1.25rem/1 var(--display); letter-spacing: .02em; color: var(--fg); }
 .route-track { position: relative; display: grid; gap: 4px; }

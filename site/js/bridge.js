@@ -172,6 +172,14 @@ $$(".bridge-tabs [role=tab]").forEach((t, i, all) => {
   });
 });
 
+// the arrow between the legs flips the direction; the history button opens the withdrawals list
+const isOut = () => $("#tab-out").getAttribute("aria-selected") === "true";
+$$("[data-flip]").forEach((b) => b.addEventListener("click", () => { (isOut() ? $("#tab-in") : $("#tab-out")).click(); $(isOut() ? "#withdraw-form input[name=amount]" : "#deposit-form input[name=amount]")?.focus(); }));
+$$("[data-history]").forEach((b) => b.addEventListener("click", () => {
+  if (!isOut()) $("#tab-out").click();
+  const list = $("#withdrawals"); list.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" });
+}));
+
 // ---------- buttons follow wallet state ----------
 const dep = $("#deposit-form"), wd = $("#withdraw-form"), cv = $("#convert-form");
 function amountOf(form) {
