@@ -1,6 +1,6 @@
 // GME CHAIN Explorer. Reads the chain straight from its RPC (batched JSON-RPC), no indexer yet.
 // Routes (clean URLs, served by Caddy try_files):
-//   /explorer/[testnet/]                 home: stats, block heatmap, latest blocks and transactions
+//   /explorer/[testnet/]                 home: scoreboard, stage select, live blocks and moves
 //   /explorer/[testnet/]block/<n|hash>   block detail
 //   /explorer/[testnet/]tx/<hash>        transaction detail
 //   /explorer/[testnet/]address/<addr>   address detail
@@ -108,51 +108,75 @@ function chrome() {
 const go = (p) => { location.href = BASE + p; };
 
 // ---------- views ----------
+// Arcade look: a scoreboard with zero-padded counters, a stage-select grid of blocks, and two CRT screens
+// (blocks as a high-score table, transactions as a move log) that update live as new blocks arrive.
+const pad6 = (n) => { const s = Number(n).toLocaleString("en-US"), z = Math.max(0, 6 - String(n).length); return `<i>${"0".repeat(z)}</i>${s}`; };
+const screen = (title, sub, body, attrs = "") => `<section class="crt" ${attrs}><header class="crt-h"><h2>${title}</h2><span>${sub}</span></header>${body}</section>`;
+const blockRow = (b, userTx, fresh) => `
+  <li class="${fresh ? "new" : ""}">${blkLink(hexN(b.number))}<span class="lead" aria-hidden="true"></span>
+  <b>${userTx(b).length} ${userTx(b).length === 1 ? "move" : "moves"}</b><small>${hexN(b.gasUsed).toLocaleString("en-US")} gas · ${ago(hexN(b.timestamp))}</small></li>`;
+const moveRow = (t, ts, fresh) => `
+  <li class="${fresh ? "new" : ""}"><span class="meth">${esc(method(t))}</span>${txLink(t.hash)}<small>${ago(ts)}</small>
+  <span class="mid">${addrLink(t.from)} <span class="arrow">→</span> ${addrLink(t.to)}</span></li>`;
+
 async function home() {
   app.innerHTML = `
-    <dl class="ex-stats" aria-label="Chain statistics">
-      <div><dt>Block height</dt><dd data-s="height"><i class="sk"></i></dd></div>
-      <div><dt>Transactions</dt><dd data-s="txs"><i class="sk"></i></dd><small data-s="today"></small></div>
-      <div><dt>Addresses</dt><dd data-s="addrs"><i class="sk"></i></dd></div>
-      <div><dt>Gas price</dt><dd data-s="gas"><i class="sk"></i></dd></div>
-      <div><dt>A transfer costs</dt><dd data-s="cost"><i class="sk"></i></dd></div>
+    <dl class="ex-board" aria-label="Chain statistics">
+      <div><dt>Level</dt><dd data-s="height"><i class="sk"></i></dd><small>block height</small></div>
+      <div><dt>Moves</dt><dd data-s="txs"><i class="sk"></i></dd><small data-s="today">transactions</small></div>
+      <div><dt>Players</dt><dd data-s="addrs"><i class="sk"></i></dd><small>addresses</small></div>
+      <div><dt>Gas</dt><dd data-s="gas"><i class="sk"></i></dd><small>gas price</small></div>
+      <div><dt>Cost</dt><dd data-s="cost"><i class="sk"></i></dd><small>one transfer</small></div>
     </dl>
-    <section class="ex-heat card" aria-label="Recent blocks by activity"><div class="heat" data-heat></div>
-      <p class="heat-legend"><span data-heat-from></span><span>brighter = more transactions</span><span data-heat-to></span></p></section>
+    ${screen("Stage select", "latest 48 blocks · brighter = more moves", `<div class="stage" data-heat></div>`, 'aria-label="Recent blocks by activity"')}
     <div class="ex-cols">
-      <section class="card"><h2 class="label">Latest blocks</h2><ul class="ex-list" data-blocks><li class="empty">Reading the chain…</li></ul></section>
-      <section class="card"><h2 class="label">Latest transactions</h2><ul class="ex-list" data-txs><li class="empty">Reading the chain…</li></ul></section>
+      ${screen("Blocks", `<b class="live" data-live-tag>live</b>`, `<ol class="hs" data-blocks><li class="empty">Reading the chain…</li></ol>`)}
+      ${screen("Moves", "latest transactions", `<ol class="hs mv" data-txs><li class="empty">Reading the chain…</li></ol>`)}
     </div>
-    <p class="ex-note">Live data from ${esc(P.L3.name)} over RPC. Totals cover the latest ${SCAN_MAX.toLocaleString("en-US")} blocks. The chain makes a block only when there is a transaction; "system" transactions are ArbOS bookkeeping and are not counted.</p>`;
-  const [headHex, gasHex] = await Promise.all([rpc("eth_blockNumber"), rpc("eth_gasPrice")]);
-  const head = hexN(headHex), gas = big(gasHex);
-  const from = Math.max(0, head - SCAN_MAX + 1);
-  const nums = []; for (let n = head; n >= from; n--) nums.push(n);
-  const blocks = (await batch(nums.map((n) => ["eth_getBlockByNumber", ["0x" + n.toString(16), true]]))).filter(Boolean);
+    <p class="ex-note">Live data from ${esc(P.L3.name)} over RPC, checked every few seconds. Totals cover the latest ${SCAN_MAX.toLocaleString("en-US")} blocks. The chain makes a block only when there is a transaction; "system" transactions are ArbOS bookkeeping and are not counted.</p>`;
   const userTx = (b) => b.transactions.filter((t) => !SYSTEM.has(t.type));
-  let txs = 0, today = 0; const addrs = new Set(); const dayAgo = Date.now() / 1000 - 86400;
-  for (const b of blocks) for (const t of userTx(b)) { txs++; if (hexN(b.timestamp) > dayAgo) today++; if (t.from) addrs.add(t.from.toLowerCase()); if (t.to) addrs.add(t.to.toLowerCase()); }
+  const fetchBlocks = (hi, lo) => { const nums = []; for (let n = hi; n >= lo; n--) nums.push(n); return batch(nums.map((n) => ["eth_getBlockByNumber", ["0x" + n.toString(16), true]])).then((r) => r.filter(Boolean)); };
   const set = (k, v) => { const el = $(`[data-s="${k}"]`); if (el) el.innerHTML = v; };
-  set("height", head.toLocaleString("en-US"));
-  set("txs", txs.toLocaleString("en-US"));
-  set("today", `${today.toLocaleString("en-US")} today`);
-  set("addrs", addrs.size.toLocaleString("en-US"));
-  set("gas", `${(Number(gas) / 1e9).toLocaleString("en-US", { maximumSignificantDigits: 3 })} <small>gwei</small>`);
-  set("cost", `${tiny(Number(gas * 21000n) / 1e18)} <small>${TOKEN}</small>`);
-  // heatmap of the latest 48 blocks
-  const last = blocks.slice(0, 48).reverse();
-  const maxTx = Math.max(1, ...last.map((b) => userTx(b).length));
-  const pad = Array.from({ length: Math.max(0, 48 - last.length) }, () => `<span class="heat-empty" aria-hidden="true"></span>`).join("");
-  $("[data-heat]").innerHTML = pad + last.map((b) => { const n = userTx(b).length; return `<a href="${BASE}/block/${hexN(b.number)}" style="--a:${n ? 0.35 + 0.65 * (n / maxTx) : 0.08}" title="Block #${hexN(b.number)} · ${n} tx"></a>`; }).join("");
-  if (last.length) { $("[data-heat-from]").textContent = `#${hexN(last[0].number)}`; $("[data-heat-to]").textContent = `#${hexN(last[last.length - 1].number)} · head`; }
-  $("[data-blocks]").innerHTML = blocks.slice(0, 10).map((b) => `
-    <li><span class="badge-ico">BK</span><div>${blkLink(hexN(b.number))}<small>${ago(hexN(b.timestamp))}</small></div>
-    <div class="r"><b>${userTx(b).length} tx</b><small>${hexN(b.gasUsed).toLocaleString("en-US")} gas</small></div></li>`).join("") || `<li class="empty">No blocks yet.</li>`;
-  const recent = [];
-  for (const b of blocks) { for (const t of userTx(b).reverse()) { recent.push({ t, ts: hexN(b.timestamp) }); if (recent.length >= 10) break; } if (recent.length >= 10) break; }
-  $("[data-txs]").innerHTML = recent.map(({ t, ts }) => `
-    <li><span class="badge-ico">TX</span><div>${txLink(t.hash)}<small>${ago(ts)}</small></div>
-    <div class="mid">${addrLink(t.from)} <span class="arrow">→</span> ${addrLink(t.to)}</div><div class="r"><b class="meth">${esc(method(t))}</b></div></li>`).join("") || `<li class="empty">No transactions yet.</li>`;
+  const [headHex, gasHex] = await Promise.all([rpc("eth_blockNumber"), rpc("eth_gasPrice")]);
+  let head = hexN(headHex), gas = big(gasHex);
+  let blocks = await fetchBlocks(head, Math.max(0, head - SCAN_MAX + 1));
+  let seen = new Set(blocks.map((b) => hexN(b.number)));
+
+  const render = (fresh = new Set()) => {
+    let txs = 0, today = 0; const addrs = new Set(); const dayAgo = Date.now() / 1000 - 86400;
+    for (const b of blocks) for (const t of userTx(b)) { txs++; if (hexN(b.timestamp) > dayAgo) today++; if (t.from) addrs.add(t.from.toLowerCase()); if (t.to) addrs.add(t.to.toLowerCase()); }
+    set("height", pad6(head)); set("txs", pad6(txs)); set("addrs", pad6(addrs.size));
+    set("today", `${today.toLocaleString("en-US")} today`);
+    set("gas", `${(Number(gas) / 1e9).toLocaleString("en-US", { maximumSignificantDigits: 3 })}<small> gwei</small>`);
+    set("cost", `${tiny(Number(gas * 21000n) / 1e18)}<small> ${TOKEN}</small>`);
+    const last = blocks.slice(0, 48).reverse();
+    const maxTx = Math.max(1, ...last.map((b) => userTx(b).length));
+    const empty = Array.from({ length: Math.max(0, 48 - last.length) }, () => `<span class="tile off" aria-hidden="true"></span>`).join("");
+    $("[data-heat]").innerHTML = empty + last.map((b) => { const n = hexN(b.number), k = userTx(b).length; return `<a class="tile${fresh.has(n) ? " new" : ""}" href="${BASE}/block/${n}" style="--a:${k ? 0.3 + 0.7 * (k / maxTx) : 0.06}" title="Block #${n} · ${k} tx"><span>${n}</span></a>`; }).join("");
+    $("[data-blocks]").innerHTML = blocks.slice(0, 10).map((b) => blockRow(b, userTx, fresh.has(hexN(b.number)))).join("") || `<li class="empty">No blocks yet.</li>`;
+    const recent = [];
+    for (const b of blocks) { for (const t of userTx(b).reverse()) { recent.push({ t, ts: hexN(b.timestamp), n: hexN(b.number) }); if (recent.length >= 10) break; } if (recent.length >= 10) break; }
+    $("[data-txs]").innerHTML = recent.map(({ t, ts, n }) => moveRow(t, ts, fresh.has(n))).join("") || `<li class="empty">No transactions yet.</li>`;
+  };
+  render();
+
+  // live: poll the head; fetch only the new blocks and flash them in
+  let busy = false;
+  const poll = async () => {
+    if (busy || document.hidden || !app.isConnected) return;
+    busy = true;
+    try {
+      const [h, g] = await batch([["eth_blockNumber", []], ["eth_gasPrice", []]]);
+      const nh = hexN(h); if (g) gas = big(g);
+      if (nh > head) {
+        const add = (await fetchBlocks(nh, Math.max(head + 1, nh - 49))).filter((b) => !seen.has(hexN(b.number)));
+        add.forEach((b) => seen.add(hexN(b.number)));
+        blocks = [...add, ...blocks].slice(0, SCAN_MAX); head = nh;
+        render(new Set(add.map((b) => hexN(b.number))));
+      } else render();
+    } catch (e) { warn(e); } finally { busy = false; }
+  };
+  setInterval(poll, 5000);
 }
 
 async function blockView(id) {
@@ -166,11 +190,9 @@ async function blockView(id) {
     ["Gas used", hexN(b.gasUsed).toLocaleString("en-US")], ["Base fee", b.baseFeePerGas ? `${Number(big(b.baseFeePerGas)) / 1e9} gwei` : "—"],
     ["Parent-chain block", b.l1BlockNumber ? hexN(b.l1BlockNumber).toLocaleString("en-US") : "—"],
   ];
-  app.innerHTML = `${crumb(`Block #${n.toLocaleString("en-US")}`)}${table(rows)}
-    <nav class="ex-pager"><a class="btn btn-ghost btn-small" href="${BASE}/block/${Math.max(0, n - 1)}">← #${Math.max(0, n - 1)}</a><a class="btn btn-ghost btn-small" href="${BASE}/block/${n + 1}">#${n + 1} →</a></nav>
-    <section class="card"><h2 class="label">Transactions</h2><ul class="ex-list">${b.transactions.map((t) => `
-      <li><span class="badge-ico">TX</span><div>${txLink(t.hash)}<small>${typeName(t.type)}</small></div>
-      <div class="mid">${addrLink(t.from)} <span class="arrow">→</span> ${addrLink(t.to)}</div><div class="r"><b class="meth">${esc(method(t))}</b><small>${units(big(t.value), 4)} ${TOKEN}</small></div></li>`).join("") || `<li class="empty">Empty block.</li>`}</ul></section>`;
+  app.innerHTML = `${crumb("Block")}${headline("Level", `#${n.toLocaleString("en-US")}`)}${table(rows)}
+    <nav class="ex-pager"><a class="btn btn-line btn-sm" href="${BASE}/block/${Math.max(0, n - 1)}">← #${Math.max(0, n - 1)}</a><a class="btn btn-line btn-sm" href="${BASE}/block/${n + 1}">#${n + 1} →</a></nav>
+    ${screen("Moves in this block", `${Number(b.transactions.length)} total`, `<ol class="hs mv">${b.transactions.map((t) => moveRow(t, hexN(b.timestamp), false).replace("</li>", `<small class="val">${units(big(t.value), 4)} ${TOKEN}</small></li>`)).join("") || `<li class="empty">Empty block.</li>`}</ol>`)}`;
 }
 
 async function txView(hash) {
@@ -189,7 +211,8 @@ async function txView(hash) {
     ["Gas used", r ? hexN(r.gasUsed).toLocaleString("en-US") : "—"], ["Logs", r ? String(Number(r.logs.length)) : "—"],
     ["Input", t.input && t.input !== "0x" ? `<code class="wrap">${hx(t.input.slice(0, 650), Number(t.input.slice(0, 650).length) - 2)}${Number(t.input.length) > 650 ? "…" : ""}</code>` : "—"],
   ];
-  app.innerHTML = `${crumb("Transaction")}${table(rows)}`;
+  const result = r ? (ok ? "Clear" : "Miss") : "Pending";
+  app.innerHTML = `${crumb("Transaction")}${headline(esc(method(t)), result, r ? (ok ? "ok" : "bad") : "")}${table(rows)}`;
 }
 
 async function addressView(addr) {
@@ -201,19 +224,19 @@ async function addressView(addr) {
     ["Balance", `${units(big(bal), 8)} ${TOKEN}`], ["Transactions sent", hexN(nonce).toLocaleString("en-US")],
     ["Type", isContract ? `Contract (${((code.length - 2) / 2).toLocaleString("en-US")} bytes)` : "Externally owned account"],
   ];
-  app.innerHTML = `${crumb(label(addr) || short(addr))}${table(rows)}<section class="card"><h2 class="label">Recent activity</h2><ul class="ex-list" data-hist><li class="empty">Scanning the latest blocks…</li></ul></section>`;
+  app.innerHTML = `${crumb(isContract ? "Contract" : "Player")}${headline(isContract ? "Contract" : "Player", esc(label(addr) || short(addr)))}${table(rows)}
+    ${screen("Recent moves", `latest ${SCAN_MAX.toLocaleString("en-US")} blocks`, `<ol class="hs mv" data-hist><li class="empty">Scanning the latest blocks…</li></ol>`)}`;
   const nums = []; for (let n = head; n >= from; n--) nums.push(n);
   const blocks = (await batch(nums.map((n) => ["eth_getBlockByNumber", ["0x" + n.toString(16), true]]))).filter(Boolean);
   const a = addr.toLowerCase(), hist = [];
   for (const b of blocks) for (const t of b.transactions) if (!SYSTEM.has(t.type) && ((t.from || "").toLowerCase() === a || (t.to || "").toLowerCase() === a)) hist.push({ t, ts: hexN(b.timestamp) });
-  $("[data-hist]").innerHTML = hist.slice(0, 50).map(({ t, ts }) => `
-    <li><span class="badge-ico">${(t.from || "").toLowerCase() === a ? "OUT" : "IN"}</span><div>${txLink(t.hash)}<small>${ago(ts)}</small></div>
-    <div class="mid">${addrLink(t.from)} <span class="arrow">→</span> ${addrLink(t.to)}</div><div class="r"><b class="meth">${esc(method(t))}</b><small>${units(big(t.value), 4)} ${TOKEN}</small></div></li>`).join("") || `<li class="empty">No transactions in the latest ${SCAN_MAX.toLocaleString("en-US")} blocks.</li>`;
+  $("[data-hist]").innerHTML = hist.slice(0, 50).map(({ t, ts }) => moveRow(t, ts, false).replace("</li>", `<small class="val">${(t.from || "").toLowerCase() === a ? "out" : "in"} · ${units(big(t.value), 4)} ${TOKEN}</small></li>`)).join("") || `<li class="empty">No transactions in the latest ${SCAN_MAX.toLocaleString("en-US")} blocks.</li>`;
 }
 
-const crumb = (t) => `<p class="ex-crumb"><a href="${BASE}/">Explorer</a> <span>/</span> ${esc(t)}</p>`;
-const table = (rows) => `<table class="doc-table ex-table"><tbody>${rows.map(([k, v]) => `<tr><th scope="row">${k}</th><td>${v}</td></tr>`).join("")}</tbody></table>`;
-function notFound(msg) { app.innerHTML = `${crumb("Not found")}<p class="notice">${msg}</p>`; }
+const crumb = (t) => `<p class="ex-crumb"><a href="${BASE}/">Game log</a> <span>/</span> ${esc(t)}</p>`;
+const headline = (k, v, cls = "") => `<div class="ex-head"><span>${k}</span><b class="${cls}">${v}</b></div>`;
+const table = (rows) => `<section class="crt crt-sheet"><table class="ex-table"><tbody>${rows.map(([k, v]) => `<tr><th scope="row">${k}</th><td>${v}</td></tr>`).join("")}</tbody></table></section>`;
+function notFound(msg) { app.innerHTML = `${crumb("Not found")}${headline("Game over", "Not found", "bad")}<p class="notice">${msg}</p>`; }
 
 // ---------- router ----------
 async function route() {

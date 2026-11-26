@@ -71,11 +71,12 @@
       const o = document.createElement("canvas"); o.width = cols; o.height = rows;
       const g = o.getContext("2d"); g.textBaseline = "alphabetic";
       const size = rows * 1.02;
-      g.font = `900 ${size}px "Big Shoulders Display", Impact, sans-serif`;
-      g.fillStyle = "#f00"; g.fillText("GME", 0, rows * 0.9);
-      const gx = g.measureText("GME").width + cols * 0.012;
-      g.font = `italic 400 ${size * 1.02}px "Instrument Serif", Georgia, serif`;
-      g.fillStyle = "#0f0"; g.fillText("chain", gx, rows * 0.86);
+      const fGme = `900 ${size}px "Big Shoulders Display", Impact, sans-serif`, fChain = `italic 400 ${size * 1.02}px "Instrument Serif", Georgia, serif`;
+      g.font = fGme; const wGme = g.measureText("GME").width + cols * 0.012;
+      g.font = fChain; const wChain = g.measureText("chain").width;
+      const ox = Math.max(0, (cols - wGme - wChain) / 2); // centered
+      g.font = fGme; g.fillStyle = "#f00"; g.fillText("GME", ox, rows * 0.9);
+      g.font = fChain; g.fillStyle = "#0f0"; g.fillText("chain", ox + wGme, rows * 0.86);
       const d = g.getImageData(0, 0, cols, rows).data, old = parts;
       parts = [];
       for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {

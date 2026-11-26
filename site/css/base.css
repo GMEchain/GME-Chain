@@ -25,9 +25,9 @@
   --warn: #FFB020;
   --ok: #3BE07E;
 
-  --display: "Dela Gothic One", "Arial Black", Impact, sans-serif;
-  --font: "BIZ UDPGothic", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --hud: "DotGothic16", ui-monospace, monospace;
+  --display: "GME Display", Impact, "Arial Narrow", sans-serif;
+  --font: "GME Body", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --hud: "GME HUD", ui-monospace, monospace;
   --mono: "M PLUS 1 Code", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   --w: 1200px;
@@ -41,7 +41,7 @@
 /* ---------- reset ---------- */
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 32px); color-scheme: dark; }
-body { margin: 0; background: var(--bg); color: var(--fg); font: 400 1.0625rem/1.6 var(--font); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 400 1.0625rem/1.6 var(--font); -webkit-font-smoothing: antialiased; font-feature-settings: "liga" 0, "clig" 0; overflow-x: hidden; }
 main { overflow-x: clip; }
 img, svg, canvas { display: block; max-width: 100%; }
 h1, h2, h3, h4, p, ul, ol, dl, dd, figure { margin: 0; }

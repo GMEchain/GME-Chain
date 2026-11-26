@@ -1,0 +1,10 @@
+/* Self-hosted fonts (SIL Open Font License), latin subset. size-adjust evens out the pixel faces' small x-height. */
+@font-face { font-family: "GME Display"; src: url("/fonts/jersey-25.woff2") format("woff2"); font-weight: 400; font-display: swap; size-adjust: 130%; }
+@font-face { font-family: "GME HUD"; src: url("/fonts/micro-5.woff2") format("woff2"); font-weight: 400; font-display: swap; size-adjust: 170%; }
+@font-face { font-family: "GME Body"; src: url("/fonts/pixelify-sans.woff2") format("woff2"); font-weight: 400 700; font-display: swap; size-adjust: 118%; }
+/* digits and money signs come from the display face: Pixelify's 5 reads as an S (declared last so it wins for these characters) */
+@font-face { font-family: "GME Body"; src: url("/fonts/jersey-25.woff2") format("woff2"); font-weight: 400 700; font-display: swap; size-adjust: 125%; unicode-range: U+0024-0025, U+0030-0039; }
+@font-face { font-family: "M PLUS 1 Code"; src: url("/fonts/m-plus-1-code.woff2") format("woff2"); font-weight: 400 600; font-display: swap; }
+/* the logo's faces */
+@font-face { font-family: "Big Shoulders Display"; src: url("/fonts/big-shoulders-display-900.woff2") format("woff2"); font-weight: 900; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/fonts/instrument-serif-italic.woff2") format("woff2"); font-style: italic; font-weight: 400; font-display: swap; }

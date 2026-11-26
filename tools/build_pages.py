@@ -13,10 +13,9 @@ FAVICON = ("data:image/svg+xml," + (
     "<path d='M12 12V6.4a1.6 1.6 0 0 1 1.6-1.6h4.8A1.6 1.6 0 0 1 20 6.4V12h5.6a1.6 1.6 0 0 1 1.6 1.6v4.8a1.6 1.6 0 0 1-1.6 1.6H20v5.6a1.6 1.6 0 0 1-1.6 1.6h-4.8a1.6 1.6 0 0 1-1.6-1.6V20H6.4a1.6 1.6 0 0 1-1.6-1.6v-4.8A1.6 1.6 0 0 1 6.4 12Z' fill='none' stroke='%23FF2D2D' stroke-width='2.4' stroke-linejoin='round'/>"
     "<path d='M16 6.8 18.8 11.2H13.2Z' fill='%23FF2D2D'/></svg>").replace("<", "%3C").replace(">", "%3E"))
 
-FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
-         '  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
-         '  <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=BIZ+UDPGothic:wght@400;700&family=DotGothic16'
-         '&family=M+PLUS+1+Code:wght@400;600&family=Big+Shoulders+Display:wght@900&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">')
+FONTS = ('<link rel="preload" href="/fonts/jersey-25.woff2" as="font" type="font/woff2" crossorigin>\n'
+         '  <link rel="preload" href="/fonts/pixelify-sans.woff2" as="font" type="font/woff2" crossorigin>\n'
+         '  <link rel="stylesheet" href="/css/fonts.css">')
 CONNECT = '<button class="btn btn-go btn-sm" type="button" data-connect>Connect wallet</button>'
 BRIDGE_LINK = '<a class="btn btn-go btn-sm nav-cta" href="/bridge/"><span data-n="navcta">Get GME gas</span></a>'
 

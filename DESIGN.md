@@ -21,13 +21,13 @@ codes, a warning screen, loading tips and a "Continue?" countdown. Colours are G
 
 | Role | Font |
 | --- | --- |
-| Headlines, big numbers, tilted tape (`--display`) | Dela Gothic One |
-| Small uppercase labels: nav, kickers, tags, table heads (`--hud`) | DotGothic16, one weight, never bold |
-| Body and UI (`--font`) | BIZ UDPGothic 400 and 700 |
+| Headlines, big numbers, tilted tape (`--display`) | Jersey 25 |
+| Small uppercase labels: nav, kickers, tags, table heads (`--hud`) | Micro 5, one weight, never bold |
+| Body and UI (`--font`) | Pixelify Sans 400 to 700, with digits and `$ %` from Jersey 25 (Pixelify's 5 reads as an S) |
 | Code and addresses (`--mono`) | M PLUS 1 Code 400 and 600 |
 | Logo wordmark (fixed), also the cartridge label and footer particles | "GME" Big Shoulders Display 900 + "chain" Instrument Serif italic |
 
-Japanese arcade-cabinet type: a heavy gothic for the shouting, a dot-matrix face for the HUD that matches the ASCII particles. No stock "gaming" fonts.
+Pixel type, like a jersey number on an arcade cabinet. All fonts are self-hosted from `site/fonts/` (SIL Open Font License) and declared in `site/css/fonts.css`, where `size-adjust` evens out their small x-heights. Ligatures are off: Pixelify joins "fi" into one glyph.
 
 ## Pieces
 
@@ -38,6 +38,7 @@ Japanese arcade-cabinet type: a heavy gothic for the shouting, a dot-matrix face
 - The tilted marquee tape ("PRESS START ▲ HOLD GME ▲ …") separates big moments.
 - Motion: tape, blinking "PRESS START", hopping markers, the countdown, values that bump when they change.
   Everything stops under `prefers-reduced-motion`.
+- The explorer is the "game log": a scoreboard with zero-padded counters, a stage-select grid of the latest 48 blocks, and CRT screens (scanlines) for blocks as a high-score table and transactions as a move log. It polls every 5 seconds and flashes new rows in.
 - No badges or pills. No diamonds.
 
 ## Files
