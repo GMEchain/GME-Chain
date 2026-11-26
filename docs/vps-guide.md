@@ -44,7 +44,15 @@ Kunci deployer tidak pernah ada di server; deploy kontrak dikerjakan dari laptop
 
 ## Update website
 
-`site/` di-mount langsung ke container `web`, jadi cukup ganti isinya. **Sinkronkan di tempat** (rsync), jangan ganti foldernya, karena container tetap memegang folder lama.
+**Otomatis dari GitHub.** Server mengecek repo ini tiap 2 menit; kalau `main` berubah, isi `site/` langsung dipublikasikan. Cukup push ke GitHub. Pemasangan (sekali, sebagai root di server, misalnya lewat Web console Hostinger):
+
+```bash
+curl -sL https://raw.githubusercontent.com/GMEchain/GME-Chain/main/deploy/vps/auto-deploy.sh | sh
+```
+
+Matikan dengan `rm /etc/cron.d/gmechain-pull`. Log-nya: `journalctl -t gmechain-pull`.
+
+**Manual.** `site/` di-mount langsung ke container `web`, jadi cukup ganti isinya. **Sinkronkan di tempat** (rsync), jangan ganti foldernya, karena container tetap memegang folder lama.
 
 ```bash
 # dari laptop, satu koneksi: kirim arsip lewat stdin lalu sinkronkan
