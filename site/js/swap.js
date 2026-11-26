@@ -49,6 +49,7 @@ function start() {
   const WANT_T = { address: WGME, symbol: TOKEN === "GME" ? "WGME" : "W" + TOKEN, name: `Wrapped ${TOKEN}`, decimals: 18 };
   let tokens = [GME, WANT_T];
   if (DEX.testUsd) tokens.push({ address: DEX.testUsd, symbol: "tUSD", name: "Test USD (testnet)", decimals: 18 });
+  if (DEX.usdg) tokens.push({ address: DEX.usdg, symbol: "USDG", name: "Global Dollar (bridged from Robinhood Chain)", decimals: 6 });
   const BUILTIN = tokens.length;
   const known = (a) => tokens.some((t) => (t.address || "").toLowerCase() === String(a).toLowerCase());
   try { (JSON.parse(localStorage.getItem("gmechain-tokens") || "[]")).forEach((t) => { if (isAddress(t.address) && !known(t.address)) tokens.push(t); }); } catch {}

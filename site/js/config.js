@@ -49,7 +49,9 @@ const PROFILES = {
       arbSys: "0x0000000000000000000000000000000000000064",
       nodeInterface: "0x00000000000000000000000000000000000000C8",
     },
-    DEX: { wrappedGme: "0xF47680692201c5c1615FAdc69db4A8Ad6fFA0B01", factory: "0x4eCCaB543cD16949c40bE19bbAA2542c3a0EA074", router: "0x14B24b2ef37e3C9b39D8942fDe9666281E54d8b7", testUsd: null },
+    // usdg: Global Dollar bridged from Robinhood Chain through the canonical token bridge. Its address on GME CHAIN is
+    // fixed by the gateway (0x70B8053E45C6273f573a788299EF667677F4C9e5); set it here once the GME/USDG pool is seeded.
+    DEX: { wrappedGme: "0xF47680692201c5c1615FAdc69db4A8Ad6fFA0B01", factory: "0x4eCCaB543cD16949c40bE19bbAA2542c3a0EA074", router: "0x14B24b2ef37e3C9b39D8942fDe9666281E54d8b7", testUsd: null, usdg: null },
     CONFIRM_BLOCKS: 50400, // about 7 days of 12 s Ethereum blocks
   },
 };
