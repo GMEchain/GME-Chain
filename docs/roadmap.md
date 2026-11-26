@@ -17,7 +17,7 @@ What is done, what comes next, and what is planned. Statuses are kept up to date
 | 1-5 | Bridge with ETH: GmeGasRouter swaps ETH to GME and deposits it in one transaction; GME back to ETH after a withdrawal. Tested on the real Uniswap pools | Done |
 | 1-6 | Full mainnet deployment rehearsed on a fork of Robinhood Chain | Done |
 
-## World 2. Testnet, then mainnet (now)
+## World 2. Testnet, then mainnet (done)
 
 | Stage | Item | Status |
 | --- | --- | --- |
@@ -27,7 +27,7 @@ What is done, what comes next, and what is planned. Statuses are kept up to date
 | 2-4 | Mainnet exchange (Uniswap V2) and Wrapped GME on GME CHAIN | Done |
 | 2-5 | Withdrawals in about a day: the mainnet challenge window set to 7,200 Ethereum blocks, down from 7 days | Done |
 | 2-6 | First exchange pool on mainnet: GME/USDG, opened at the market price | Done |
-| 2-7 | Mainnet apps open on gmechain.xyz | Next |
+| 2-7 | Mainnet apps open on gmechain.xyz | Live |
 
 ## World 3. $GMEC (done)
 
@@ -35,11 +35,11 @@ What is done, what comes next, and what is planned. Statuses are kept up to date
 | --- | --- | --- |
 | 3-1 | $GMEC live on Robinhood Chain: 0xa8c5…0122, the only official contract, published on gmechain.xyz | Done |
 
-## World 4. Lock it down (planned)
+## World 4. Lock it down (now)
 
 | Stage | Item | Status |
 | --- | --- | --- |
-| 4-1 | Chain ownership moved to a multisig behind a timelock, so no upgrade can happen without notice | Planned |
+| 4-1 | Chain ownership moved to a multisig behind a timelock, so no upgrade can happen without notice | Next |
 | 4-2 | External audit of the GME CHAIN contracts, report published in full | Planned |
 | 4-3 | Public bug bounty | Planned |
 | 4-4 | Validator allowlist opened, with a higher bond, so anyone can check the chain and challenge a wrong claim | Planned |

@@ -2,7 +2,11 @@
 
 What has been built on GME CHAIN, newest first. Dates are UTC. Every on-chain value below can be checked against the contracts listed in [docs/contracts.md](docs/contracts.md). What comes next is on the [roadmap](docs/roadmap.md).
 
-## 2026-11-27 · Pre-launch
+## 2026-11-27 · Mainnet launch
+
+### Mainnet is open
+- **gmechain.xyz runs on GME CHAIN mainnet:** bridge ETH in as GME gas, swap on the exchange, explore blocks and withdraw back. The testnet stays open for trying everything for free.
+
 
 ### Withdrawals in about a day
 - The mainnet challenge window is now **7,200 Ethereum blocks (about one day)**, down from 50,400 (about 7 days). Set on the rollup through its UpgradeExecutor, tx [`0xddaaac3b…a748`](https://robinhoodchain.blockscout.com/tx/0xddaaac3be7b85b8ee48531930985281bc8d6a6037751dcc5dc78b9b8c63da748). Check it with `confirmPeriodBlocks()` on the rollup.

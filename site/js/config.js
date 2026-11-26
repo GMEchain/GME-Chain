@@ -77,7 +77,7 @@ export const UNISWAP = {
 export { PROFILES };
 // MAINNET SWITCH. false = before launch: the whole site runs on GME CHAIN Testnet and mainnet stays hidden, even though
 // its addresses above are filled in. Set to true on launch day; mainnet becomes the default and ?net=testnet stays.
-export const MAINNET_OPEN = false;
+export const MAINNET_OPEN = true;
 // Which network the apps use. Mainnet by default once open; ?net=testnet switches.
 function pickNetwork() {
   if (!MAINNET_OPEN) return "testnet"; // before launch the site runs on testnet

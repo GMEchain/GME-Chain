@@ -116,8 +116,8 @@
       </header>
 
       <section id="mainnet" class="doc-sec">
-        <h2>Launch status <span class="tag-soon">Testnet live</span></h2>
-        <p>The testnet is live: try the whole flow for free. The mainnet contracts are deployed and verified, the mainnet node is running and its validator is staked; the mainnet apps on this site open at launch. Every address is under <a href="#contracts">Contract addresses</a>.</p>
+        <h2>Launch status <span class="tag-soon">Mainnet live</span></h2>
+        <p>Mainnet is live: bring ETH from Robinhood Chain as GME gas, use it, trade on the exchange and withdraw back. The testnet stays open, so you can still try the whole flow for free first. Every address is under <a href="#contracts">Contract addresses</a>.</p>
         <table class="doc-table">
           <tbody>
             <tr><th scope="row">Network name</th><td>GME CHAIN</td></tr>
@@ -129,7 +129,7 @@
             <tr><th scope="row">Withdrawals</th><td>Claimable about a day after you start (the challenge window, 7,200 Ethereum blocks); the bridge page shows a countdown</td></tr>
           </tbody>
         </table>
-        <h3>At launch: bridge in, use it, withdraw</h3>
+        <h3>On mainnet: bridge in, use it, withdraw</h3>
         <ol class="doc-steps">
           <li><b>Have ETH</b> on Robinhood Chain. That is all you need: the bridge swaps it to GME for you. Holding GME already? You can deposit it directly.</li>
           <li><b>Connect.</b> Open the <a href="/bridge/">bridge page</a> and connect a wallet.</li>
@@ -282,7 +282,7 @@
           <li><b>Pools start empty.</b> The first deposit into a pool sets its starting price.</li>
           <li><b>Check addresses.</b> Anyone can create a token with any name. Trade only tokens whose contract you have verified.</li>
         </ul>
-        <div class="callout warn"><b>Status</b><p>The exchange is deployed with mainnet and opens on the <a href="../swap/">swap page</a> at launch. Pools are created by their liquidity providers.</p></div>
+        <div class="callout warn"><b>Status</b><p>The exchange is live on the <a href="../swap/">swap page</a>. Its first pool, GME/USDG, is a small starter pool, so large swaps move the price a lot; anyone can add liquidity.</p></div>
       </section>
 
       <section id="token" class="doc-sec">
@@ -351,7 +351,7 @@ forge create src/Counter.sol:Counter \
   --rpc-url https://rpc.gmechain.xyz \
   --private-key $KEY --broadcast</code></pre>
         <ul class="doc-list">
-          <li>The standard CREATE2 deployer (<code>0x4e59…956c</code>) and Multicall are deployed at launch.</li>
+          <li>The standard CREATE2 deployer (<code>0x4e59…956c</code>) and Multicall are deployed.</li>
           <li>Bridged ERC-20s arrive through the standard gateway of the token bridge.</li>
           <li>Arbitrum precompiles are available: <code>ArbSys</code> at <code>0x64</code>, <code>ArbGasInfo</code> at <code>0x6C</code>, <code>NodeInterface</code> at <code>0xC8</code>.</li>
         </ul>
