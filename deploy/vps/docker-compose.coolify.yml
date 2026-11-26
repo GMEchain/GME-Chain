@@ -183,6 +183,32 @@ services:
       - ../../chain/deployment.testnet.json:/app/deployment.testnet.json:ro
     depends_on: [nitro-testnet]
 
+  # Withdrawal delivery: claims confirmed withdrawals on Robinhood Chain for their owners (scripts/claimer.js).
+  # Its key is generated on the server by update-server.sh and never leaves it; fund the address it prints.
+  claimer:
+    build: { context: ../../chain, dockerfile: ../deploy/vps/Dockerfile.scripts }
+    profiles: ["chain"]
+    restart: unless-stopped
+    command: ["node", "scripts/claimer.js", "--mainnet"]
+    env_file: ./secrets/claimer.env
+    environment:
+      L3_RPC: http://nitro:8449
+    volumes:
+      - ../../chain/deployment.mainnet.json:/app/deployment.mainnet.json:ro
+    depends_on: [nitro]
+
+  claimer-testnet:
+    build: { context: ../../chain, dockerfile: ../deploy/vps/Dockerfile.scripts }
+    profiles: ["testnet"]
+    restart: unless-stopped
+    command: ["node", "scripts/claimer.js", "--testnet"]
+    env_file: ./secrets/claimer-testnet.env
+    environment:
+      L3_RPC: http://nitro-testnet:8449
+    volumes:
+      - ../../chain/deployment.testnet.json:/app/deployment.testnet.json:ro
+    depends_on: [nitro-testnet]
+
 networks:
   coolify:
     external: true

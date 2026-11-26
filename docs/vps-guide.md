@@ -11,6 +11,7 @@ Satu VPS Hostinger menjalankan semuanya lewat Docker Compose di [`deploy/vps/`](
 | `nitro-testnet` | `testnet` | Node testnet, RPC `rpc.testnet.gmechain.xyz` |
 | `faucet` | `testnet` | "Get test kit" di `gmechain.xyz/api/faucet` |
 | `pulse` | `testnet` | Transaksi tes kecil tiap beberapa menit, supaya explorer testnet selalu hidup |
+| `claimer`, `claimer-testnet` | `chain`, `testnet` | Withdrawal delivery: setelah challenge window, klaim withdraw user di Robinhood Chain secara otomatis (gas dibayar wallet ini) |
 
 ## Server
 
@@ -39,6 +40,7 @@ Tidak pernah di-commit. Semua `chmod 600`.
 | `chain/nodeConfig.testnet.json` | Sama, untuk testnet |
 | `deploy/vps/secrets/keeper.env`, `monitor.env` | Kunci keeper, setting monitor dan alert |
 | `deploy/vps/secrets/faucet.env`, `pulse.env` | Kunci faucet dan pulse (testnet saja) |
+| `deploy/vps/secrets/claimer.env`, `claimer-testnet.env` | Kunci wallet withdrawal delivery. Dibuat otomatis di server oleh `update-server.sh`, tidak pernah keluar dari server; isi ETH ke alamat yang dicetaknya |
 
 Kunci deployer tidak pernah ada di server; deploy kontrak dikerjakan dari laptop.
 
