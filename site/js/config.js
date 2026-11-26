@@ -55,7 +55,7 @@ const PROFILES = {
     DEX: { wrappedGme: "0xF47680692201c5c1615FAdc69db4A8Ad6fFA0B01", factory: "0x4eCCaB543cD16949c40bE19bbAA2542c3a0EA074", router: "0x14B24b2ef37e3C9b39D8942fDe9666281E54d8b7", testUsd: null, usdg: "0x70B8053E45C6273f573a788299EF667677F4C9e5", usdgPair: "0x0cc257A03a13d4B01c0Ec573aD2Fc755b9F1B85f" },
     CONFIRM_BLOCKS: 7200, // about one day of 12 s Ethereum blocks (set on chain 2026-11-27; was 50400)
     // launchpad: every trade in GME (quote = the exchange's WGME); address filled in by scripts/08-launchpad.js
-    LAUNCHPAD: { address: null, quote: "0xF47680692201c5c1615FAdc69db4A8Ad6fFA0B01", quoteSymbol: "GME", fromBlock: 0 },
+    LAUNCHPAD: { address: "0xB7C9B7dE689738218CF20379646fB54c251a5053", quote: "0xF47680692201c5c1615FAdc69db4A8Ad6fFA0B01", quoteSymbol: "GME", fromBlock: 31 },
   },
 };
 
@@ -104,7 +104,7 @@ export const DEX = P.DEX;
 export const CONFIRM_BLOCKS = P.CONFIRM_BLOCKS;
 export const LAUNCHPAD = P.LAUNCHPAD;
 // $GMEC staking contract on Robinhood Chain mainnet. Filled in by scripts/07-gmec-staking.js.
-const STAKING_CONTRACT = null;
+const STAKING_CONTRACT = "0x9f29714405422ba1f962c1fff678c6f3ac076a8b";
 // Launch state, per app. A page whose app is not live shows the pre-launch panel (js/prelaunch.js).
 const OPEN = ACTIVE !== "mainnet" || MAINNET_OPEN;
 export const LIVE = {

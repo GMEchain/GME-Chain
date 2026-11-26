@@ -1,6 +1,6 @@
 # When the swap fee is burned
 
-> **Status: opening.** The FeeBurner passed a rehearsal on a fork of GME CHAIN mainnet. Addresses below are filled in when it is deployed.
+> **Status: live** since 27 November 2026. The first burn happens once a GME / $GMEC pool exists on GME CHAIN (see below).
 
 0.05% of every swap on the GME CHAIN exchange, taken from the 0.3% pool fee, is turned into $GMEC and sent to the dead address `0x000000000000000000000000000000000000dEaD`. Traders pay nothing extra (0.25% still goes to liquidity providers) and the bridge has no fee.
 
@@ -26,13 +26,13 @@ A burn does not happen on every swap. It happens in three steps.
 
 | | |
 |---|---|
-| FeeBurner | _(at deployment)_ ([source](../chain/contracts/FeeBurner.sol), bytecode checked in CI) |
+| FeeBurner | [`0x28b0c8abE7e410ecC3619EC047aD03F409feDFfe`](https://gmechain.xyz/explorer/address/0x28b0c8abE7e410ecC3619EC047aD03F409feDFfe) ([source](../chain/contracts/FeeBurner.sol), bytecode checked in CI) |
 | Total burned | `totalBurned()` on the FeeBurner |
 | Each burn | a $GMEC transfer to `0x…dEaD`, with a `SwappedAndBurned` or `Burned` event |
-| Fee switch | `feeTo()` on the exchange factory _(at deployment)_ returns the FeeBurner |
+| Fee switch | `feeTo()` on the exchange factory `0x4eCCaB543cD16949c40bE19bbAA2542c3a0EA074` returns the FeeBurner |
 
 ## What can and cannot change
 
 - The FeeBurner can only burn. Nothing can be taken out of it: $GMEC can only go to `0x…dEaD`, and other tokens can only be swapped to $GMEC sent to `0x…dEaD`.
-- Its operator (the keeper, _(at deployment)_) can only choose when and along which route to swap. The owner (the deployer) can only change the operator.
+- Its operator (the keeper, `0xB15B14BD07Be83D50a7F652A10fea13C95867b9F`) can only choose when and along which route to swap. The owner (the deployer) can only change the operator.
 - The deployer is the exchange factory's `feeToSetter`: it can point the fee elsewhere or turn it off. It cannot change the 0.3% fee or touch liquidity in any pool.

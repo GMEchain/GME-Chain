@@ -1,6 +1,6 @@
 # Staking $GMEC for gas credits
 
-> **Status: opening.** $GMEC is live on Robinhood Chain at `0xa8c53b1dAcFbd07895dC8D2c638F1bFDe10C0122`. The staking contract passed a rehearsal on a fork of Robinhood Chain mainnet with the real $GMEC; its address is filled in below when it is deployed.
+> **Status: live.** $GMEC is live on Robinhood Chain at `0xa8c53b1dAcFbd07895dC8D2c638F1bFDe10C0122`. Staking is live since 27 November 2026, after a rehearsal on a fork of Robinhood Chain mainnet with the real $GMEC.
 
 Stake $GMEC on Robinhood Chain and earn gas credits every second. Spend credits on free GME gas on GME CHAIN. You can unstake at any time.
 
@@ -13,7 +13,7 @@ Page: [gmechain.xyz/stake](https://gmechain.xyz/stake/)
 | Network | Robinhood Chain, chain ID `4663` |
 | RPC (if your wallet asks) | `https://robinhood.drpc.org` |
 | $GMEC | `0xa8c53b1dAcFbd07895dC8D2c638F1bFDe10C0122` (trade it on [FOMO](https://fomo.family/tokens/robinhood/0xa8c53b1dacfbd07895dc8d2c638f1bfde10c0122?r=NeatTightBass) or [Pons](https://ponsfamily.com/launchpad/0xa8c53b1dacfbd07895dc8d2c638f1bfde10c0122)) |
-| Staking contract | _(at deployment)_ |
+| Staking contract | [`0x9f29714405422ba1f962c1fff678c6f3ac076a8b`](https://robinhoodchain.blockscout.com/address/0x9f29714405422ba1f962c1fff678c6f3ac076a8b) · [verified on Sourcify](https://repo.sourcify.dev/4663/0x9f29714405422ba1f962c1fff678c6f3ac076a8b) |
 | Gas | A little ETH on Robinhood Chain for the approve and stake transactions |
 
 Only the two addresses above are ours. Other tokens with the name "GME Chain" are not $GMEC.

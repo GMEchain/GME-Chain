@@ -33,9 +33,9 @@ The chain's own core contracts (rollup, bridge, inbox, outbox, token bridge) are
 | GmeGasRouter (bridge with ETH) | Robinhood Chain | `0x150415997ad7b9a4bf724dfb552c63fe50f33ecd` | [GmeGasRouter.sol](chain/contracts/GmeGasRouter.sol) | 9, on a fork of Robinhood Chain mainnet with the real pools |
 | GmeFeeTokenPricer | Robinhood Chain | `0x97dcc10f4f99dc0643540921efea2ee043502c24` | [GmeFeeTokenPricer.sol](chain/contracts/GmeFeeTokenPricer.sol) | 11, including fuzzing |
 | WrappedGME (WGME) | GME CHAIN | `0xF47680692201c5c1615FAdc69db4A8Ad6fFA0B01` | [WrappedGME.sol](chain/contracts/WrappedGME.sol) | port of WETH9 |
-| GmeLaunchpad (launchpad, paid in GME) | GME CHAIN | _(at deployment)_ | [GmeLaunchpad.sol](chain/contracts/GmeLaunchpad.sol), tokens: [LaunchToken.sol](chain/contracts/LaunchToken.sol) | 30, including fuzzing and reentrancy, plus a full rehearsal on a fork of GME CHAIN mainnet |
-| FeeBurner (fees to burned $GMEC) | GME CHAIN | _(at deployment)_ | [FeeBurner.sol](chain/contracts/FeeBurner.sol) | unit tests plus the launchpad rehearsal |
-| GmecStaking ($GMEC staking for gas credits) | Robinhood Chain | _(at deployment)_ | [GmecStaking.sol](chain/contracts/GmecStaking.sol) | 23, including fuzzing, plus a rehearsal on a fork of Robinhood Chain mainnet with the real $GMEC |
+| GmeLaunchpad (launchpad, paid in GME) | GME CHAIN | `0xB7C9B7dE689738218CF20379646fB54c251a5053` | [GmeLaunchpad.sol](chain/contracts/GmeLaunchpad.sol), tokens: [LaunchToken.sol](chain/contracts/LaunchToken.sol) | 30, including fuzzing and reentrancy, plus a full rehearsal on a fork of GME CHAIN mainnet |
+| FeeBurner (fees to burned $GMEC) | GME CHAIN | `0x28b0c8abE7e410ecC3619EC047aD03F409feDFfe` | [FeeBurner.sol](chain/contracts/FeeBurner.sol) | unit tests plus the launchpad rehearsal |
+| GmecStaking ($GMEC staking for gas credits) | Robinhood Chain | `0x9f29714405422ba1f962c1fff678c6f3ac076a8b` | [GmecStaking.sol](chain/contracts/GmecStaking.sol) | 23, including fuzzing, plus a rehearsal on a fork of Robinhood Chain mainnet with the real $GMEC |
 
 ## Operator wallets
 
@@ -75,7 +75,7 @@ The first pool on the exchange, GME/USDG (`0x0cc257A03a13d4B01c0Ec573aD2Fc755b9F
 |---|---|
 | GME CHAIN gas fees | Network fee account (the deployer); this pays for posting batches to Robinhood Chain |
 | Bridge | No fee. Paying with ETH, the only cost besides gas is the Uniswap pool fee inside the quote (0.05% on the WETH/GME pool) |
-| Exchange swaps | 0.3% per swap (standard Uniswap V2). Once the FeeBurner is deployed: 0.25% to liquidity providers, 0.05% to the FeeBurner, which burns it as $GMEC ([docs/fee-burn.md](docs/fee-burn.md)) |
+| Exchange swaps | 0.3% per swap (standard Uniswap V2). Since 27 November 2026: 0.25% to liquidity providers, 0.05% to the FeeBurner, which burns it as $GMEC ([docs/fee-burn.md](docs/fee-burn.md)) |
 | Launchpad trades | 1% per buy and sell, in GME: half to the FeeBurner (burned as $GMEC), half to the treasury (the deployer) |
 | Launchpad graduation | The 100 GME a curve raised and 200M of its tokens go into an exchange pool; its LP tokens are burned. All of it was paid by the token's buyers |
 | Gas credit claims | Paid from a pot filled only with launchpad fee income (the treasury half). Never from the project's own funds |

@@ -1,6 +1,6 @@
 # Launchpad
 
-> **Status: opening.** The contract passed a full rehearsal on a fork of GME CHAIN mainnet. Its address is filled in below when it is deployed.
+> **Status: live** since 27 November 2026, after a full rehearsal on a fork of GME CHAIN mainnet.
 
 The GME CHAIN launchpad lets anyone create a token in one transaction. Every trade on it is paid in **GME**, the gas token of GME CHAIN: you pay GME to buy and get GME back when you sell.
 
@@ -8,7 +8,7 @@ Page: [gmechain.xyz/launch](https://gmechain.xyz/launch/) · Contract: [`chain/c
 
 | Network | Address |
 |---|---|
-| GME CHAIN mainnet | _(at deployment)_ |
+| GME CHAIN mainnet | [`0xB7C9B7dE689738218CF20379646fB54c251a5053`](https://gmechain.xyz/explorer/address/0xB7C9B7dE689738218CF20379646fB54c251a5053) |
 
 ## How a token works
 

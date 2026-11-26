@@ -92,5 +92,31 @@
     "usdgSeedUsdg": "53.474785",
     "usdgSeededAt": "2026-11-27"
   },
-  "confirmPeriodChangedTx": "0xddaaac3be7b85b8ee48531930985281bc8d6a6037751dcc5dc78b9b8c63da748"
+  "confirmPeriodChangedTx": "0xddaaac3be7b85b8ee48531930985281bc8d6a6037751dcc5dc78b9b8c63da748",
+  "feeBurner": {
+    "address": "0x28b0c8abE7e410ecC3619EC047aD03F409feDFfe",
+    "operator": "0xB15B14BD07Be83D50a7F652A10fea13C95867b9F",
+    "owner": "0x9354A2F5DbD6D7F0EF33e678F083C2927690B8D4",
+    "gmec": "0xF0c616c48f5d598e44FF8efB418FD6faee136946",
+    "factory": "0x4eCCaB543cD16949c40bE19bbAA2542c3a0EA074",
+    "router": "0x14B24b2ef37e3C9b39D8942fDe9666281E54d8b7",
+    "tx": "0x9fa4f3a98168dc81aea40de966e28e8abadcb0139524ce62acd0bdcfb20302d0",
+    "deployedAt": "2026-11-26T19:29:00.198Z"
+  },
+  "launchpad": {
+    "address": "0xB7C9B7dE689738218CF20379646fB54c251a5053",
+    "quote": "0xF47680692201c5c1615FAdc69db4A8Ad6fFA0B01",
+    "factory": "0x4eCCaB543cD16949c40bE19bbAA2542c3a0EA074",
+    "burnSink": "0x28b0c8abE7e410ecC3619EC047aD03F409feDFfe",
+    "target": "100000000000000000000",
+    "tx": "0xafa2bc46cbbfc7713a68528fc4fc418acad8aa5f1b96facfbe88b0c1871c9564",
+    "deployedAt": "2026-11-26T19:29:19.360Z"
+  },
+  "gmecStaking": {
+    "address": "0x9f29714405422ba1f962c1fff678c6f3ac076a8b",
+    "token": "0xa8c53b1dAcFbd07895dC8D2c638F1bFDe10C0122",
+    "owner": "0x9354A2F5DbD6D7F0EF33e678F083C2927690B8D4",
+    "tx": "0x0610ba355273efe50a62b2c2aeb9123e4bc16c32fc1805d5846c037e3403eb61",
+    "deployedAt": "2026-11-26T19:29:27.751Z"
+  }
 }
