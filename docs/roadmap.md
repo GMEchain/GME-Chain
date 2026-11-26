@@ -29,13 +29,16 @@ What is done, what comes next, and what is planned. Statuses are kept up to date
 | 2-6 | First exchange pool on mainnet: GME/USDG, opened at the market price | Done |
 | 2-7 | Mainnet apps open on gmechain.xyz | Live |
 
-## World 3. $GMEC (done)
+## World 3. $GMEC (now)
 
 | Stage | Item | Status |
 | --- | --- | --- |
 | 3-1 | $GMEC live on Robinhood Chain: 0xa8c5…0122, the only official contract, published on gmechain.xyz | Done |
+| 3-2 | Launchpad paid in GME: bonding curve, graduates at 100 GME raised to the exchange with liquidity locked forever ([launchpad.md](launchpad.md)) | Next |
+| 3-3 | Fee burn: the exchange's 0.05% and half of each launchpad fee turned into burned $GMEC ([fee-burn.md](fee-burn.md)) | Next |
+| 3-4 | Stake $GMEC on Robinhood Chain for gas credits, claimed as GME gas ([staking-guide.md](staking-guide.md)) | Next |
 
-## World 4. Lock it down (now)
+## World 4. Lock it down
 
 | Stage | Item | Status |
 | --- | --- | --- |

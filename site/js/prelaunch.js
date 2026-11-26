@@ -31,6 +31,26 @@ const COPY = {
     quote: true,
   },
   swap: { icon: "chart", title: TESTNET ? "The testnet exchange opens soon" : "The exchange opens at launch", lede: "A Uniswap V2 exchange on GME CHAIN, where every trade pays its gas in GME. Pools are created by their liquidity providers once the chain is live.", steps: [] },
+  launch: {
+    icon: "bolt",
+    title: "The launchpad opens soon",
+    lede: "Create a token on GME CHAIN in one transaction, paid in GME. It trades on a bonding curve until 100 GME is raised, then graduates to the exchange with its liquidity locked forever.",
+    steps: [
+      ["01", "Create", "Name, ticker, image. Add a first buy in GME if you want to be first in."],
+      ["02", "Trade", "Anyone buys and sells on the curve in GME. 1% fee: half buys and burns $GMEC, half to the treasury."],
+      ["03", "Graduate", "At 100 GME raised, 200M tokens and the GME go into an exchange pool. The pool tokens are burned."],
+    ],
+  },
+  stake: {
+    icon: "lock",
+    title: "$GMEC staking opens soon",
+    lede: "Stake $GMEC on Robinhood Chain and earn gas credits every second. Spend them on free GME gas on GME CHAIN.",
+    steps: [
+      ["01", "Stake", "Approve once, then stake any amount of $GMEC. No lock, no fee."],
+      ["02", "Earn", "Credits are token-days: 100 $GMEC staked for 3 days is 300 credits."],
+      ["03", "Claim gas", "Trade credits for GME gas on GME CHAIN, once a day. Unstake any time."],
+    ],
+  },
   explorer: { icon: "code", title: "The explorer starts with the first block", lede: "Blocks, transactions and addresses of GME CHAIN, read straight from its RPC. It fills in from block 0.", steps: [] },
 };
 
@@ -39,7 +59,7 @@ const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls)
 export function showPrelaunch(app) {
   const c = COPY[app];
   if (!c) return;
-  const grid = document.querySelector(".bx, .swap-grid") || document.querySelector("main section:not(.app-hero):not(.ex-hero)");
+  const grid = document.querySelector(".bx, .swap-grid, .lp-grid, .app-grid") || document.querySelector("main section:not(.app-hero):not(.ex-hero)");
   const card = el("section", "card prelaunch");
   card.setAttribute("aria-label", c.title);
   card.append(el("div", "pre-head", `
@@ -93,6 +113,6 @@ export function showPrelaunch(app) {
   onGmePrice((p) => { facts.querySelector("[data-pre-price]").textContent = `$${p.toFixed(2)}`; });
 
   if (grid) grid.replaceWith(card); else document.querySelector("main")?.append(card);
-  document.querySelectorAll(".powerup, [data-dex-pending]").forEach((e) => { e.hidden = true; }); // live readouts start at launch
+  document.querySelectorAll(".powerup, [data-dex-pending], [data-lp-pending], .stat-row").forEach((e) => { e.hidden = true; }); // live readouts start at launch
   document.querySelectorAll("[data-connect]").forEach((b) => { b.disabled = true; b.textContent = "Soon"; });
 }

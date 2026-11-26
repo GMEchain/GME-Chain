@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GME CHAIN Launchpad</title>
+  <meta name="description" content="Launch a token on GME CHAIN in one transaction, paid in GME. It trades on a bonding curve and graduates to the exchange with locked liquidity.">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="canonical" href="https://gmechain.xyz/launch/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="GME CHAIN">
+  <meta property="og:title" content="GME CHAIN Launchpad">
+  <meta property="og:description" content="Launch a token on GME CHAIN in one transaction, paid in GME. It trades on a bonding curve and graduates to the exchange with locked liquidity.">
+  <meta property="og:url" content="https://gmechain.xyz/launch/">
+  <meta property="og:image" content="https://gmechain.xyz/og.png?v=3">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://gmechain.xyz/og.png?v=3">
+  <meta name="twitter:site" content="@GMEChainXYZ">
+  <!-- @head -->
+<meta name="theme-color" content="#000000">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23000000'/%3E%3Cpath d='M12 12V6.4a1.6 1.6 0 0 1 1.6-1.6h4.8A1.6 1.6 0 0 1 20 6.4V12h5.6a1.6 1.6 0 0 1 1.6 1.6v4.8a1.6 1.6 0 0 1-1.6 1.6H20v5.6a1.6 1.6 0 0 1-1.6 1.6h-4.8a1.6 1.6 0 0 1-1.6-1.6V20H6.4a1.6 1.6 0 0 1-1.6-1.6v-4.8A1.6 1.6 0 0 1 6.4 12Z' fill='none' stroke='%23FF2D2D' stroke-width='2.4' stroke-linejoin='round'/%3E%3Cpath d='M16 6.8 18.8 11.2H13.2Z' fill='%23FF2D2D'/%3E%3C/svg%3E">
+  <link rel="preload" href="/fonts/jersey-25.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/pixelify-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/fonts.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/app.css">
+  <link rel="stylesheet" href="/css/launch.css">
+  <link rel="stylesheet" href="/walletkit.css">
+<!-- /@head -->
+</head>
+<body class="page-app">
+  <!-- @header -->
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false"><symbol id="i-mark" viewBox="0 0 32 32"><path d="M11.6 11.6V5.2a2 2 0 0 1 2-2h4.8a2 2 0 0 1 2 2v6.4h6.4a2 2 0 0 1 2 2v4.8a2 2 0 0 1-2 2h-6.4v6.4a2 2 0 0 1-2 2h-4.8a2 2 0 0 1-2-2v-6.4H5.2a2 2 0 0 1-2-2v-4.8a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M16 5.6 19 10.4H13Z" fill="currentColor"/><circle cx="16" cy="16" r="1.7" fill="currentColor" opacity=".5"/></symbol><symbol id="i-bridge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h14l-3.5-3.5M20 16H6l3.5 3.5"/></symbol><symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v16M12 7v12M18 3v14"/><rect x="4" y="8" width="4" height="7" rx=".6" fill="currentColor" stroke="none"/><rect x="10" y="10" width="4" height="5" rx=".6"/><rect x="16" y="5" width="4" height="8" rx=".6" fill="currentColor" stroke="none"/></symbol><symbol id="i-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M13.5 4l-3 16"/></symbol><symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5 10-11"/></symbol><symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol><symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2.5 20h19Z"/><path d="M12 10v4.5M12 17.2v.3"/></symbol><symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3 4.5 6v5.5c0 4.6 3.1 8 7.5 9.5 4.4-1.5 7.5-4.9 7.5-9.5V6Z"/></symbol><symbol id="i-bolt" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 2 4 13.5h6.5L9 22l11-12.5h-6.8Z"/></symbol><symbol id="i-wallet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3.5 7.5h15a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2Zm0 0 12-3.5v3.5"/><circle cx="16.5" cy="13.5" r="1.3" fill="currentColor" stroke="none"/></symbol><symbol id="i-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8.5 7H17v8.5"/></symbol><symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="8.5" y="8.5" width="12" height="12" rx="2"/><path d="M15.5 8.5v-3a2 2 0 0 0-2-2h-8a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h3"/></symbol></svg>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav" data-top>
+  <div class="nav-in">
+    <a class="logo" href="/" aria-label="GME CHAIN home">
+      <svg class="logo-mark" aria-hidden="true"><use href="#i-mark"/></svg>
+      <span class="logo-word">GME<em>chain</em></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/bridge/" data-nav="bridge">Bridge</a>
+      <a href="/swap/" data-nav="swap">Swap</a>
+      <a href="/launch/" data-nav="launch" aria-current="page">Launch</a>
+      <a href="/stake/" data-nav="stake">Stake</a>
+      <a href="/explorer/" data-explorer data-nav="explorer">Explorer</a>
+      <a href="/docs/" data-nav="docs">Docs</a>
+      <a href="/roadmap/" data-nav="roadmap">Roadmap</a>
+    </nav>
+    <div class="nav-right">
+      <a class="price-chip" href="/#market" title="Live GME price from Uniswap v3 on Robinhood Chain"><span class="coin" aria-hidden="true">G</span>GME <b data-app-price>…</b></a>
+      <button class="btn btn-go btn-sm" type="button" data-connect>Connect wallet</button>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sheet" data-menu aria-label="Open menu"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<nav class="sheet" id="sheet" aria-label="Menu">
+  <div class="sheet-head">
+    <span class="logo-word">GME<em>chain</em></span>
+    <button class="btn btn-line btn-sm" type="button" data-menu-close>Close</button>
+  </div>
+  <a href="/bridge/"><b>Bridge</b><small>ETH in, GME gas out</small></a>
+  <a href="/swap/"><b>Swap</b><small>trade on GME CHAIN</small></a>
+  <a href="/launch/"><b>Launch</b><small>make a token, paid in GME</small></a>
+  <a href="/stake/"><b>Stake</b><small>$GMEC in, gas credits out</small></a>
+  <a href="/explorer/" data-explorer><b>Explorer</b><small>blocks and transactions</small></a>
+  <a href="/docs/"><b>Docs</b><small>guides and reference</small></a>
+  <a href="/roadmap/"><b>Roadmap</b><small>done, next, planned</small></a>
+</nav>
+<!-- /@header --><main id="main" class="app-main">
+    <section class="app-hero">
+      <p class="kicker">Launchpad · every trade in <span data-lp-sym>GME</span></p>
+      <h1>Launch <em>on</em> GME CHAIN</h1>
+      <p class="lede">Create a token in one transaction, paid in GME. It trades on a bonding curve; when 800M of its 1B tokens are sold, it graduates to a pool on the GME CHAIN exchange and that liquidity is locked forever. Half of every trading fee buys $GMEC and burns it.</p>
+    </section>
+
+    <p class="notice" data-lp-pending hidden><b>The launchpad opens soon.</b> The contract passed a full rehearsal on a fork of GME CHAIN mainnet and is waiting for its deploy.</p>
+
+    <div class="lp-grid" data-lp-app hidden>
+      <div class="lp-main">
+      <section class="card lp-live" data-lp-live hidden aria-label="Live chart, trades and holders">
+        <div class="lp-live-head">
+          <div><p class="label" data-live-updated>Live</p><h2><span data-live-name>…</span> <span class="lp-live-price" data-live-price>…</span></h2></div>
+          <div class="lp-live-meta"><span class="pill" data-live-change>…</span><span class="fine" data-live-hl></span></div>
+        </div>
+        <svg class="lp-chart" data-live-chart viewBox="0 0 600 220" preserveAspectRatio="none" role="img" aria-label="Price chart"></svg>
+        <p class="fine lp-tip" data-live-tip aria-live="off"></p>
+        <div class="lp-live-tabs">
+          <div class="seg" role="tablist" aria-label="Activity">
+            <button role="tab" type="button" data-live-tab="trades" aria-selected="true">Trades</button>
+            <button role="tab" type="button" data-live-tab="holders" aria-selected="false" tabindex="-1">Holders</button>
+          </div>
+          <span class="fine" data-live-holders-count hidden></span>
+        </div>
+        <div class="lp-table-wrap"><table class="lp-table"><thead><tr data-live-head><th scope="col">Time</th><th scope="col">Type</th><th scope="col">Amount</th><th scope="col">Tokens</th><th scope="col">Price</th><th scope="col">Trader</th><th scope="col">Tx</th></tr></thead><tbody data-live-rows></tbody></table></div>
+      </section>
+      <section class="card lp-list-card" aria-label="Tokens">
+        <div class="swap-head"><h2>Tokens</h2>
+          <div class="slip" role="group" aria-label="Sort">
+            <button type="button" data-sort="new" aria-pressed="true">New</button>
+            <button type="button" data-sort="progress" aria-pressed="false">Progress</button>
+            <button type="button" data-sort="grad" aria-pressed="false">Graduated</button>
+          </div>
+        </div>
+        <ul class="lp-list" data-lp-list><li class="empty">Loading tokens…</li></ul>
+      </section>
+      </div>
+
+      <aside class="lp-side">
+        <section class="card" data-lp-detail hidden aria-label="Token">
+          <div class="lp-head">
+            <img class="lp-img" data-d="img" alt="" hidden>
+            <div><h2 data-d="name">…</h2><p class="kicker"><span data-d="symbol"></span> · <a class="link" data-d="explorer" href="#" target="_blank" rel="noopener">explorer ↗</a></p></div>
+          </div>
+          <div class="lp-ca">
+            <span class="label">Contract address</span>
+            <div class="lp-ca-row"><code data-d="ca">…</code><button class="copy" type="button" data-d="ca-copy" data-copy="">Copy</button></div>
+            <div class="lp-ca-actions"><button type="button" class="link-btn" data-d="watch">Add to wallet</button><span class="form-msg" role="status" aria-live="polite" data-d="watch-msg"></span></div>
+          </div>
+          <p class="muted-p lp-desc" data-d="desc"></p>
+          <p class="lp-links" data-d="links"></p>
+          <div class="lp-bar" role="progressbar" aria-label="Bonding curve progress" aria-valuemin="0" aria-valuemax="100" data-d="bar"><i></i></div>
+          <dl class="kv-mini">
+            <dt>Progress</dt><dd data-d="progress">…</dd>
+            <dt>Price</dt><dd data-d="price">…</dd>
+            <dt>Market cap</dt><dd data-d="mcap">…</dd>
+            <dt>Raised</dt><dd data-d="raised">…</dd>
+            <dt>Creator</dt><dd data-d="creator">…</dd>
+          </dl>
+          <div class="notice lp-grad" data-d="graduated" hidden>
+            <p><b>Graduated.</b> This token now trades on the GME CHAIN exchange, and its liquidity is locked forever.</p>
+            <p class="lp-ca-row lp-pool"><span class="label">Pool</span><code data-d="pair">…</code><button class="copy" type="button" data-d="pair-copy" data-copy="">Copy</button></p>
+            <a class="btn btn-accent btn-small" data-d="swap" href="/swap/">Trade on the exchange →</a>
+          </div>
+          <form class="x-form" data-trade novalidate>
+            <div class="seg" role="tablist" aria-label="Buy or sell">
+              <button role="tab" type="button" data-side="buy" aria-selected="true">Buy</button>
+              <button role="tab" type="button" data-side="sell" aria-selected="false" tabindex="-1">Sell</button>
+            </div>
+            <div class="leg">
+              <div class="leg-head"><span class="label" data-t="label">You pay</span><button type="button" class="link-btn" data-t="max">Max</button></div>
+              <div class="amount"><label class="sr-only" for="lp-amt">Amount</label><input id="lp-amt" inputmode="decimal" autocomplete="off" placeholder="0"><span class="unit" data-t="unit">GME</span></div>
+              <div class="leg-foot"><span>Balance <b data-t="bal">—</b></span><span data-t="out"></span></div>
+            </div>
+            <button class="btn btn-accent btn-block" type="submit" data-t="go">Connect wallet</button>
+            <p class="form-msg" role="status" aria-live="polite" data-t="msg"></p>
+          </form>
+        </section>
+
+        <section class="card" aria-label="Create a token">
+          <h2 class="side-title">Create a token</h2>
+          <form class="x-form" data-create novalidate>
+            <label class="lp-field"><span class="label">Name</span><input name="name" maxlength="64" autocomplete="off" placeholder="My Token" required></label>
+            <label class="lp-field"><span class="label">Ticker</span><input name="symbol" maxlength="16" autocomplete="off" placeholder="MYTKN" required></label>
+            <label class="lp-field"><span class="label">Description</span><textarea name="description" maxlength="600" rows="3" placeholder="What is it?"></textarea></label>
+            <div class="lp-field">
+              <span class="label" id="lp-img-label">Image</span>
+              <div class="lp-upload">
+                <span class="lp-upload-preview" data-img-preview aria-hidden="true"><span>No image</span></span>
+                <div class="lp-upload-side">
+                  <label class="btn btn-ghost btn-small lp-upload-btn">Choose image<input type="file" name="image" accept="image/png,image/jpeg,image/webp,image/gif" aria-labelledby="lp-img-label" data-img-input></label>
+                  <button type="button" class="link-btn" data-img-clear hidden>Remove</button>
+                  <p class="fine" data-img-note>PNG, JPEG, WebP or GIF. Cropped square to 256 × 256.</p>
+                </div>
+              </div>
+            </div>
+            <label class="lp-field"><span class="label">Website or X link (optional)</span><input name="link" type="url" maxlength="300" autocomplete="off" placeholder="https://…"></label>
+            <label class="lp-field"><span class="label">First buy in <span data-lp-sym>GME</span> (optional)</span><input name="buy" inputmode="decimal" autocomplete="off" placeholder="0"></label>
+            <p class="fine">Supply 1,000,000,000 · 800M sold on the curve · graduates when <span data-lp-target>…</span> <span data-lp-sym>GME</span> is raised, then 200M go to the pool · trading fee <span data-lp-fee>1%</span> in <span data-lp-sym>GME</span>: half buys and burns $GMEC, half goes to the treasury · creation fee <span data-lp-cfee>0</span></p>
+            <button class="btn btn-accent btn-block" type="submit" data-c="go">Connect wallet</button>
+            <p class="form-msg" role="status" aria-live="polite" data-c="msg"></p>
+          </form>
+        </section>
+
+
+        <section class="card">
+          <h2 class="side-title">Before you buy</h2>
+          <p class="muted-p">Anyone can create a token here, including copies of real projects and tokens made to lose you money. GME CHAIN does not review or endorse any of them. Check the creator and the contract address, and only spend what you can lose. Nothing here is investment advice.</p>
+          <p class="fine">Launchpad <code data-lp-addr>…</code> · <a class="link" href="https://github.com/GMEchain/GME-Chain/blob/main/chain/contracts/GmeLaunchpad.sol" target="_blank" rel="noopener">source ↗</a> · <a class="link" href="https://github.com/GMEchain/GME-Chain/blob/main/docs/launchpad.md" target="_blank" rel="noopener">how it works ↗</a></p>
+        </section>
+      </aside>
+    </div>
+  </main>
+  <!-- @footer -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="logo" href="/" aria-label="GME CHAIN home">
+          <svg class="logo-mark" aria-hidden="true"><use href="#i-mark"/></svg>
+          <span class="logo-word">GME<em>chain</em></span>
+        </a>
+        <p>The chain that runs on GME. Bring ETH from Robinhood Chain, get GME gas, trade.</p>
+        <button class="copy-chip" type="button" data-copy="0x1b0E319c6A659F002271B69dB8A7df2F911c153E" aria-label="Copy the GME token contract address"><span>GME token</span><code>0x1b0E…153E</code><svg aria-hidden="true"><use href="#i-copy"/></svg></button>
+        <button class="copy-chip" type="button" data-gmec="live" data-gmec-copy hidden aria-label="Copy the $GMEC contract address"><span>$GMEC</span><code data-gmec-short></code><svg aria-hidden="true"><use href="#i-copy"/></svg></button>
+        <p class="gmec-links" data-gmec-links hidden></p>
+      </div>
+      <div>
+        <h2 class="foot-h">Play</h2>
+        <ul><li><a href="/bridge/">Bridge</a></li><li><a href="/swap/">Swap</a></li><li><a href="/launch/">Launch</a></li><li><a href="/stake/">Stake</a></li><li><a href="/explorer/" data-explorer>Explorer</a></li></ul>
+      </div>
+      <div>
+        <h2 class="foot-h">Learn</h2>
+        <ul><li><a href="/#start">How it works</a></li><li><a href="/docs/">Docs</a></li><li><a href="/roadmap/">Roadmap</a></li><li><a href="/#faq">FAQ</a></li></ul>
+      </div>
+      <div>
+        <h2 class="foot-h">Network</h2>
+        <ul><li><a href="/#build">Network details</a></li><li><a href="/#risk">Risks</a></li><li><a href="https://robinhoodchain.blockscout.com/token/0x1b0E319c6A659F002271B69dB8A7df2F911c153E" target="_blank" rel="noopener">GME on Blockscout <span aria-hidden="true">↗</span></a></li></ul>
+      </div>
+      <div>
+        <h2 class="foot-h">Follow</h2>
+        <ul><li><a href="https://x.com/GMEChainXYZ" target="_blank" rel="noopener">X <span aria-hidden="true">↗</span></a></li><li><a href="https://github.com/GMEchain/GME-Chain" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a></li></ul>
+      </div>
+    </div>
+    <canvas class="foot-word" data-wordmark aria-hidden="true"></canvas>
+    <div class="foot-base">
+      <p>GME CHAIN is independent and not affiliated with GameStop Corp., Robinhood Markets, Inc. or Offchain Labs. Names are used only to describe the assets and technology involved. Nothing on this site is investment advice or an offer of securities. Tokenized stocks carry market, issuer and regulatory risk and are not available everywhere.</p>
+      <p>© 2026 GME CHAIN</p>
+    </div>
+  </div>
+</footer>
+<!-- /@footer -->
+
+  <script type="module" src="../js/appchrome.js"></script>
+  <script src="/js/site.js" defer></script>
+  <script type="module" src="/js/boot.js" data-app="launch" data-mods="/js/launch.js"></script>
+</body>
+</html>

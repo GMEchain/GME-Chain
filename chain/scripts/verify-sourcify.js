@@ -17,6 +17,7 @@ const dep = JSON.parse(fs.readFileSync(path.join(ROOT, "deployment.mainnet.json"
 const CONTRACTS = [
   { name: "GmeFeeTokenPricer", file: "GmeFeeTokenPricer.sol", address: dep.feeTokenPricer },
   { name: "GmeGasRouter", file: "GmeGasRouter.sol", address: dep.gasRouter },
+  { name: "GmecStaking", file: "GmecStaking.sol", address: dep.gmecStaking?.address },
 ].filter((c) => c.address);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 

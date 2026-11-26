@@ -41,6 +41,8 @@
     <nav class="nav-links" aria-label="Primary">
       <a href="/bridge/" data-nav="bridge">Bridge</a>
       <a href="/swap/" data-nav="swap">Swap</a>
+      <a href="/launch/" data-nav="launch">Launch</a>
+      <a href="/stake/" data-nav="stake">Stake</a>
       <a href="/explorer/" data-explorer data-nav="explorer">Explorer</a>
       <a href="/docs/" data-nav="docs">Docs</a>
       <a href="/roadmap/" data-nav="roadmap" aria-current="page">Roadmap</a>
@@ -59,6 +61,8 @@
   </div>
   <a href="/bridge/"><b>Bridge</b><small>ETH in, GME gas out</small></a>
   <a href="/swap/"><b>Swap</b><small>trade on GME CHAIN</small></a>
+  <a href="/launch/"><b>Launch</b><small>make a token, paid in GME</small></a>
+  <a href="/stake/"><b>Stake</b><small>$GMEC in, gas credits out</small></a>
   <a href="/explorer/" data-explorer><b>Explorer</b><small>blocks and transactions</small></a>
   <a href="/docs/"><b>Docs</b><small>guides and reference</small></a>
   <a href="/roadmap/"><b>Roadmap</b><small>done, next, planned</small></a>
@@ -116,24 +120,27 @@
           </ol>
         </div>
       </li>
-      <li class="rm-world is-clear">
+      <li class="rm-world is-now">
         <div class="w-node" aria-hidden="true">3</div>
         <div class="w-card">
-          <header class="w-head">
+          <p class="here" aria-label="You are here">▶ You are here</p><header class="w-head">
             <span class="w-no">World 3</span>
             <h2>$GMEC</h2>
-            <span class="w-prog"><b>1/1</b> clear</span>
-            <span class="w-bar" role="img" aria-label="1 of 1 stages clear"><i class="on"></i></span>
+            <span class="w-prog"><b>1/4</b> clear</span>
+            <span class="w-bar" role="img" aria-label="1 of 4 stages clear"><i class="on"></i><i></i><i></i><i></i></span>
           </header>
           <ol class="stages">
             <li class="stage st-clear"><span class="st-no">3-1</span><span class="rm-what">$GMEC live on Robinhood Chain: <code>0xa8c5…0122</code>, the only official contract, published on this site</span><span class="st-state"><svg aria-hidden="true"><use href="#i-check"/></svg>Clear</span></li>
+            <li class="stage st-next"><span class="st-no">3-2</span><span class="rm-what">Launchpad paid in GME: create a token, trade it on a bonding curve, graduate at 100 GME raised to the exchange with liquidity locked forever</span><span class="st-state"><i aria-hidden="true"></i>Next</span></li>
+            <li class="stage st-next"><span class="st-no">3-3</span><span class="rm-what">Fee burn: the exchange's 0.05% and half of each launchpad fee turned into $GMEC and sent to <code>0x…dEaD</code></span><span class="st-state"><i aria-hidden="true"></i>Next</span></li>
+            <li class="stage st-next"><span class="st-no">3-4</span><span class="rm-what">Stake $GMEC on Robinhood Chain for gas credits, claimed as GME gas on GME CHAIN</span><span class="st-state"><i aria-hidden="true"></i>Next</span></li>
           </ol>
         </div>
       </li>
-      <li class="rm-world is-now">
+      <li class="rm-world is-locked">
         <div class="w-node" aria-hidden="true">4</div>
         <div class="w-card">
-          <p class="here" aria-label="You are here">▶ You are here</p><header class="w-head">
+          <header class="w-head">
             <span class="w-no">World 4</span>
             <h2>Lock it down</h2>
             <span class="w-prog"><b>0/5</b> clear</span>
@@ -212,7 +219,7 @@
       </div>
       <div>
         <h2 class="foot-h">Play</h2>
-        <ul><li><a href="/bridge/">Bridge</a></li><li><a href="/swap/">Swap</a></li><li><a href="/explorer/" data-explorer>Explorer</a></li></ul>
+        <ul><li><a href="/bridge/">Bridge</a></li><li><a href="/swap/">Swap</a></li><li><a href="/launch/">Launch</a></li><li><a href="/stake/">Stake</a></li><li><a href="/explorer/" data-explorer>Explorer</a></li></ul>
       </div>
       <div>
         <h2 class="foot-h">Learn</h2>

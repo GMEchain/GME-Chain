@@ -33,6 +33,9 @@ The chain's own core contracts (rollup, bridge, inbox, outbox, token bridge) are
 | GmeGasRouter (bridge with ETH) | Robinhood Chain | `0x150415997ad7b9a4bf724dfb552c63fe50f33ecd` | [GmeGasRouter.sol](chain/contracts/GmeGasRouter.sol) | 9, on a fork of Robinhood Chain mainnet with the real pools |
 | GmeFeeTokenPricer | Robinhood Chain | `0x97dcc10f4f99dc0643540921efea2ee043502c24` | [GmeFeeTokenPricer.sol](chain/contracts/GmeFeeTokenPricer.sol) | 11, including fuzzing |
 | WrappedGME (WGME) | GME CHAIN | `0xF47680692201c5c1615FAdc69db4A8Ad6fFA0B01` | [WrappedGME.sol](chain/contracts/WrappedGME.sol) | port of WETH9 |
+| GmeLaunchpad (launchpad, paid in GME) | GME CHAIN | _(at deployment)_ | [GmeLaunchpad.sol](chain/contracts/GmeLaunchpad.sol), tokens: [LaunchToken.sol](chain/contracts/LaunchToken.sol) | 30, including fuzzing and reentrancy, plus a full rehearsal on a fork of GME CHAIN mainnet |
+| FeeBurner (fees to burned $GMEC) | GME CHAIN | _(at deployment)_ | [FeeBurner.sol](chain/contracts/FeeBurner.sol) | unit tests plus the launchpad rehearsal |
+| GmecStaking ($GMEC staking for gas credits) | Robinhood Chain | _(at deployment)_ | [GmecStaking.sol](chain/contracts/GmecStaking.sol) | 23, including fuzzing, plus a rehearsal on a fork of Robinhood Chain mainnet with the real $GMEC |
 
 ## Operator wallets
 
@@ -44,7 +47,8 @@ Created for GME CHAIN on 26 November 2026, separate from any other project. Main
 | Batch poster | `0x13D8134c2DEF15Eba09a13D65557428C68912c91` | Posts GME CHAIN's transaction batches to Robinhood Chain | Nothing else |
 | Validator | `0x96013907aF557E9F1692801DC7474cF8E7a63127` | Posts a bond and asserts the chain's state | Its claims can be challenged |
 | Withdrawal delivery | `0xDedA3f740bdAd934E870BB1B4829033c308631ee` | After the challenge window, claims confirmed withdrawals on Robinhood Chain for their owners and pays the claim gas | Send the funds anywhere but the withdrawal's own destination; it only delivers plain GME withdrawals and token withdrawals through our gateways, with gas and daily caps |
-| Price keeper | `0xB15B14BD07Be83D50a7F652A10fea13C95867b9F` | Keeps the fee pricer's GME price in line with the market | Move the price more than the pricer's limit: 3% per update, at most once every 15 minutes (`maxDeviationBps` 300, `minUpdateInterval` 900, set on chain 2026-11-26) |
+| Price keeper | `0xB15B14BD07Be83D50a7F652A10fea13C95867b9F` | Keeps the fee pricer's GME price in line with the market. Also the FeeBurner's operator: runs the burn every 6 hours | Move the price more than the pricer's limit: 3% per update, at most once every 15 minutes (`maxDeviationBps` 300, `minUpdateInterval` 900, set on chain 2026-11-26). As FeeBurner operator: take anything out (it can only swap to $GMEC sent to `0x…dEaD`) |
+| Gas credits | _(at opening)_ | The staking contract's redeemer: records a credit claim on Robinhood Chain and sends the gas on GME CHAIN | Spend more credits than a user has, or spend them without the user's signed request; its gas pot is filled only from launchpad fee income |
 
 Testnet runs its own wallets, all holding test tokens only. Two of them act in public: the **faucet** `0xA5d24060fAd51e6340Bab4F1D5593ADe6eF3f502` sends test kits, and the **pulse** `0xf84A2cf5c78Cc28e68833e5bf740c153bCA247Ad` makes a small test transaction every few minutes (tGME transfers, swaps, wraps) so the testnet explorer always shows live activity. The pulse never runs on mainnet.
 
@@ -60,6 +64,9 @@ The first pool on the exchange, GME/USDG (`0x0cc257A03a13d4B01c0Ec573aD2Fc755b9F
 | GME CHAIN (chain owner, ArbOS) | Change gas pricing parameters | — |
 | GmeGasRouter | No owner | — |
 | GmeFeeTokenPricer | Set the GME or ETH price directly (for emergencies and corporate actions); change the keeper and its limits | Set a price outside its hard range |
+| GmeLaunchpad | Change the trading fee (at most 2%), the burn share, the creation fee, the treasury and the graduation target; change where the burn share goes; pause new launches | Move GME held by a curve, mint tokens, stop anyone from selling, pause trading, or touch a graduated pool (its LP tokens are burned) |
+| FeeBurner | Change its operator | Take anything out: $GMEC can only go to `0x…dEaD`, other tokens only swapped into $GMEC sent to `0x…dEaD` |
+| GmecStaking | Pause new stakes; choose the redeemer; recover tokens sent by mistake | Move staked $GMEC or block an unstake |
 | Exchange factory (Uniswap V2, `feeToSetter` is the deployer) | Point the protocol fee (`feeTo`) at another address, or turn it off | Change the 0.3% swap fee, or touch liquidity in any pool |
 
 ## Where the money goes
@@ -68,11 +75,13 @@ The first pool on the exchange, GME/USDG (`0x0cc257A03a13d4B01c0Ec573aD2Fc755b9F
 |---|---|
 | GME CHAIN gas fees | Network fee account (the deployer); this pays for posting batches to Robinhood Chain |
 | Bridge | No fee. Paying with ETH, the only cost besides gas is the Uniswap pool fee inside the quote (0.05% on the WETH/GME pool) |
-| Exchange swaps | 0.3% per swap (standard Uniswap V2), all to liquidity providers |
+| Exchange swaps | 0.3% per swap (standard Uniswap V2). Once the FeeBurner is deployed: 0.25% to liquidity providers, 0.05% to the FeeBurner, which burns it as $GMEC ([docs/fee-burn.md](docs/fee-burn.md)) |
+| Launchpad trades | 1% per buy and sell, in GME: half to the FeeBurner (burned as $GMEC), half to the treasury (the deployer) |
+| Launchpad graduation | The 100 GME a curve raised and 200M of its tokens go into an exchange pool; its LP tokens are burned. All of it was paid by the token's buyers |
+| Gas credit claims | Paid from a pot filled only with launchpad fee income (the treasury half). Never from the project's own funds |
 
 ## Not in place yet
 
-- **Mainnet apps are not open yet.** The contracts are deployed; the website switches to them at launch.
 - **No external audit.** The contracts are covered by automated tests (unit, fuzz and fork), which are not an audit.
 - **No multisig or timelock** at launch. One key controls upgrades and settings.
 - **One operator** runs the sequencer, batch poster and validator.

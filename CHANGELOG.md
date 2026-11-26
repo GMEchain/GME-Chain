@@ -4,6 +4,12 @@ What has been built on GME CHAIN, newest first. Dates are UTC. Every on-chain va
 
 ## 2026-11-27 · Mainnet launch
 
+### Launchpad, $GMEC staking and fee burn (built, deploying)
+- **Launchpad paid in GME** ([docs/launchpad.md](docs/launchpad.md)): create a token in one transaction, trade it on a bonding curve with native GME, and at 100 GME raised it graduates to the exchange with its liquidity locked forever. All of that money comes from the token's buyers. 1% trading fee: half buys and burns $GMEC, half to the treasury. New contract [GmeLaunchpad.sol](chain/contracts/GmeLaunchpad.sol), 30 tests, and a full rehearsal on a fork of GME CHAIN mainnet ([rehearse-launchpad.js](chain/scripts/rehearse-launchpad.js)).
+- **Fee burn** ([docs/fee-burn.md](docs/fee-burn.md)): the FeeBurner receives the exchange's 0.05% protocol fee and half of each launchpad fee, and can only turn them into $GMEC sent to `0x…dEaD`. The keeper runs it every 6 hours. Burning starts once a GME / $GMEC pool exists on GME CHAIN.
+- **$GMEC staking for gas credits** ([docs/staking-guide.md](docs/staking-guide.md)): stake $GMEC on Robinhood Chain, earn 1 credit per token per day, claim GME gas on GME CHAIN. No lock, no fee. The gas pot is filled only from launchpad fee income. Rehearsed on a fork of Robinhood Chain mainnet with the real $GMEC, including the claim service surviving a restart ([rehearse-credits.js](chain/scripts/rehearse-credits.js)).
+- New pages [gmechain.xyz/launch](https://gmechain.xyz/launch/) and [gmechain.xyz/stake](https://gmechain.xyz/stake/); they show "opens soon" until each contract is deployed.
+
 ### Mainnet is open
 - **Verified on Sourcify:** [GmeFeeTokenPricer](https://repo.sourcify.dev/4663/0x97dcc10f4f99dc0643540921efea2ee043502c24) and [GmeGasRouter](https://repo.sourcify.dev/4663/0x150415997ad7b9a4bf724dfb552c63fe50f33ecd), the contracts we wrote for Robinhood Chain mainnet, are exact matches on Sourcify, so anyone can read the source next to the deployed code.
 - **gmechain.xyz runs on GME CHAIN mainnet:** bridge ETH in as GME gas, swap on the exchange, explore blocks and withdraw back. The testnet stays open for trying everything for free.

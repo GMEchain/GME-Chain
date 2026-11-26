@@ -40,23 +40,29 @@ cp $SRC/chain/package.json $SRC/chain/package-lock.json $SRC/chain/deployment.ma
 # withdrawal delivery wallets: generated here once, the key never leaves this server
 DC="docker compose -f docker-compose.coolify.yml --profile chain --profile testnet"
 $DC build -q keeper
-newkey() { # $1 = env file, $2 = file to copy PARENT_RPC from
+newkey() { # $1 = env file, $2 = file to copy PARENT_RPC from, $3 = variable prefix (default CLAIMER)
   [ -s "secrets/$1" ] && return 0
+  P=${3:-CLAIMER}
   K="0x$(openssl rand -hex 32)"
   A=$($DC run --rm --no-deps -e K="$K" --entrypoint node keeper -e "import('viem/accounts').then((m) => console.log(m.privateKeyToAccount(process.env.K).address))" | tail -1)
   case "$A" in 0x*) ;; *) echo "could not derive the address for $1"; return 1 ;; esac
-  ( umask 077; { echo "CLAIMER_PRIVATE_KEY=$K"; echo "CLAIMER_ADDRESS=$A"; grep '^PARENT_RPC=' "secrets/$2" 2>/dev/null || true; } > "secrets/$1" )
+  ( umask 077; { echo "${P}_PRIVATE_KEY=$K"; echo "${P}_ADDRESS=$A"; grep '^PARENT_RPC=' "secrets/$2" 2>/dev/null || true; } > "secrets/$1" )
   echo "created secrets/$1 for $A"
 }
 newkey claimer.env keeper.env
 newkey claimer-testnet.env pulse.env
-$DC up -d --build keeper monitor claimer pulse faucet claimer-testnet 2>&1 | tail -8
+newkey credits.env keeper.env REDEEMER
+# the credits service needs the staking contract in the deployment record; until then only media starts
+if grep -q '"gmecStaking"' $APP/chain/deployment.mainnet.json; then EXTRA="credits media"; else EXTRA="media"; fi
+$DC up -d --build keeper monitor claimer pulse faucet claimer-testnet $EXTRA 2>&1 | tail -8
 sleep 30
 echo "--- withdrawal delivery wallets (send a little ETH on Robinhood Chain to each; testnet ETH for the testnet one)"
 echo "mainnet: $(grep '^CLAIMER_ADDRESS=' secrets/claimer.env | cut -d= -f2)"
 echo "testnet: $(grep '^CLAIMER_ADDRESS=' secrets/claimer-testnet.env | cut -d= -f2)"
 docker logs --tail 2 gmechain-claimer-1 2>&1 | cut -c1-200
 docker logs --tail 2 gmechain-claimer-testnet-1 2>&1 | cut -c1-200
+echo "--- gas credits wallet (staking redeemer; use it for scripts/09-credits-setup.js): $(grep '^REDEEMER_ADDRESS=' secrets/credits.env | cut -d= -f2)"
+printf 'media -> '; curl -s -m 10 https://gmechain.xyz/media/health; echo
 
 echo "--- check"
 docker ps --format '{{.Names}} {{.Status}}' | grep gmechain

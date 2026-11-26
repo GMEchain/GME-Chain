@@ -23,6 +23,8 @@ PAGES = {
     "index.html":          {"css": ["base", "home"], "cta": BRIDGE_LINK, "nav": None, "body": "page-home"},
     "bridge/index.html":   {"css": ["base", "app"],  "cta": CONNECT,     "nav": "bridge", "body": "page-app", "wallet": True},
     "swap/index.html":     {"css": ["base", "app"],  "cta": CONNECT,     "nav": "swap", "body": "page-app", "wallet": True},
+    "launch/index.html":   {"css": ["base", "app", "launch"], "cta": CONNECT, "nav": "launch", "body": "page-app", "wallet": True},
+    "stake/index.html":    {"css": ["base", "app", "launch"], "cta": CONNECT, "nav": "stake", "body": "page-app", "wallet": True},
     "explorer/index.html": {"css": ["base", "app"],  "cta": BRIDGE_LINK, "nav": "explorer", "body": "page-app"},
     "docs/index.html":     {"css": ["base", "docs"], "cta": BRIDGE_LINK, "nav": "docs", "body": "page-docs", "wallet": True},
     "roadmap/index.html":  {"css": ["base", "docs"], "cta": BRIDGE_LINK, "nav": "roadmap", "body": "page-docs"},

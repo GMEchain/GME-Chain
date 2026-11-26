@@ -30,6 +30,7 @@ const PROFILES = {
     },
     DEX: { wrappedGme: "0xe05553A07674EcDAcFC34d71851496FA8792d3D3", factory: "0xc86C5f2bcf07a95485636f252cE959b38B0E4970", router: "0xaaf27Fe96a0944e29C4919830388c1d66Ad2A9de", testUsd: "0x03626Eff4afd998Fae80556dceB98F7910eEAB36" },
     CONFIRM_BLOCKS: 150, // ~30 minutes of 12 s Ethereum blocks
+    LAUNCHPAD: { address: null, quote: null, quoteSymbol: "tGME", fromBlock: 0 }, // mainnet only for now
   },
   mainnet: {
     NETWORK: "mainnet",
@@ -53,6 +54,8 @@ const PROFILES = {
     // The GME/USDG pool opened on 2026-11-27.
     DEX: { wrappedGme: "0xF47680692201c5c1615FAdc69db4A8Ad6fFA0B01", factory: "0x4eCCaB543cD16949c40bE19bbAA2542c3a0EA074", router: "0x14B24b2ef37e3C9b39D8942fDe9666281E54d8b7", testUsd: null, usdg: "0x70B8053E45C6273f573a788299EF667677F4C9e5", usdgPair: "0x0cc257A03a13d4B01c0Ec573aD2Fc755b9F1B85f" },
     CONFIRM_BLOCKS: 7200, // about one day of 12 s Ethereum blocks (set on chain 2026-11-27; was 50400)
+    // launchpad: every trade in GME (quote = the exchange's WGME); address filled in by scripts/08-launchpad.js
+    LAUNCHPAD: { address: null, quote: "0xF47680692201c5c1615FAdc69db4A8Ad6fFA0B01", quoteSymbol: "GME", fromBlock: 0 },
   },
 };
 
@@ -99,6 +102,9 @@ export const L2 = P.L2;
 export const ADDR = P.ADDR;
 export const DEX = P.DEX;
 export const CONFIRM_BLOCKS = P.CONFIRM_BLOCKS;
+export const LAUNCHPAD = P.LAUNCHPAD;
+// $GMEC staking contract on Robinhood Chain mainnet. Filled in by scripts/07-gmec-staking.js.
+const STAKING_CONTRACT = null;
 // Launch state, per app. A page whose app is not live shows the pre-launch panel (js/prelaunch.js).
 const OPEN = ACTIVE !== "mainnet" || MAINNET_OPEN;
 export const LIVE = {
@@ -106,7 +112,19 @@ export const LIVE = {
   bridge: OPEN && !!(ADDR.inbox && ADDR.outbox && ADDR.bridge),
   swap: OPEN && !!(ADDR.inbox && DEX.router && DEX.factory && DEX.wrappedGme),
   explorer: OPEN && !!(ADDR.inbox && DEX.router && DEX.factory && DEX.wrappedGme),
+  launch: OPEN && !!(ADDR.inbox && LAUNCHPAD.address),
+  stake: !!(STAKING_CONTRACT),
 };
+// $GMEC staking for gas credits, on Robinhood Chain mainnet (contract: STAKING_CONTRACT above).
+export const STAKING = {
+  chain: { id: 4663, hex: "0x1237", name: "Robinhood Chain", rpcs: PROFILES.mainnet.L2.rpcs, walletRpc: PROFILES.mainnet.L2.walletRpc },
+  contract: STAKING_CONTRACT,
+  token: "0xa8c53b1dAcFbd07895dC8D2c638F1bFDe10C0122", // $GMEC
+  symbol: "$GMEC",
+  test: false,
+  buyUrl: "https://fomo.family/tokens/robinhood/0xa8c53b1dacfbd07895dc8d2c638f1bfde10c0122?r=NeatTightBass",
+};
+
 // Where the site reads the live GME price: the Uniswap v3 GME/USDG pool on Robinhood Chain (the same pool the
 // keeper uses), and once GME CHAIN mainnet exists, its fee pricer as a fallback. Read-only.
 export const PRICE_SOURCE = { pool: UNISWAP.pools.gmeUsdg1, pricer: PROFILES.mainnet.ADDR.pricer, rpcs: PROFILES.mainnet.L2.rpcs };

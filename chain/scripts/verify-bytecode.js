@@ -29,6 +29,9 @@ const uniswap = (p) => {
 const ALL_CHECKS = [
   { chain: "robinhood", name: "GmeGasRouter (bridge with ETH)", address: dep.gasRouter, src: "contracts/GmeGasRouter.sol", art: () => foundry("GmeGasRouter.sol", "GmeGasRouter") },
   { chain: "robinhood", name: "GmeFeeTokenPricer (GME fee pricer)", address: dep.feeTokenPricer, src: "contracts/GmeFeeTokenPricer.sol", art: () => foundry("GmeFeeTokenPricer.sol", "GmeFeeTokenPricer") },
+  { chain: "robinhood", name: "GmecStaking ($GMEC staking for gas credits)", address: dep.gmecStaking?.address, src: "contracts/GmecStaking.sol", art: () => foundry("GmecStaking.sol", "GmecStaking") },
+  { chain: "gmechain", name: "GmeLaunchpad (launchpad, paid in GME)", address: dep.launchpad?.address, src: "contracts/GmeLaunchpad.sol", art: () => foundry("GmeLaunchpad.sol", "GmeLaunchpad") },
+  { chain: "gmechain", name: "FeeBurner (fees -> burned $GMEC)", address: dep.feeBurner?.address, src: "contracts/FeeBurner.sol", art: () => foundry("FeeBurner.sol", "FeeBurner") },
   { chain: "gmechain", name: "WrappedGME (WGME)", address: dep.dex?.wrappedGme, src: "contracts/WrappedGME.sol", art: () => foundry("WrappedGME.sol", "WrappedGME") },
   { chain: "gmechain", name: "UniswapV2Factory (exchange)", address: dep.dex?.factory, src: "@uniswap/v2-core (official build)", art: () => uniswap("@uniswap/v2-core/build/UniswapV2Factory.json") },
   { chain: "gmechain", name: "UniswapV2Router02 (exchange)", address: dep.dex?.router, src: "@uniswap/v2-periphery (official build)", art: () => uniswap("@uniswap/v2-periphery/build/UniswapV2Router02.json") },

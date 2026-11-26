@@ -17,8 +17,9 @@
 // Run: node scripts/keeper.js --mainnet            (sends transactions)
 //      DRY_RUN=1 node scripts/keeper.js --mainnet  (logs decisions only)
 import http from "node:http";
-import { parseAbi, formatEther, parseEther } from "viem";
+import { parseAbi, formatEther, parseEther, createPublicClient, createWalletClient, defineChain, http as viemHttp } from "viem";
 import { NETWORK, parentPublicClient as client, walletClient, account, loadDeployment, GME_TOKEN } from "./lib.js";
+import { createBurnerJob } from "./fee-burner-job.js";
 
 if (NETWORK !== "mainnet") throw new Error("Keeper runs on mainnet only (use --mainnet).");
 if (!loadDeployment().feeTokenPricer && !process.env.PRICER_ADDRESS) throw new Error("No fee token pricer yet: run 02-create-rollup.js --mainnet first, or set PRICER_ADDRESS.");
@@ -240,3 +241,33 @@ http
 
 await tick();
 setInterval(tick, CFG.sampleEveryMs);
+
+// ---------- exchange fee burn (GME CHAIN) ----------
+// Dormant until a FeeBurner is deployed (scripts/11-fee-burner.js). Then, every BURN_EVERY_MS (default 6 h), it turns
+// what the FeeBurner holds (the exchange's protocol fee and half of each launchpad fee, both paid by traders) into
+// burned $GMEC (scripts/fee-burner-job.js). It runs apart from the price loop: an error here is reported under
+// "burner" and never affects the price updates or /health.
+const dep = loadDeployment();
+if (dep.feeBurner?.address && !CFG.dryRun && process.env.BURNER_DISABLED !== "1") {
+  const L3_RPC = process.env.L3_RPC || "https://rpc.gmechain.xyz";
+  const l3 = defineChain({ id: 12821, name: "GME CHAIN", nativeCurrency: { name: "GME", symbol: "GME", decimals: 18 }, rpcUrls: { default: { http: [L3_RPC] } } });
+  const l3pub = createPublicClient({ chain: l3, transport: viemHttp(L3_RPC, { timeout: 60_000 }) });
+  const l3wallet = createWalletClient({ account: keeper, chain: l3, transport: viemHttp(L3_RPC, { timeout: 60_000 }) });
+  const job = createBurnerJob({
+    pub: l3pub,
+    wallet: l3wallet,
+    addr: { burner: dep.feeBurner.address, factory: dep.dex.factory, router: dep.dex.router, gmec: dep.feeBurner.gmec, want: dep.dex.wrappedGme },
+    log,
+  });
+  status.burner = job.status;
+  let burning = false;
+  const burn = async () => {
+    if (burning) return;
+    burning = true;
+    try { await job.run(); } catch (e) { log("fee burn run failed", { error: String(e?.shortMessage || e?.message || e) }); } finally { burning = false; }
+  };
+  const every = Number(process.env.BURN_EVERY_MS || 6 * 3600_000);
+  setTimeout(burn, 120_000);
+  setInterval(burn, every);
+  log("fee burn job on", { burner: dep.feeBurner.address, everyMs: every });
+}

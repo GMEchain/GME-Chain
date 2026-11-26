@@ -95,7 +95,7 @@ services:
     command: ["node", "scripts/keeper.js", "--mainnet"]
     env_file: ./secrets/keeper.env
     environment:
-      L3_RPC: http://nitro:8449
+      L3_RPC: https://rpc.gmechain.xyz # the fee burn job; public RPC, like the claimer
     volumes:
       - ../../chain/deployment.mainnet.json:/app/deployment.mainnet.json:ro
     depends_on: [nitro]
@@ -197,6 +197,61 @@ services:
       - ../../chain/deployment.mainnet.json:/app/deployment.mainnet.json:ro
     depends_on: [nitro]
 
+  # $GMEC staking gas credits: GET /api/credits/info, POST /api/credits/claim (scripts/credits.js).
+  # Its key (the staking contract's redeemer) is generated on the server by update-server.sh and never leaves it.
+  # The gas it hands out is paid from launchpad fee income only (scripts/09-credits-setup.js); it stays closed while that pot is empty.
+  credits:
+    build: { context: ../../chain, dockerfile: ../deploy/vps/Dockerfile.scripts }
+    profiles: ["chain"]
+    restart: unless-stopped
+    command: ["node", "scripts/credits.js", "--mainnet"]
+    env_file: ./secrets/credits.env
+    environment:
+      L3_RPC: https://rpc.gmechain.xyz
+      CREDITS_PER_CLAIM: ${CREDITS_PER_CLAIM:-1000}
+      STATE_FILE: /data/credits-state.json
+    volumes:
+      - ../../chain/deployment.mainnet.json:/app/deployment.mainnet.json:ro
+      - credits_data:/data
+    networks: [coolify, default]
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: coolify
+      traefik.http.middlewares.gme-credits-strip.stripprefix.prefixes: /api/credits
+      traefik.http.routers.gme-credits.entrypoints: https
+      traefik.http.routers.gme-credits.rule: Host(`${SITE_HOST}`) && PathPrefix(`/api/credits`)
+      traefik.http.routers.gme-credits.priority: "200"
+      traefik.http.routers.gme-credits.middlewares: gme-credits-strip
+      traefik.http.routers.gme-credits.tls: "true"
+      traefik.http.routers.gme-credits.tls.certresolver: letsencrypt
+      traefik.http.routers.gme-credits.service: gme-credits
+      traefik.http.services.gme-credits.loadbalancer.server.port: "8080"
+
+  # launchpad token images: POST /media/upload, GET /media/i/<sha256>.<ext> (scripts/media.js). No keys.
+  media:
+    build: { context: ../../chain, dockerfile: ../deploy/vps/Dockerfile.scripts }
+    profiles: ["chain"]
+    restart: unless-stopped
+    command: ["node", "scripts/media.js"]
+    environment:
+      MEDIA_DIR: /data/media
+      PUBLIC_BASE: https://${SITE_HOST}/media
+    volumes:
+      - media_data:/data/media
+    networks: [coolify]
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: coolify
+      traefik.http.middlewares.gme-media-strip.stripprefix.prefixes: /media
+      traefik.http.routers.gme-media.entrypoints: https
+      traefik.http.routers.gme-media.rule: Host(`${SITE_HOST}`) && PathPrefix(`/media`)
+      traefik.http.routers.gme-media.priority: "200"
+      traefik.http.routers.gme-media.middlewares: gme-media-strip
+      traefik.http.routers.gme-media.tls: "true"
+      traefik.http.routers.gme-media.tls.certresolver: letsencrypt
+      traefik.http.routers.gme-media.service: gme-media
+      traefik.http.services.gme-media.loadbalancer.server.port: "8080"
+
   claimer-testnet:
     build: { context: ../../chain, dockerfile: ../deploy/vps/Dockerfile.scripts }
     profiles: ["testnet"]
@@ -214,5 +269,7 @@ networks:
     external: true
 
 volumes:
+  credits_data:
+  media_data:
   nitro_data:
   nitro_testnet_data:
